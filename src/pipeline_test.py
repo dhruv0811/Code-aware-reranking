@@ -17,25 +17,34 @@ class CodeRetrievalEvaluator:
         self.vectorstore = None
         self.corpus_documents = None
         
-    def load_and_index_corpus(self):
+    def load_and_index_corpus(self, corpusName="code-rag-bench/programming-solutions"):
         """Load the programming solutions dataset and create embeddings."""
         print("Loading datasets...")
-        corpus = load_dataset("code-rag-bench/programming-solutions")
-        humaneval = load_dataset("openai_humaneval")
-        
-        print("Creating task ID mapping...")
-        self.task_to_solution = {
-            item['task_id']: item['canonical_solution'] 
-            for item in humaneval['test']
-        }
+        corpus = load_dataset(corpusName)
         
         print("Processing documents...")
         documents = []
         metadatas = []
+
+        if 'programming-solutions' in corpusName:
+            split = 'train'
+            doc_key = 'text'
+        elif 'DS-1000' in corpusName:
+            split = 'test'
+            doc_key = 'reference_code'
+        else:
+            raise ValueError("Unknown dataset")
         
-        for idx, item in enumerate(corpus['train']):
-            doc_text = f"{item['text']}"
+        for idx, item in enumerate(corpus[split]):
+            doc_text = f"{item[doc_key]}"
             documents.append(doc_text)
+
+            if 'programming-solutions' in corpusName:
+                idx = item["meta"]["task_id"]
+            elif 'DS-1000' in corpusName:
+                idx = item["metadata"]['problem_id']
+            else:
+                raise ValueError("Unknown dataset")
             
             metadatas.append({
                 'source': f"task_{idx}",  # Using a simple task ID format
@@ -83,7 +92,6 @@ class CodeRetrievalEvaluator:
             if task_id == 'HumanEval/0':
                 print(f"Query: {query}")
                 print(f"Retrieved task IDs: {retrieved_task_ids}")
-                print(f"Canonical solution: {self.task_to_solution[task_id]}")
                 print()
             
             for k in k_values:
@@ -109,6 +117,43 @@ class CodeRetrievalEvaluator:
         for item in mbpp['test']:
             queries.append(str(item['text']))
             task_ids.append(str(item['task_id']))
+        
+        recalls = {k: 0 for k in k_values}
+        max_k = max(k_values)
+        
+        print(f"Evaluating {len(queries)} queries...")
+        for query, task_id in tqdm(zip(queries, task_ids), total=len(queries)):
+
+            results = self.vectorstore.similarity_search_with_score(
+                query,
+                k=max_k
+            )
+            
+            retrieved_task_ids = [doc.metadata['index'] for doc, _ in results]
+            
+            for k in k_values:
+                if task_id in retrieved_task_ids[:k]:
+                    recalls[k] += 1
+        
+        for k in k_values:
+            recalls[k] = recalls[k] / len(queries)
+            
+        return recalls
+    
+    def evaluate_ds1000(self, k_values: List[int] = [1, 5, 10]) -> Dict[int, float]:
+        """Evaluate retrieval performance on DS-1000 dataset using canonical solutions."""
+        if not self.vectorstore:
+            raise ValueError("Must call load_and_index_corpus first")
+
+        print("Loading DS-1000 dataset for evaluation...")
+        ds1000 = load_dataset("xlangai/DS-1000")
+        
+        queries = []
+        task_ids = []
+        
+        for item in ds1000['test']:
+            queries.append(str(item['prompt']))
+            task_ids.append(str(item['metadata']['problem_id']))
         
         recalls = {k: 0 for k in k_values}
         max_k = max(k_values)
