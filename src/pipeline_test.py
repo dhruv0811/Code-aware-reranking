@@ -95,6 +95,43 @@ class CodeRetrievalEvaluator:
             
         return recalls
 
+    def evaluate_mbpp(self, k_values: List[int] = [1, 5, 10]) -> Dict[int, float]:
+        """Evaluate retrieval performance on MBPP dataset using canonical solutions."""
+        if not self.vectorstore:
+            raise ValueError("Must call load_and_index_corpus first")
+
+        print("Loading MBPP dataset for evaluation...")
+        mbpp = load_dataset("google-research-datasets/mbpp", "full")
+        
+        queries = []
+        task_ids = []
+        
+        for item in mbpp['test']:
+            queries.append(str(item['text']))
+            task_ids.append(str(item['task_id']))
+        
+        recalls = {k: 0 for k in k_values}
+        max_k = max(k_values)
+        
+        print(f"Evaluating {len(queries)} queries...")
+        for query, task_id in tqdm(zip(queries, task_ids), total=len(queries)):
+
+            results = self.vectorstore.similarity_search_with_score(
+                query,
+                k=max_k
+            )
+            
+            retrieved_task_ids = [doc.metadata['index'] for doc, _ in results]
+            
+            for k in k_values:
+                if task_id in retrieved_task_ids[:k]:
+                    recalls[k] += 1
+        
+        for k in k_values:
+            recalls[k] = recalls[k] / len(queries)
+            
+        return recalls
+
 def main():
     print("Initializing evaluator...")
     evaluator = CodeRetrievalEvaluator()
@@ -103,7 +140,8 @@ def main():
     evaluator.load_and_index_corpus()
     
     print("Evaluating on HumanEval...")
-    recalls = evaluator.evaluate_humaneval(k_values=[1, 5, 10])
+    # recalls = evaluator.evaluate_humaneval(k_values=[1, 5, 10])
+    recalls = evaluator.evaluate_mbpp(k_values=[1, 5, 10])
     
     print("\nResults:")
     for k, recall in recalls.items():
