@@ -1,3 +1,4 @@
+import json
 from datasets import load_dataset
 from langchain_huggingface import HuggingFaceEmbeddings
 from langchain_community.vectorstores import FAISS
@@ -26,12 +27,11 @@ class CodeRetrievalEvaluator:
         documents = []
         metadatas = []
 
+        split = 'train'
         if 'programming-solutions' in corpusName:
-            split = 'train'
             doc_key = 'text'
-        elif 'DS-1000' in corpusName:
-            split = 'test'
-            doc_key = 'reference_code'
+        elif 'library-documentation' in corpusName:
+            doc_key = 'doc_content'
         else:
             raise ValueError("Unknown dataset")
         
@@ -41,15 +41,20 @@ class CodeRetrievalEvaluator:
 
             if 'programming-solutions' in corpusName:
                 idx = item["meta"]["task_id"]
-            elif 'DS-1000' in corpusName:
-                idx = item["metadata"]['problem_id']
+                metadatas.append({
+                    'source': f"programming-solutions_{idx}",  
+                    'index': idx,
+                })
+
+            elif 'library-documentation' in corpusName:
+                idx = item["doc_id"]
+                metadatas.append({
+                    'source': f"library-documentation_{idx}",  
+                    'index': idx
+                })
             else:
                 raise ValueError("Unknown dataset")
             
-            metadatas.append({
-                'source': f"task_{idx}",  # Using a simple task ID format
-                'index': item["meta"]["task_id"],
-            })
         
         print(f"Creating vector store with {len(documents)} documents...")
         self.vectorstore = FAISS.from_texts(
@@ -88,11 +93,6 @@ class CodeRetrievalEvaluator:
             )
             
             retrieved_task_ids = [doc.metadata['index'] for doc, _ in results]
-
-            if task_id == 'HumanEval/0':
-                print(f"Query: {query}")
-                print(f"Retrieved task IDs: {retrieved_task_ids}")
-                print()
             
             for k in k_values:
                 if task_id in retrieved_task_ids[:k]:
@@ -146,20 +146,21 @@ class CodeRetrievalEvaluator:
             raise ValueError("Must call load_and_index_corpus first")
 
         print("Loading DS-1000 dataset for evaluation...")
-        ds1000 = load_dataset("xlangai/DS-1000")
+        ds1000 = load_dataset("code-rag-bench/ds1000")
         
         queries = []
-        task_ids = []
+        true_docs = []
         
-        for item in ds1000['test']:
+        for item in ds1000['train']:
             queries.append(str(item['prompt']))
-            task_ids.append(str(item['metadata']['problem_id']))
+            true_docs.append([x["title"] for x in item['docs']])
         
         recalls = {k: 0 for k in k_values}
         max_k = max(k_values)
         
         print(f"Evaluating {len(queries)} queries...")
-        for query, task_id in tqdm(zip(queries, task_ids), total=len(queries)):
+        count = 0
+        for query, true_doc in tqdm(zip(queries, true_docs), total=len(queries)):
 
             results = self.vectorstore.similarity_search_with_score(
                 query,
@@ -167,26 +168,39 @@ class CodeRetrievalEvaluator:
             )
             
             retrieved_task_ids = [doc.metadata['index'] for doc, _ in results]
-            
+
+            # Calculate recall between true_doc and retrieved_task_ids
+            # if len(true_doc) > 0:
+            #     print(f"Query: {query}")
+            #     print(f"True docs: {true_doc}")
+            #     print(f"Retrieved docs: {retrieved_task_ids}")
+
             for k in k_values:
-                if task_id in retrieved_task_ids[:k]:
-                    recalls[k] += 1
+                for task_id in true_doc:
+                    if task_id in retrieved_task_ids[:k]:
+                        recalls[k] += 1
         
         for k in k_values:
             recalls[k] = recalls[k] / len(queries)
             
         return recalls
+    
+
 
 def main():
     print("Initializing evaluator...")
     evaluator = CodeRetrievalEvaluator()
     
     print("Loading and indexing corpus...")
-    evaluator.load_and_index_corpus()
+    # evaluator.load_and_index_corpus()
+
+    evaluator.load_and_index_corpus(corpusName="code-rag-bench/library-documentation")
     
-    print("Evaluating on HumanEval...")
+    print("Evaluating on DS1000...")
     # recalls = evaluator.evaluate_humaneval(k_values=[1, 5, 10])
-    recalls = evaluator.evaluate_mbpp(k_values=[1, 5, 10])
+    # recalls = evaluator.evaluate_mbpp(k_values=[1, 5, 10])
+
+    recalls = evaluator.evaluate_ds1000(k_values=[1, 5, 10])
     
     print("\nResults:")
     for k, recall in recalls.items():
