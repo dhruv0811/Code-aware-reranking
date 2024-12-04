@@ -143,7 +143,7 @@ class CodeRetrievalEvaluator:
 
 Task: {query}
 
-Provide the pseudocode steps:"""
+Provide only the pseudocode steps, with no additional information:"""
             }
         ]
 

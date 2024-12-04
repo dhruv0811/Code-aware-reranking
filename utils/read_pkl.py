@@ -13,12 +13,12 @@ def read_pickle_file(file_path):
         
         # If it's a dictionary, show some sample keys and values
         if isinstance(data, dict):
-            print("\nSample entries (first 5):")
+            print("\nSample entries:")
             for i, (key, value) in enumerate(data.items()):
-                if i >= 5:
+                if i >= 2:
                     break
-                print(f"\nKey ({type(key)}): {key[:200]}..." if isinstance(key, str) else f"\nKey: {key}")
-                print(f"Value ({type(value)}): {value[:500]}..." if isinstance(value, str) else f"Value: {value}")
+                print(f"\nKey\n\n ({type(key)}): {key[:200]}..." if isinstance(key, str) else f"\nKey: {key}\n\n\n#############\n\n")
+                print(f"\n\n\nValue\n\n\n ({type(value)}): {value[:]}..." if isinstance(value, str) else f"Value: {value}")
                 print("-----------------------------")
                 print()
                 print()
