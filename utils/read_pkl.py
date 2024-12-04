@@ -32,6 +32,6 @@ def read_pickle_file(file_path):
 
 # Assuming the pickle file is in the pseudocode_cache directory
 cache_dir = Path("pseudocode_cache")
-pickle_file = cache_dir / "humaneval_pseudocode.pkl"
+pickle_file = cache_dir / "ds1000_pseudocode.pkl"
 
 data = read_pickle_file(pickle_file)

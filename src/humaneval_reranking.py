@@ -1,11 +1,14 @@
-import json
-from typing import List, Dict, Tuple
+from datasets import load_dataset
 from huggingface_hub import InferenceClient
-from time import sleep
+from langchain_huggingface import HuggingFaceEmbeddings
+from langchain_community.vectorstores import FAISS
+from typing import List, Dict, Any
 from tqdm import tqdm
+import os
+from time import sleep
 from dataclasses import dataclass
-from pathlib import Path
-import numpy as np
+import re
+import json
 
 @dataclass
 class RetrievedCode:
@@ -14,48 +17,97 @@ class RetrievedCode:
     initial_score: float
     reranked_score: float = None
 
-class CodeReranker:
+class CodeRetrieverReranker:
     def __init__(
         self,
-        hf_api_key: str,
-        model_name: str = "meta-llama/Llama-3.1-70B-Instruct",
-        cache_dir: str = "reranking_cache"
+        embedding_model_name: str = "avsolatorio/GIST-large-Embedding-v0",
+        llm_model_name: str = "meta-llama/Llama-3.1-70B-Instruct",
+        hf_api_key: str = None
     ):
-        self.client = InferenceClient(api_key=hf_api_key)
-        self.model_name = model_name
-        self.cache_dir = Path(cache_dir)
-        self.cache_dir.mkdir(exist_ok=True)
+        if hf_api_key is None:
+            raise ValueError("Must provide HuggingFace API key")
+            
+        self.embedding_model = HuggingFaceEmbeddings(
+            model_name=embedding_model_name,
+            model_kwargs={'device': 'cuda'},
+            encode_kwargs={'normalize_embeddings': True, 'batch_size': 32}
+        )
         
-    def _generate_reranking_prompt(self, query: str, code: str) -> str:
-        """Generate a prompt for the LLM to evaluate code relevance."""
-        return f"""Given a programming task and a potential solution, evaluate how well the solution matches the requirements. Consider:
-1. Does the solution address all requirements?
-2. Is the implementation approach appropriate?
-3. Are there any missing functionalities?
+        self.client = InferenceClient(api_key=hf_api_key)
+        self.llm_model_name = llm_model_name
+        self.vectorstore = None
 
-Programming Task:
+    def remove_docstring(self, code: str) -> str:
+        """Remove docstring from Python code while preserving other comments."""
+        docstring_pattern = r'"""[\s\S]*?"""|\'\'\'[\s\S]*?\'\'\''
+        return re.sub(docstring_pattern, '', code)
+
+    def load_and_index_corpus(self):
+        """Load and index the programming solutions corpus."""
+        print("Loading datasets...")
+        corpus = load_dataset("code-rag-bench/programming-solutions")
+        
+        print("Processing documents...")
+        documents = []
+        metadatas = []
+        
+        for item in corpus['train']:
+            if item["meta"]["task_name"] == "humaneval":
+                doc_text = item["text"]
+                doc_text = self.remove_docstring(doc_text)
+                
+                idx = item["meta"]["task_id"]
+                metadatas.append({
+                    'source': f"programming-solutions_{idx}",
+                    'index': idx,
+                })
+                documents.append(doc_text)
+        
+        print(f"Creating vector store with {len(documents)} documents...")
+        self.vectorstore = FAISS.from_texts(
+            documents,
+            self.embedding_model,
+            metadatas=metadatas
+        )
+        
+        # Print sample document for debugging
+        if documents:
+            print("\nSample document:")
+            print("Text:", documents[0][:200], "...")
+            print("Metadata:", metadatas[0])
+        
+        print("Indexing complete!")
+
+    def _generate_reranking_prompt(self, query: str, code: str) -> str:
+        return f"""Rate how well this code solution matches the given programming task requirements.
+Consider:
+1. Implementation completeness
+2. Algorithm correctness
+3. Edge case handling
+4. Code efficiency
+
+Task description:
 {query}
 
-Potential Solution:
+Code solution:
 {code}
 
-Rate the relevance on a scale of 0-100 where:
-0-20: Completely irrelevant
-21-40: Barely relevant, missing major requirements
-41-60: Partially relevant, missing some requirements
-61-80: Mostly relevant, minor mismatches
-81-100: Highly relevant, matches all requirements
+Rate relevance 0-100:
+0-20: Wrong/irrelevant
+21-40: Missing major requirements
+41-60: Partially complete
+61-80: Mostly correct
+81-100: Perfect match
 
-Output only the numerical score. For example: 85"""
+Output only the numerical score. Example: 85"""
 
     def _get_relevance_score(self, query: str, code: str, max_retries: int = 3) -> float:
-        """Get relevance score from LLM with retry logic."""
         prompt = self._generate_reranking_prompt(query, code)
         
         for attempt in range(max_retries):
             try:
                 completion = self.client.chat.completions.create(
-                    model=self.model_name,
+                    model=self.llm_model_name,
                     messages=[
                         {"role": "user", "content": prompt}
                     ],
@@ -66,121 +118,157 @@ Output only the numerical score. For example: 85"""
                 score_str = completion.choices[0].message.content.strip()
                 try:
                     score = float(score_str)
-                    return min(max(score, 0), 100)  # Ensure score is between 0 and 100
+                    return min(max(score, 0), 100)
                 except ValueError:
                     print(f"Failed to parse score: {score_str}")
-                    return 50.0  # Default score if parsing fails
+                    return 50.0
                     
             except Exception as e:
                 if attempt == max_retries - 1:
                     print(f"Failed to get relevance score: {e}")
-                    return 50.0  # Default score after all retries
+                    return 50.0
                 wait_time = 2 ** attempt
                 print(f"Attempt {attempt + 1} failed, retrying in {wait_time} seconds...")
                 sleep(wait_time)
         
-        return 50.0  # Default score if all retries fail
+        return 50.0
 
-    def rerank_results(
+    def retrieve_and_rerank(
         self,
         query: str,
-        retrieved_codes: List[RetrievedCode],
-        top_k: int = None,
-        alpha: float = 0.5
+        initial_k: int = 100,
+        rerank_k: int = 5,
+        alpha: float = 0.7,
+        debug: bool = True
     ) -> List[RetrievedCode]:
-        """
-        Rerank retrieved code using LLM-based relevance scoring.
+        if not self.vectorstore:
+            raise ValueError("Must call load_and_index_corpus first")
+
+        if debug:
+            print(f"\nProcessing query: {query[:200]}...")
+            
+        results = self.vectorstore.similarity_search_with_score(
+            query,
+            k=initial_k
+        )
         
-        Args:
-            query: Original programming task
-            retrieved_codes: List of retrieved code snippets with initial scores
-            top_k: Number of top results to rerank (to save API calls)
-            alpha: Weight for combining initial and LLM scores (0: only initial, 1: only LLM)
+        if debug:
+            print(f"Retrieved {len(results)} initial results")
+            print("Sample retrieved scores:", [round(score, 4) for _, score in results[:5]])
         
-        Returns:
-            Reranked list of RetrievedCode objects
-        """
-        if top_k is None:
-            top_k = len(retrieved_codes)
+        retrieved_codes = [
+            RetrievedCode(
+                task_id=doc.metadata['index'],
+                code=doc.page_content,
+                initial_score=1.0 - score  # Convert distance to similarity
+            )
+            for doc, score in results
+        ]
         
-        # Sort by initial score and take top_k
+        if debug:
+            print("\nSample retrieved task IDs:", [code.task_id for code in retrieved_codes[:5]])
+        
         codes_to_rerank = sorted(
-            retrieved_codes, 
-            key=lambda x: x.initial_score, 
+            retrieved_codes,
+            key=lambda x: x.initial_score,
             reverse=True
-        )[:top_k]
+        )[:rerank_k]
         
-        print(f"Reranking top {top_k} results...")
+        print(f"\nReranking top {rerank_k} results...")
         for code_item in tqdm(codes_to_rerank):
-            # Get LLM-based relevance score
+            if debug:
+                print(f"\nReranking code for task_id: {code_item.task_id}")
+                print(f"Initial score: {code_item.initial_score:.4f}")
+            
             relevance_score = self._get_relevance_score(query, code_item.code)
-            
-            # Normalize initial score to 0-100 range for combining
             normalized_initial = code_item.initial_score * 100
+            code_item.reranked_score = (1 - alpha) * normalized_initial + alpha * relevance_score
             
-            # Combine scores using weighted average
-            combined_score = (1 - alpha) * normalized_initial + alpha * relevance_score
-            code_item.reranked_score = combined_score
+            if debug:
+                print(f"LLM score: {relevance_score:.2f}")
+                print(f"Final reranked score: {code_item.reranked_score:.2f}")
         
-        # Sort by reranked score
         reranked_results = sorted(
-            codes_to_rerank, 
-            key=lambda x: x.reranked_score, 
+            codes_to_rerank,
+            key=lambda x: x.reranked_score,
             reverse=True
         )
         
-        # Add remaining results at the end if any
-        if top_k < len(retrieved_codes):
-            remaining = sorted(
-                retrieved_codes[top_k:],
-                key=lambda x: x.initial_score,
-                reverse=True
-            )
-            reranked_results.extend(remaining)
+        remaining = sorted(
+            retrieved_codes[rerank_k:],
+            key=lambda x: x.initial_score,
+            reverse=True
+        )
+        reranked_results.extend(remaining)
+        
+        if debug:
+            print("\nFinal reranking results:")
+            for i, result in enumerate(reranked_results[:5]):
+                print(f"Rank {i+1}: task_id={result.task_id}, score={result.reranked_score:.2f}")
         
         return reranked_results
 
-    def evaluate_reranking(
+    def evaluate_humaneval(
         self,
-        queries: List[str],
-        retrieved_results: List[List[RetrievedCode]],
-        true_ids: List[str],
         k_values: List[int] = [1, 5, 10],
-        rerank_top_k: int = 10,
-        alpha: float = 0.5
+        initial_k: int = 100,
+        rerank_k: int = 5,
+        alpha: float = 0.7,
+        num_samples: int = None,
+        debug: bool = True
     ) -> Dict[str, Dict[int, float]]:
-        """
-        Evaluate reranking performance against baseline.
+        dataset = load_dataset("openai_humaneval")
         
-        Args:
-            queries: List of programming tasks
-            retrieved_results: List of retrieved codes for each query
-            true_ids: List of correct task IDs for each query
-            k_values: List of k values for computing Recall@k
-            rerank_top_k: Number of top results to rerank
-            alpha: Weight for combining scores
-            
-        Returns:
-            Dictionary containing recall metrics for both baseline and reranked results
-        """
+        queries = [item['prompt'] for item in dataset['test']]
+        task_ids = [item['task_id'] for item in dataset['test']]
+        
+        if num_samples:
+            queries = queries[:num_samples]
+            task_ids = task_ids[:num_samples]
+        
+        if debug:
+            print(f"\nEvaluating {len(queries)} queries")
+            print("Sample task IDs to find:", task_ids[:5])
+        
         baseline_recalls = {k: 0 for k in k_values}
         reranked_recalls = {k: 0 for k in k_values}
         
-        for query, results, true_id in tqdm(zip(queries, retrieved_results, true_ids), total=len(queries)):
-            # Evaluate baseline
-            baseline_ids = [code.task_id for code in results]
+        for query_idx, (query, true_id) in enumerate(tqdm(zip(queries, task_ids), total=len(queries))):
+            if debug:
+                print(f"\nProcessing query {query_idx + 1}/{len(queries)}")
+                print(f"True task ID: {true_id}")
+            
+            results = self.retrieve_and_rerank(
+                query=query,
+                initial_k=initial_k,
+                rerank_k=rerank_k,
+                alpha=alpha,
+                debug=debug
+            )
+            
+            baseline_ids = [code.task_id for code in sorted(
+                results,
+                key=lambda x: x.initial_score,
+                reverse=True
+            )]
+            
+            reranked_ids = [code.task_id for code in results]
+            
+            if debug:
+                print("\nTop 5 baseline IDs:", baseline_ids[:5])
+                print("Top 5 reranked IDs:", reranked_ids[:5])
+                print("Looking for true_id:", true_id)
+            
             for k in k_values:
                 if true_id in baseline_ids[:k]:
                     baseline_recalls[k] += 1
-            
-            # Rerank and evaluate
-            reranked = self.rerank_results(query, results, top_k=rerank_top_k, alpha=alpha)
-            reranked_ids = [code.task_id for code in reranked]
-            for k in k_values:
+                    if debug:
+                        print(f"Found in baseline top-{k}")
                 if true_id in reranked_ids[:k]:
                     reranked_recalls[k] += 1
+                    if debug:
+                        print(f"Found in reranked top-{k}")
         
-        # Normalize recalls
         num_queries = len(queries)
         baseline_recalls = {k: count/num_queries for k, count in baseline_recalls.items()}
         reranked_recalls = {k: count/num_queries for k, count in reranked_recalls.items()}
@@ -191,54 +279,44 @@ Output only the numerical score. For example: 85"""
         }
 
 def main():
-    import os
-    from datasets import load_dataset
-    
-    # Initialize reranker
     hf_api_key = os.getenv("HF_API_KEY")
     if not hf_api_key:
         raise ValueError("Please set HF_API_KEY environment variable")
     
-    reranker = CodeReranker(hf_api_key=hf_api_key)
+    retriever_reranker = CodeRetrieverReranker(hf_api_key=hf_api_key)
     
-    # Load HumanEval dataset
-    dataset = load_dataset("openai_humaneval")
-    print(dataset)
-    print()
-    print() 
-    queries = [item['prompt'] for item in dataset['test']]
-    true_ids = [item['task_id'] for item in dataset['test']]
+    # Load and index corpus
+    print("\nLoading and indexing corpus...")
+    retriever_reranker.load_and_index_corpus()
     
-    # Sample mock retrieved results (replace with actual retrieval results)
-    mock_results = []
-    for _ in queries:
-        results = [
-            RetrievedCode(
-                task_id=f"task_{i}",
-                code=f"def solution_{i}(): pass",
-                initial_score=1.0 - (i * 0.1)
-            )
-            for i in range(10)
-        ]
-        mock_results.append(results)
+    # Print corpus statistics
+    print("\nCorpus Statistics:")
+    if retriever_reranker.vectorstore:
+        print(f"Number of documents: {len(retriever_reranker.vectorstore.docstore._dict)}")
+        sample_doc = next(iter(retriever_reranker.vectorstore.docstore._dict.values()))
+        print("Sample document metadata:", sample_doc.metadata)
     
-    # Evaluate reranking
-    k_values = [1, 5, 10]
-    evaluation_results = reranker.evaluate_reranking(
-        queries=queries[:5],  # Testing with first 5 queries
-        retrieved_results=mock_results[:5],
-        true_ids=true_ids[:5],
-        k_values=k_values,
-        rerank_top_k=5,
-        alpha=0.7
+    # Evaluate
+    print("\nEvaluating retrieval and reranking...")
+    results = retriever_reranker.evaluate_humaneval(
+        k_values=[1, 5, 10, 50, 100],
+        initial_k=100,
+        rerank_k=5,
+        alpha=0.7,
+        num_samples=5,  # Test with 5 samples first
+        debug=True
     )
     
     # Print results
-    print("\nEvaluation Results:")
-    for method, recalls in evaluation_results.items():
+    print("\nFinal Evaluation Results:")
+    for method, recalls in results.items():
         print(f"\n{method.title()} Recalls:")
         for k, recall in recalls.items():
             print(f"Recall@{k}: {recall:.3f}")
+    
+    # Save results
+    with open("humaneval_reranking_results.json", "w") as f:
+        json.dump(results, f, indent=2)
 
 if __name__ == "__main__":
     main()
