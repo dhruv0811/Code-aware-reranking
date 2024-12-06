@@ -221,8 +221,7 @@ def main(
         direct=False
 ):
     print("Initializing retriever...")
-    hf_api_key = "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"
-    
+    hf_api_key = os.getenv("HF_API_KEY")
     if not hf_api_key:
         raise ValueError("Please set HF_API_KEY environment variable")
         
