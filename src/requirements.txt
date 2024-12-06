@@ -1,0 +1,5 @@
+datasets
+langchain-huggingface
+langchain-community
+numpy==2.1.2
+faiss-gpu

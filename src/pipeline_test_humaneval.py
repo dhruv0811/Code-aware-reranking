@@ -272,7 +272,7 @@ Provide only the pseudocode steps, with no additional information:"""
 
 def main():
     print("Initializing evaluator...")
-    hf_api_key = os.getenv("HF_API_KEY")
+    hf_api_key = os.getenv("HF_API_KEY")  #api key
     
     if not hf_api_key:
         raise ValueError("Please set HF_API_KEY environment variable")
