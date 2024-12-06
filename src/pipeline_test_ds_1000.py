@@ -16,8 +16,11 @@ class DS1000Retriever:
         embedding_model_name: str = "avsolatorio/GIST-large-Embedding-v0",
         llm_model_name: str = "meta-llama/Llama-3.1-70B-Instruct",
         hf_api_key: str = None,
-        cache_dir: str = "pseudocode_cache"
+        cache_dir: str = "pseudocode_cache",
+        prompt: str = ""
     ):
+        self.prompt = prompt 
+
         if hf_api_key is None:
             raise ValueError("Must provide HuggingFace API key")
             
@@ -35,7 +38,7 @@ class DS1000Retriever:
         
         self.vectorstore = None
 
-    def generate_pseudocode(self, query: str) -> str:
+    def generate_pseudocode(self, query: str, prompt) -> str:
         """Generate pseudocode steps for solving the given query."""
         messages = [
             {
@@ -44,12 +47,7 @@ class DS1000Retriever:
             },
             {
                 "role": "user",
-                "content": f"""Given this programming task, break it down into clear pseudocode steps. 
-                Use standard pseudocode conventions and be specific about data structures and operations.
-
-Task: {query}
-
-Provide only the pseudocode steps, with no additional information:"""
+                "content": prompt.format(query)
             }
         ]
 
@@ -128,7 +126,7 @@ Provide only the pseudocode steps, with no additional information:"""
             if query in pseudocode_map:
                 continue
                 
-            pseudocode = self.generate_pseudocode(query)
+            pseudocode = self.generate_pseudocode(query, self.prompt)
             pseudocode_map[query] = pseudocode
             
             try:
@@ -207,16 +205,33 @@ Provide only the pseudocode steps, with no additional information:"""
             
         return recalls
 
-def main():
+PROMPT_1 = """Given this programming task, break it down into clear pseudocode steps. 
+                Use standard pseudocode conventions and be specific about data structures and operations.
+
+Task: {}
+
+Provide only the pseudocode steps, with no additional information:"""
+
+def main(
+        llm_model_name="meta-llama/Llama-3.1-70B-Instruct",
+        embedding_model_name="avsolatorio/GIST-large-Embedding-v0",
+        cache_dir="pseudocode_cache",
+        results_file="results/ds1000_results.json",
+        prompt=PROMPT_1,
+        direct=False
+):
     print("Initializing retriever...")
-    hf_api_key = os.getenv("HF_API_KEY")
+    hf_api_key = "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"
     
     if not hf_api_key:
         raise ValueError("Please set HF_API_KEY environment variable")
         
     retriever = DS1000Retriever(
         hf_api_key=hf_api_key,
-        llm_model_name="meta-llama/Llama-3.1-70B-Instruct"
+        llm_model_name=llm_model_name,
+        embedding_model_name=embedding_model_name,
+        cache_dir=cache_dir,
+        prompt=prompt
     )
     
     # Load and index library documentation
@@ -232,12 +247,14 @@ def main():
     num_samples = None  # Set to a number for testing with subset
     
     # Direct retrieval
-    print("\nEvaluating direct retrieval...")
-    direct_recalls = retriever.evaluate(
-        k_values=k_values,
-        use_pseudocode=False,
-        num_samples=num_samples
-    )
+    direct_recalls = None
+    if direct:
+        print("\nEvaluating direct retrieval...")
+        direct_recalls = retriever.evaluate(
+            k_values=k_values,
+            use_pseudocode=False,
+            num_samples=num_samples
+        )
     
     # Pseudocode retrieval
     print("\nEvaluating pseudocode retrieval...")
@@ -249,9 +266,10 @@ def main():
     
     # Print results
     print("\nResults:")
-    print("\nDirect Retrieval:")
-    for k, recall in direct_recalls.items():
-        print(f"Recall@{k}: {recall:.3f}")
+    if direct:
+        print("\nDirect Retrieval:")
+        for k, recall in direct_recalls.items():
+            print(f"Recall@{k}: {recall:.3f}")
         
     print("\nPseudocode Retrieval:")
     for k, recall in pseudo_recalls.items():
@@ -263,8 +281,15 @@ def main():
         "pseudocode": pseudo_recalls
     }
     
-    with open("results/ds1000_results.json", "w") as f:
+    with open(results_file, "w") as f:
         json.dump(results, f, indent=2)
 
 if __name__ == "__main__":
-    main()
+    main(
+        llm_model_name="meta-llama/Llama-3.1-70B-Instruct",
+        embedding_model_name="avsolatorio/GIST-large-Embedding-v0",
+        cache_dir="pseudocode_cache/test/",
+        results_file="results/ds1000_results_test.json",
+        prompt=PROMPT_1,
+        direct=False
+    )
