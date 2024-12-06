@@ -147,7 +147,11 @@ class ProgrammingSolutionsCorpus:
                 if normalize_type == "docstring":
                     docstring_pattern = r'def\s+.*$'
                     doc_text = re.sub(docstring_pattern, '', doc_text)
-
+                
+                metadatas.append({
+                    'source': f"programming-solutions_{idx}",
+                    'index': idx,
+                })
                 documents.append(doc_text)
         
         print(f"Creating vector store with {len(documents)} documents...")
