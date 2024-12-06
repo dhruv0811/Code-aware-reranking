@@ -116,7 +116,7 @@ def run_single_experiment(
         reranker = ProgrammingSolutionsReranker(
             corpus=corpus,
             llm_model_name=llm_model,
-            cache_dir=str(cache_dir / "description_cache")
+            cache_dir=str(cache_dir)
         )
         
         # Run evaluation
@@ -208,7 +208,7 @@ def main():
     # Run experiments
     experiment_id = run_experiments(
         output_dir="results/humaneval_reranker",
-        num_samples=5
+        num_samples=None
     )
     
     print(f"\nExperiment {experiment_id} completed!")
