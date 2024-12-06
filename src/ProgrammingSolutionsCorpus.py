@@ -110,6 +110,9 @@ class ProgrammingSolutionsCorpus:
         print("Normalizing code with type: ", normalize_type)
 
         code = self.remove_docstring(code)
+        if normalize_type == "docstring":
+            return code
+
         if normalize_type == "variables":
             return self._replace_variables(code)
         elif normalize_type == "functions":
@@ -128,6 +131,7 @@ class ProgrammingSolutionsCorpus:
         for item in self.corpus['train']:
             if item["meta"]["task_name"] == "humaneval":
                 doc_text = item["text"]
+
                 doc_text = self.normalize_code(doc_text, normalize_type)
                 
                 idx = item["meta"]["task_id"]
@@ -135,6 +139,14 @@ class ProgrammingSolutionsCorpus:
                     'source': f"programming-solutions_{idx}",
                     'index': idx,
                 })
+                documents.append(doc_text)
+            else:
+                doc_text = item["text"]
+
+                if normalize_type == "docstring":
+                    docstring_pattern = r'def\s+.*$'
+                    doc_text = re.sub(docstring_pattern, '', doc_text)
+
                 documents.append(doc_text)
         
         print(f"Creating vector store with {len(documents)} documents...")
