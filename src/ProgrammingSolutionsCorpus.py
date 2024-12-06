@@ -1,5 +1,6 @@
 import re
 import os 
+import numpy as np
 from datasets import load_dataset
 from langchain_community.vectorstores import FAISS
 from langchain_huggingface import HuggingFaceEmbeddings
@@ -163,6 +164,19 @@ class ProgrammingSolutionsCorpus:
             k
         )
         return results
+    
+    def compute_similarity(self, query: str, document: str) -> float:
+        query_embedding = self.embedding_model.embed_query(query)
+        doc_embedding = self.embedding_model.embed_documents([document])[0]
+        
+        query_embedding = np.array(query_embedding)
+        doc_embedding = np.array(doc_embedding)
+        
+        similarity = np.dot(query_embedding, doc_embedding) / (
+            np.linalg.norm(query_embedding) * np.linalg.norm(doc_embedding)
+        )
+        
+        return similarity
 
 
 if __name__ == "__main__":
