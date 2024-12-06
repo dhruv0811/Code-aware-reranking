@@ -7,8 +7,8 @@
 #SBATCH --gres=gpu:A6000:1
 #SBATCH --cpus-per-task=4
 
-#SBATCH --output=/home/dhruvgu2/slurm/logs/output-%j.log
-#SBATCH --error=/home/dhruvgu2/slurm/logs/error-%j.out
+#SBATCH --output=/home/dhruvgu2/CodeRAG-reranking/slurm/logs/output-%j.log
+#SBATCH --error=/home/dhruvgu2//CodeRAG-reranking/slurm/logs/error-%j.out
 
 # # SBATCH --mail-type=END
 # # SBATCH --mail-user=dhruvgu2@andrew.cmu.edu
