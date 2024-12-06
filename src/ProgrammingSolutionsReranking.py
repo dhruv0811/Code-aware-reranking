@@ -27,7 +27,7 @@ class RetrievedCode:
     reranked_score: float = None
 
 class DescriptionCache:
-    def __init__(self, cache_dir: str = "pseudocode_cache"):
+    def __init__(self, cache_dir: str = "pseudocode_cache/reranker"):
         self.cache_dir = Path(cache_dir)
         self.cache_dir.mkdir(parents=True, exist_ok=True)
         self.cache = {}
@@ -232,7 +232,7 @@ class ProgrammingSolutionsReranker:
 
     def evaluate_humaneval(
         self,
-        k_values: List[int] = [1, 5, 10],
+        k_values: List[int] = [1, 5, 10, 50, 100],
         initial_k: int = 100,
         rerank_k: int = 5,
         alpha: float = 0.7,
