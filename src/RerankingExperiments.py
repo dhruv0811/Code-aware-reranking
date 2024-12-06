@@ -7,8 +7,8 @@ from pathlib import Path
 from typing import List, Dict, Any
 from tqdm import tqdm
 
-import ProgrammingSolutionsCorpus
-from ProgrammingSolutionsReranking import *
+from Corpus import ProgrammingSolutionsCorpus
+from Reranking import ProgrammingSolutionsReranker
 
 # Configuration constants
 LLM_MODELS = [
