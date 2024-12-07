@@ -12,8 +12,8 @@ from Reranking import ProgrammingSolutionsReranker
 
 # Configuration constants
 LLM_MODELS = [
-    "meta-llama/Llama-3.1-70B-Instruct"
-    # "mistralai/Mixtral-8x7B-Instruct-v0.1"
+    # "meta-llama/Llama-3.1-70B-Instruct"
+    "mistralai/Mixtral-8x7B-Instruct-v0.1"
     # "google/gemini-pro"
 ]
 
