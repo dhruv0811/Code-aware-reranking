@@ -1,0 +1,2 @@
+llm_model,embedding_model,normalization_type,rerank_k,initial_k,alpha,baseline_recall@1,baseline_recall@5,baseline_recall@10,baseline_recall@50,baseline_recall@100,reranked_recall@1,reranked_recall@5,reranked_recall@10,reranked_recall@50,reranked_recall@100
+mistralai/Mixtral-8x7B-Instruct-v0.1,avsolatorio/GIST-large-Embedding-v0,none,5,100,0.7,1.0,1.0,1.0,1.0,1.0,0.9878048780487805,1.0,1.0,1.0,1.0

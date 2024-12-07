@@ -13,12 +13,13 @@ from Reranking import ProgrammingSolutionsReranker
 # Configuration constants
 LLM_MODELS = [
     "meta-llama/Llama-3.1-70B-Instruct"
-    # "mistralai/Mixtral-8x7B-Instruct-v0.1",
+    # "mistralai/Mixtral-8x7B-Instruct-v0.1"
     # "google/gemini-pro"
 ]
 
 EMBEDDING_MODELS = [
-    "avsolatorio/GIST-large-Embedding-v0"
+    # "avsolatorio/GIST-large-Embedding-v0"
+    "avsolatorio/GIST-Embedding-v0"
     # "BAAI/bge-large-en-v1.5",
     # "intfloat/multilingual-e5-large"
 ]
@@ -126,7 +127,7 @@ def run_single_experiment(
             rerank_k=rerank_k,
             alpha=ALPHA,
             num_samples=num_samples,
-            debug=True
+            debug=False
         )
         
         # Record results
