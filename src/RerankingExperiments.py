@@ -13,13 +13,14 @@ from Reranking import ProgrammingSolutionsReranker
 # Configuration constants
 LLM_MODELS = [
     # "meta-llama/Llama-3.1-70B-Instruct"
-    "mistralai/Mixtral-8x7B-Instruct-v0.1"
+    "meta-llama/Llama-3.1-8B-Instruct"
+    # "mistralai/Mixtral-8x7B-Instruct-v0.1"
     # "google/gemini-pro"
 ]
 
 EMBEDDING_MODELS = [
-    # "avsolatorio/GIST-large-Embedding-v0"
-    "avsolatorio/GIST-Embedding-v0"
+    "avsolatorio/GIST-large-Embedding-v0"
+    # "avsolatorio/GIST-Embedding-v0"
     # "BAAI/bge-large-en-v1.5",
     # "intfloat/multilingual-e5-large"
 ]
@@ -37,11 +38,11 @@ INITIAL_K = 100
 ALPHA = 0.7
 
 # Eval Recall@K Values
-K_VALUES = [1, 5, 10, 50, 100]
+K_VALUES = [1, 5, 10, 25, 100]
 
 def generate_experiment_id() -> str:
     """Generate a unique identifier for the experiment run."""
-    timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+    timestamp = datetime.now().strftime("redo3_%Y%m%d_%H%M%S")
     return f"experiment_{timestamp}"
 
 def save_results(results: List[Dict], experiment_id: str, output_dir: Path):
