@@ -1,0 +1,10 @@
+llm_model,embedding_model,normalization_type,rerank_k,initial_k,alpha,baseline_recall@1,baseline_recall@5,baseline_recall@10,baseline_recall@25,baseline_recall@100,pseudo_recall@1,pseudo_recall@5,pseudo_recall@10,pseudo_recall@25,pseudo_recall@100
+meta-llama/Llama-3.1-8B-Instruct,avsolatorio/GIST-large-Embedding-v0,none,1,100,0.7,1.0,1.0,1.0,1.0,1.0,0.9695121951219512,1.0,1.0,1.0,1.0
+meta-llama/Llama-3.1-8B-Instruct,avsolatorio/GIST-large-Embedding-v0,none,5,100,0.7,1.0,1.0,1.0,1.0,1.0,0.9695121951219512,1.0,1.0,1.0,1.0
+meta-llama/Llama-3.1-8B-Instruct,avsolatorio/GIST-large-Embedding-v0,none,10,100,0.7,1.0,1.0,1.0,1.0,1.0,0.9695121951219512,1.0,1.0,1.0,1.0
+meta-llama/Llama-3.1-8B-Instruct,avsolatorio/GIST-large-Embedding-v0,none,25,100,0.7,1.0,1.0,1.0,1.0,1.0,0.9695121951219512,1.0,1.0,1.0,1.0
+meta-llama/Llama-3.1-8B-Instruct,avsolatorio/GIST-large-Embedding-v0,none,100,100,0.7,1.0,1.0,1.0,1.0,1.0,0.9695121951219512,1.0,1.0,1.0,1.0
+meta-llama/Llama-3.1-8B-Instruct,avsolatorio/GIST-large-Embedding-v0,docstring,1,100,0.7,0.9817073170731707,1.0,1.0,1.0,1.0,0.9390243902439024,0.9939024390243902,1.0,1.0,1.0
+meta-llama/Llama-3.1-8B-Instruct,avsolatorio/GIST-large-Embedding-v0,docstring,5,100,0.7,0.9817073170731707,1.0,1.0,1.0,1.0,0.9390243902439024,0.9939024390243902,1.0,1.0,1.0
+meta-llama/Llama-3.1-8B-Instruct,avsolatorio/GIST-large-Embedding-v0,docstring,10,100,0.7,0.9817073170731707,1.0,1.0,1.0,1.0,0.9390243902439024,0.9939024390243902,1.0,1.0,1.0
+meta-llama/Llama-3.1-8B-Instruct,avsolatorio/GIST-large-Embedding-v0,docstring,25,100,0.7,0.9817073170731707,1.0,1.0,1.0,1.0,0.9390243902439024,0.9939024390243902,1.0,1.0,1.0

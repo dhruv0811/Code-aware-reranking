@@ -186,13 +186,17 @@ class CodeRetrievalEvaluator:
         if normalize_type == "none":
             return code
             
-        code = self.remove_docstring(code)
-        
+        if normalize_type == "docstring":
+            code = self.remove_docstring(code)
+            return code
         if normalize_type == "variables":
+            code = self.remove_docstring(code)
             return self._replace_variables(code)
         elif normalize_type == "functions":
+            code = self.remove_docstring(code)
             return self._replace_function_names(code)
         elif normalize_type == "both":
+            code = self.remove_docstring(code)
             code = self._replace_function_names(code)
             return self._replace_variables(code)
         else:
@@ -292,8 +296,6 @@ Provide only the pseudocode steps, with no additional information:"""
                 doc_text = item["text"]
                 doc_text = self.normalize_code(doc_text, normalize_type)
                 
-                doc_text = self.normalize_code(doc_text, normalize_type)
-                
                 idx = item["meta"]["task_id"]
                 metadatas.append({
                     'source': f"programming-solutions_{idx}",
@@ -366,6 +368,7 @@ Provide only the pseudocode steps, with no additional information:"""
         
         recalls = {k: 0 for k in k_values}
         max_k = max(k_values)
+
         
         print(f"Evaluating {len(queries)} queries...")
         for query, task_id in tqdm(zip(queries, task_ids), total=len(queries)):
@@ -400,7 +403,7 @@ def main():
     )
     
     # Test different normalization strategies
-    normalize_types = ["none", "variables", "functions", "both"]
+    normalize_types = ["none", "docstring", "variables", "functions", "both"]
     k_values = [1, 5, 10, 50, 100]
     
     results = {}
