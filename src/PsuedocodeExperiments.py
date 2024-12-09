@@ -92,7 +92,7 @@ def save_results(results: List[Dict], experiment_id: str, output_dir: Path):
         improvements = []
         for k in K_VALUES:
             baseline_col = f'baseline_recall@{k}'
-            reranked_col = f'reranked_recall@{k}'
+            reranked_col = f'pseudo_recall@{k}'
             if baseline_col in df.columns and reranked_col in df.columns:
                 improvement = (df[reranked_col] - df[baseline_col]).mean()
                 improvements.append((k, improvement))

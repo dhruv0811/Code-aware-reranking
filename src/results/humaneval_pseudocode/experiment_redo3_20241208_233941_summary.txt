@@ -1,3 +1,0 @@
-=== Experiment Summary ===
-
-Best Configurations by Recall@K:

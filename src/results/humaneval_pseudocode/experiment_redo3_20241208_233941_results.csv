@@ -1,2 +1,0 @@
-llm_model,embedding_model,normalization_type,rerank_k,initial_k,alpha,error
-meta-llama/Llama-3.1-8B-Instruct,avsolatorio/GIST-large-Embedding-v0,none,5,100,0.7,'reranked'
