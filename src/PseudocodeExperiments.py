@@ -12,17 +12,17 @@ from Pseudocode import HumanEvalPseudoRetrieval
 
 # Configuration constants
 LLM_MODELS = [
-    # "meta-llama/Llama-3.1-70B-Instruct"
-    "meta-llama/Llama-3.1-8B-Instruct"
-    # "mistralai/Mixtral-8x7B-Instruct-v0.1"
-    # "google/gemini-pro"
+    "meta-llama/Llama-3.1-70B-Instruct",
+    "meta-llama/Llama-3.1-8B-Instruct",
+    "mistralai/Mixtral-8x7B-Instruct-v0.1",
 ]
 
 EMBEDDING_MODELS = [
-    "avsolatorio/GIST-large-Embedding-v0"
-    # "avsolatorio/GIST-Embedding-v0"
-    # "BAAI/bge-large-en-v1.5",
-    # "intfloat/multilingual-e5-large"
+    "avsolatorio/GIST-large-Embedding-v0",
+    "avsolatorio/GIST-Embedding-v0",
+    "sentence-transformers/all-mpnet-base-v2",
+    "jinaai/jina-embeddings-v2-base-code",
+    "flax-sentence-embeddings/st-codesearch-distilroberta-base",
 ]
 
 NORMALIZATION_TYPES = [
@@ -33,14 +33,11 @@ NORMALIZATION_TYPES = [
     "both"
 ]
 
-RERANK_K_VALUES = [5, 10, 25]
-INITIAL_K = 100
-ALPHA = 0.7
 
 IS_PSEUDO = [True, False]
 
 # Eval Recall@K Values
-K_VALUES = [1, 5, 10, 25, 100]
+K_VALUES = [1, 5, 10, 25, 50, 100]
 
 def generate_experiment_id() -> str:
     """Generate a unique identifier for the experiment run."""
@@ -85,7 +82,6 @@ def save_results(results: List[Dict], experiment_id: str, output_dir: Path):
                 f.write(f"- LLM: {best_config['llm_model']}\n")
                 f.write(f"- Embeddings: {best_config['embedding_model']}\n")
                 f.write(f"- Normalization: {best_config['normalization_type']}\n")
-                f.write(f"- K Val: {best_config['k_val']}\n")
                 f.write(f"- Pseudo: {best_config['is_pseudo']}\n")
         
         # Average improvement over baseline
@@ -107,7 +103,6 @@ def run_single_experiment(
     llm_model: str,
     embedding_model: str,
     norm_type: str,
-    k_val: int,
     is_pseudo: bool,
     num_samples: int,
     cache_dir: Path
@@ -130,10 +125,9 @@ def run_single_experiment(
         # Run evaluation
         results = reranker.evaluate_humaneval(
             k_values=K_VALUES,
-            initial_k=INITIAL_K,
             num_samples=num_samples,
             debug=True,
-            is_pseudo=IS_PSEUDO
+            is_pseudo=is_pseudo
         )
         
         # Record results
@@ -141,9 +135,7 @@ def run_single_experiment(
             "llm_model": llm_model,
             "embedding_model": embedding_model,
             "normalization_type": norm_type,
-            "k_val": k_val,
-            "is_pseudo": IS_PSEUDO,
-            "initial_k": INITIAL_K,
+            "is_pseudo": is_pseudo,
         }
         
         # Add recall metrics
@@ -160,8 +152,6 @@ def run_single_experiment(
             "llm_model": llm_model,
             "embedding_model": embedding_model,
             "normalization_type": norm_type,
-            "k": k_val,
-            "initial_k": INITIAL_K,
             "is_pseudo": is_pseudo,
             "error": str(e)
         }
@@ -177,27 +167,24 @@ def run_experiments(output_dir: str = "pseudocode_experiment_results", num_sampl
         LLM_MODELS,
         EMBEDDING_MODELS,
         NORMALIZATION_TYPES,
-        K_VALUES, 
         IS_PSEUDO
     ))
     
     print(f"\nTotal configurations to test: {len(configurations)}")
     results = []
     
-    for llm_model, embedding_model, norm_type, k_val, is_pseudo in tqdm(configurations):
+    for llm_model, embedding_model, norm_type, is_pseudo in tqdm(configurations):
         print(f"\n{'='*80}")
         print(f"Testing configuration:")
         print(f"LLM: {llm_model}")
         print(f"Embeddings: {embedding_model}")
         print(f"Normalization: {norm_type}")
-        print(f"K-value: {k_val}")
         print(f"is_pseudo: {is_pseudo}")
         
         result = run_single_experiment(
             llm_model=llm_model,
             embedding_model=embedding_model,
             norm_type=norm_type,
-            k_val=k_val,
             num_samples=num_samples,
             cache_dir=output_dir,
             is_pseudo = is_pseudo

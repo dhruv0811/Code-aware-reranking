@@ -1,0 +1,11 @@
+llm_model,embedding_model,normalization_type,is_pseudo,baseline_recall@1,baseline_recall@5,baseline_recall@10,baseline_recall@25,baseline_recall@100,pseudo_recall@1,pseudo_recall@5,pseudo_recall@10,pseudo_recall@25,pseudo_recall@100
+meta-llama/Llama-3.1-70B-Instruct,avsolatorio/GIST-large-Embedding-v0,none,True,0.0,0.0,0.0,0.0,0.0,0.9634146341463414,0.9939024390243902,1.0,1.0,1.0
+meta-llama/Llama-3.1-70B-Instruct,avsolatorio/GIST-large-Embedding-v0,none,False,1.0,1.0,1.0,1.0,1.0,0.0,0.0,0.0,0.0,0.0
+meta-llama/Llama-3.1-70B-Instruct,avsolatorio/GIST-large-Embedding-v0,docstring,True,0.0,0.0,0.0,0.0,0.0,0.926829268292683,0.9939024390243902,0.9939024390243902,0.9939024390243902,1.0
+meta-llama/Llama-3.1-70B-Instruct,avsolatorio/GIST-large-Embedding-v0,docstring,False,0.9817073170731707,1.0,1.0,1.0,1.0,0.0,0.0,0.0,0.0,0.0
+meta-llama/Llama-3.1-70B-Instruct,avsolatorio/GIST-large-Embedding-v0,variables,True,0.0,0.0,0.0,0.0,0.0,0.6280487804878049,0.8780487804878049,0.9207317073170732,0.9451219512195121,0.9939024390243902
+meta-llama/Llama-3.1-70B-Instruct,avsolatorio/GIST-large-Embedding-v0,variables,False,0.75,0.9024390243902439,0.9512195121951219,0.9695121951219512,0.9939024390243902,0.0,0.0,0.0,0.0,0.0
+meta-llama/Llama-3.1-70B-Instruct,avsolatorio/GIST-large-Embedding-v0,functions,True,0.0,0.0,0.0,0.0,0.0,0.4695121951219512,0.6707317073170732,0.7804878048780488,0.9024390243902439,0.9939024390243902
+meta-llama/Llama-3.1-70B-Instruct,avsolatorio/GIST-large-Embedding-v0,functions,False,0.3597560975609756,0.6036585365853658,0.7378048780487805,0.823170731707317,0.9634146341463414,0.0,0.0,0.0,0.0,0.0
+meta-llama/Llama-3.1-70B-Instruct,avsolatorio/GIST-large-Embedding-v0,both,True,0.0,0.0,0.0,0.0,0.0,0.054878048780487805,0.12804878048780488,0.17682926829268292,0.2926829268292683,0.5548780487804879
+meta-llama/Llama-3.1-70B-Instruct,avsolatorio/GIST-large-Embedding-v0,both,False,0.04878048780487805,0.10975609756097561,0.12195121951219512,0.21341463414634146,0.39634146341463417,0.0,0.0,0.0,0.0,0.0

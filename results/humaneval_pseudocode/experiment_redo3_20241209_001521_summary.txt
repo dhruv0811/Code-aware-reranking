@@ -6,35 +6,35 @@ Best for Recall@1 = 0.970:
 - LLM: meta-llama/Llama-3.1-8B-Instruct
 - Embeddings: avsolatorio/GIST-large-Embedding-v0
 - Normalization: none
-- K Val: 1
-- Pseudo: [True, False]
+- Pseudo: True
 
 Best for Recall@5 = 1.000:
 - LLM: meta-llama/Llama-3.1-8B-Instruct
 - Embeddings: avsolatorio/GIST-large-Embedding-v0
 - Normalization: none
-- K Val: 1
-- Pseudo: [True, False]
+- Pseudo: True
 
 Best for Recall@10 = 1.000:
 - LLM: meta-llama/Llama-3.1-8B-Instruct
 - Embeddings: avsolatorio/GIST-large-Embedding-v0
 - Normalization: none
-- K Val: 1
-- Pseudo: [True, False]
+- Pseudo: True
 
 Best for Recall@25 = 1.000:
 - LLM: meta-llama/Llama-3.1-8B-Instruct
 - Embeddings: avsolatorio/GIST-large-Embedding-v0
 - Normalization: none
-- K Val: 1
-- Pseudo: [True, False]
+- Pseudo: True
 
 Best for Recall@100 = 1.000:
 - LLM: meta-llama/Llama-3.1-8B-Instruct
 - Embeddings: avsolatorio/GIST-large-Embedding-v0
 - Normalization: none
-- K Val: 1
-- Pseudo: [True, False]
+- Pseudo: True
 
 Average Improvements Over Baseline:
+Recall@1: -0.016
+Recall@5: 0.004
+Recall@10: 0.007
+Recall@25: 0.009
+Recall@100: 0.014
