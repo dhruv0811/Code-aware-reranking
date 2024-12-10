@@ -16,7 +16,7 @@
 export HF_API_KEY=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
 
 source /home/gganeshl/miniconda3/etc/profile.d/conda.sh
-conda activate rag
+conda activate coderag
 
 cd /home/gganeshl/CodeRAG-reranking
 
