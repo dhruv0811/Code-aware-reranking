@@ -11,6 +11,9 @@ from Corpus import ProgrammingSolutionsCorpus
 from Pseudocode import HumanEvalPseudoRetrieval
 
 # Configuration constants
+
+DATASET="code-rag-bench/mbpp"
+
 LLM_MODELS = [
     "meta-llama/Llama-3.1-70B-Instruct",
     "meta-llama/Llama-3.1-8B-Instruct",
@@ -19,10 +22,10 @@ LLM_MODELS = [
 
 EMBEDDING_MODELS = [
     "avsolatorio/GIST-large-Embedding-v0",
-    "avsolatorio/GIST-Embedding-v0",
-    "sentence-transformers/all-mpnet-base-v2",
-    "jinaai/jina-embeddings-v2-base-code",
-    "flax-sentence-embeddings/st-codesearch-distilroberta-base",
+    "avsolatorio/GIST-Embedding-v0"
+    # "sentence-transformers/all-mpnet-base-v2",
+    # "jinaai/jina-embeddings-v2-base-code",
+    # "flax-sentence-embeddings/st-codesearch-distilroberta-base",
 ]
 
 NORMALIZATION_TYPES = [
@@ -123,11 +126,12 @@ def run_single_experiment(
         )
         
         # Run evaluation
-        results = reranker.evaluate_humaneval(
+        results = reranker.evaluate(
             k_values=K_VALUES,
             num_samples=num_samples,
             debug=True,
-            is_pseudo=is_pseudo
+            is_pseudo=is_pseudo,
+            dataset_name=DATASET
         )
         
         # Record results
@@ -204,7 +208,7 @@ def main():
     
     # Run experiments
     experiment_id = run_experiments(
-        output_dir="../results/humaneval_pseudocode",
+        output_dir="../results/mbpp_pseudocode",
         num_samples=None
     )
     

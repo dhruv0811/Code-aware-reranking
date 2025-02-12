@@ -241,9 +241,12 @@ class ProgrammingSolutionsReranker:
         dataset_name: str = "code-rag-bench/mbpp" # "code-rag-bench/mbpp" or "openai_humaneval"
     ) -> Dict[str, Dict[int, float]]:
         dataset = load_dataset(dataset_name)
+
+        query_name = 'prompt' if dataset_name == "openai_humaneval" else 'text'
+        key = 'train' if dataset_name == "code-rag-bench/mbpp" else 'test'
         
-        queries = [item['prompt'] for item in dataset['test']]
-        task_ids = [item['task_id'] for item in dataset['test']]
+        queries = [item[query_name] for item in dataset[key]]
+        task_ids = [item['task_id'] for item in dataset[key]]
         
         if num_samples:
             queries = queries[:num_samples]

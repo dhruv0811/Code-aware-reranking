@@ -109,17 +109,22 @@ class HumanEvalPseudoRetrieval:
                 sleep(wait_time)
         return query
 
-    def evaluate_humaneval(
+    def evaluate(
         self,
         k_values: List[int] = [1, 5, 10, 50, 100],
         initial_k: int = 100,
         num_samples: Optional[int] = None,
         debug: bool = False,
-        is_pseudo: bool = False
+        is_pseudo: bool = False,
+        dataset_name: str = "code-rag-bench/mbpp" # "code-rag-bench/mbpp" or "openai_humaneval"
     ) -> Dict[str, Dict[int, float]]:
-        dataset = load_dataset("openai_humaneval")
-        queries = [item['prompt'] for item in dataset['test']]
-        task_ids = [item['task_id'] for item in dataset['test']]
+        dataset = load_dataset(dataset_name)
+
+        query_name = 'prompt' if dataset_name == "openai_humaneval" else 'text'
+        key = 'train' if dataset_name == "code-rag-bench/mbpp" else 'test'
+
+        queries = [item[query_name] for item in dataset[key]]
+        task_ids = [item['task_id'] for item in dataset[key]]
 
         if num_samples:
             queries = queries[:num_samples]
