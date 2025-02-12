@@ -12,31 +12,35 @@ from Reranking import ProgrammingSolutionsReranker
 
 # Configuration constants
 
+EXPERIMENT_NAME = "mbpp_reranker_debug"
+
 DATASET="code-rag-bench/mbpp"
+# DATASET="openai_humaneval"
 
 LLM_MODELS = [
-    "meta-llama/Llama-3.1-70B-Instruct",
-    "meta-llama/Llama-3.1-8B-Instruct",
-    "mistralai/Mixtral-8x7B-Instruct-v0.1"
+    "meta-llama/Llama-3.1-70B-Instruct"
+    # "meta-llama/Llama-3.1-8B-Instruct"
+    # "mistralai/Mixtral-8x7B-Instruct-v0.1"
     # "google/gemini-pro"
 ]
 
 EMBEDDING_MODELS = [
-    "avsolatorio/GIST-large-Embedding-v0",
-    "avsolatorio/GIST-Embedding-v0"
+    "avsolatorio/GIST-large-Embedding-v0"
+    # "avsolatorio/GIST-Embedding-v0"
     # "BAAI/bge-large-en-v1.5",
     # "intfloat/multilingual-e5-large"
 ]
 
 NORMALIZATION_TYPES = [
-    "none",
+    # "none",
     "docstring",
     "variables",
     "functions",
     "both"
 ]
 
-RERANK_K_VALUES = [5, 10, 25]
+# RERANK_K_VALUES = [5, 10, 25]
+RERANK_K_VALUES = [25]
 INITIAL_K = 100
 ALPHA = 0.7
 
@@ -45,8 +49,8 @@ K_VALUES = [1, 5, 10, 25, 50, 100]
 
 def generate_experiment_id() -> str:
     """Generate a unique identifier for the experiment run."""
-    timestamp = datetime.now().strftime("redo3_%Y%m%d_%H%M%S")
-    return f"experiment_{timestamp}"
+    timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+    return f"{EXPERIMENT_NAME}_{timestamp}"
 
 def save_results(results: List[Dict], experiment_id: str, output_dir: Path):
     """Save experiment results to CSV and JSON with summary statistics."""
@@ -132,7 +136,7 @@ def run_single_experiment(
             rerank_k=rerank_k,
             alpha=ALPHA,
             num_samples=num_samples,
-            debug=False,
+            debug=True,
             dataset_name=dataset_name
         )
         
@@ -215,8 +219,8 @@ def main():
     
     # Run experiments
     experiment_id = run_experiments(
-        output_dir="results/fixed_corpus_mbpp_reranker",
-        num_samples=None
+        output_dir="results/debug/mbpp_reranker",
+        num_samples=10
     )
     
     print(f"\nExperiment {experiment_id} completed!")

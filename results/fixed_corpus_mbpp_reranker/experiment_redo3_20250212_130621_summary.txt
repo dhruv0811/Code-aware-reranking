@@ -1,0 +1,47 @@
+=== Experiment Summary ===
+
+Best Configurations by Recall@K:
+
+Best for Recall@1 = 0.952:
+- LLM: meta-llama/Llama-3.1-70B-Instruct
+- Embeddings: avsolatorio/GIST-large-Embedding-v0
+- Normalization: none
+- Rerank K: 5
+
+Best for Recall@5 = 1.000:
+- LLM: meta-llama/Llama-3.1-70B-Instruct
+- Embeddings: avsolatorio/GIST-large-Embedding-v0
+- Normalization: none
+- Rerank K: 5
+
+Best for Recall@10 = 1.000:
+- LLM: meta-llama/Llama-3.1-70B-Instruct
+- Embeddings: avsolatorio/GIST-large-Embedding-v0
+- Normalization: none
+- Rerank K: 5
+
+Best for Recall@25 = 1.000:
+- LLM: meta-llama/Llama-3.1-70B-Instruct
+- Embeddings: avsolatorio/GIST-large-Embedding-v0
+- Normalization: none
+- Rerank K: 5
+
+Best for Recall@50 = 1.000:
+- LLM: meta-llama/Llama-3.1-70B-Instruct
+- Embeddings: avsolatorio/GIST-large-Embedding-v0
+- Normalization: none
+- Rerank K: 5
+
+Best for Recall@100 = 1.000:
+- LLM: meta-llama/Llama-3.1-70B-Instruct
+- Embeddings: avsolatorio/GIST-large-Embedding-v0
+- Normalization: none
+- Rerank K: 5
+
+Average Improvements Over Baseline:
+Recall@1: -0.064
+Recall@5: -0.048
+Recall@10: -0.025
+Recall@25: 0.000
+Recall@50: 0.000
+Recall@100: 0.000

@@ -158,6 +158,9 @@ class HumanEvalPseudoRetrieval:
             )
                 
             retrieved_ids = [doc.metadata['index'] for doc, _ in results]
+
+            true_id = str(true_id)
+            retrieved_ids = [str(id) for id in retrieved_ids]
                 
             recalls = pseudo_recalls if is_pseudo else direct_recalls
             for k in k_values:

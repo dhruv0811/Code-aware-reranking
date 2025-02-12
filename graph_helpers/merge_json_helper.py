@@ -57,14 +57,14 @@ def merge_results(json_data):
 # Example usage:
 if __name__ == "__main__":
     # Read JSON file
-    with open('experiment_redo3_20241209_011744_results.json', 'r') as f:
+    with open('./results/mbpp_pseudocode/experiment_redo3_20250212_130553_results.json', 'r') as f:
         data = json.load(f)
     
     # Merge results
     merged_data = merge_results(data)
     
     # Write merged results to new file
-    with open('pseduo_merged_results.json', 'w') as f:
+    with open('./results/mbpp_pseudocode/pseduo_merged_results.json', 'w') as f:
         json.dump(merged_data, f, indent=2)
         
     print(f"Successfully merged {len(merged_data)} entries")

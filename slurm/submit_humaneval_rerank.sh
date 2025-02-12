@@ -1,5 +1,5 @@
 #!/bin/bash
-#SBATCH --job-name=humaneval_reranking
+#SBATCH --job-name=humaneval_rerun_reranking
 #SBATCH --partition=general
 #SBATCH --time=48:00:00 
 
@@ -8,7 +8,7 @@
 #SBATCH --cpus-per-task=4
 
 #SBATCH --output=/home/dhruvgu2/CodeRAG-reranking/slurm/logs/output-%j.log
-#SBATCH --error=/home/dhruvgu2//CodeRAG-reranking/slurm/logs/error-%j.out
+#SBATCH --error=/home/dhruvgu2/CodeRAG-reranking/slurm/logs/error-%j.out
 
 #SBATCH --mail-type=END
 #SBATCH --mail-user=dhruvgu2@andrew.cmu.edu

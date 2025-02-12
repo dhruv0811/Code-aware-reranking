@@ -13,11 +13,12 @@ from Pseudocode import HumanEvalPseudoRetrieval
 # Configuration constants
 
 DATASET="code-rag-bench/mbpp"
+# DATASET="openai_humaneval"
 
 LLM_MODELS = [
     "meta-llama/Llama-3.1-70B-Instruct",
-    "meta-llama/Llama-3.1-8B-Instruct",
-    "mistralai/Mixtral-8x7B-Instruct-v0.1",
+    "meta-llama/Llama-3.1-8B-Instruct"
+    # "mistralai/Mixtral-8x7B-Instruct-v0.1",
 ]
 
 EMBEDDING_MODELS = [
@@ -208,7 +209,7 @@ def main():
     
     # Run experiments
     experiment_id = run_experiments(
-        output_dir="../results/mbpp_pseudocode",
+        output_dir="./results/mbpp_pseudocode",
         num_samples=None
     )
     

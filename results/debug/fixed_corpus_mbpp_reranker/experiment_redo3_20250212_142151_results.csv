@@ -1,0 +1,3 @@
+llm_model,embedding_model,normalization_type,rerank_k,initial_k,alpha,baseline_recall@1,baseline_recall@5,baseline_recall@10,baseline_recall@25,baseline_recall@50,baseline_recall@100,reranked_recall@1,reranked_recall@5,reranked_recall@10,reranked_recall@25,reranked_recall@50,reranked_recall@100
+meta-llama/Llama-3.1-70B-Instruct,avsolatorio/GIST-large-Embedding-v0,none,25,100,0.7,1.0,1.0,1.0,1.0,1.0,1.0,0.9695121951219512,0.9878048780487805,0.9939024390243902,1.0,1.0,1.0
+meta-llama/Llama-3.1-70B-Instruct,avsolatorio/GIST-large-Embedding-v0,docstring,25,100,0.7,0.9878048780487805,1.0,1.0,1.0,1.0,1.0,0.9451219512195121,0.9939024390243902,1.0,1.0,1.0,1.0

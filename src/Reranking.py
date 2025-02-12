@@ -251,6 +251,8 @@ class ProgrammingSolutionsReranker:
         if num_samples:
             queries = queries[:num_samples]
             task_ids = task_ids[:num_samples]
+            print(queries)
+            print(task_ids)
         
         if debug:
             print(f"\nEvaluating {len(queries)} queries")
@@ -279,11 +281,31 @@ class ProgrammingSolutionsReranker:
             )]
             
             reranked_ids = [code.task_id for code in results]
+
+            true_id = str(true_id)
+            baseline_ids = [str(id) for id in baseline_ids]
+            reranked_ids = [str(id) for id in reranked_ids]
             
             if debug:
                 print("\nTop 5 baseline IDs:", baseline_ids[:5])
                 print("Top 5 reranked IDs:", reranked_ids[:5])
                 print("Looking for true_id:", true_id)
+                
+                # Add position-aware metric calculation
+                for k in k_values:
+                    try:
+                        baseline_pos = baseline_ids[:k].index(true_id)
+                        baseline_score = (k - baseline_pos) / k
+                        print(f"Baseline position-aware score @{k}: {baseline_score:.3f} (position {baseline_pos})")
+                    except ValueError:
+                        print(f"Baseline position-aware score @{k}: 0.000 (not found in top {k})")
+                        
+                    try:
+                        reranked_pos = reranked_ids[:k].index(true_id)
+                        reranked_score = (k - reranked_pos) / k
+                        print(f"Reranked position-aware score @{k}: {reranked_score:.3f} (position {reranked_pos})")
+                    except ValueError:
+                        print(f"Reranked position-aware score @{k}: 0.000 (not found in top {k})")
             
             for k in k_values:
                 if true_id in baseline_ids[:k]:
