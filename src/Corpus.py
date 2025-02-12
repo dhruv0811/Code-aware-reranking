@@ -6,6 +6,7 @@ from typing import Dict, Set
 from datasets import load_dataset
 from langchain_community.vectorstores import FAISS
 from langchain_huggingface import HuggingFaceEmbeddings
+import torch
 
 class VariableRenamer(ast.NodeTransformer):
     def __init__(self):
@@ -134,9 +135,10 @@ class ProgrammingSolutionsCorpus:
     
         print("Initializing Embedding Model...")
         self.embedding_model_name = embedding_model_name
+        self.device = "cuda" if torch.cuda.is_available() else "cpu"
         self.embedding_model = HuggingFaceEmbeddings(
             model_name=embedding_model_name,
-            model_kwargs={'device': 'cuda'},
+            model_kwargs={'device': self.device},
             encode_kwargs={'normalize_embeddings': True, 'batch_size': 32}
         )
         
@@ -146,10 +148,17 @@ class ProgrammingSolutionsCorpus:
         print("Corpus loaded!")
     
 
-    def remove_docstring(self, code: str) -> str:
+    def remove_docstring(self, code: str, task: str) -> str:
         """Remove docstring from Python code while preserving other comments."""
-        docstring_pattern = r'"""[\s\S]*?"""|\'\'\'[\s\S]*?\'\'\''
-        return re.sub(docstring_pattern, '', code)
+        humaneval_docstring_pattern = r'"""[\s\S]*?"""|\'\'\'[\s\S]*?\'\'\''
+        mbpp_docstring_pattern = r'^.*?(?=def\s)'
+
+        if task == "humaneval":
+            return re.sub(humaneval_docstring_pattern, '', code)
+        elif task == "mbpp":
+            return re.sub(mbpp_docstring_pattern, '', code, flags=re.DOTALL)
+        
+        raise ValueError(f"Unknown task: {task}")
     
     def _normalize_variables_ast(self, code: str) -> str:
         """Normalize variable names in Python code using AST."""
@@ -211,14 +220,14 @@ class ProgrammingSolutionsCorpus:
         return '\n'.join(processed_lines)
     
 
-    def normalize_code(self, code: str, normalize_type: str = "none") -> str:
+    def normalize_code(self, code: str, normalize_type: str = "none", task: str = "humaneval") -> str:
         """Normalize code based on specified type."""
         if normalize_type == "none":
             return code
             
-        print("Normalizing code with type: ", normalize_type)
+        # print("Normalizing code with type: ", normalize_type)
 
-        code = self.remove_docstring(code)
+        code = self.remove_docstring(code, task=task)
         if normalize_type == "docstring":
             return code
 
@@ -241,7 +250,7 @@ class ProgrammingSolutionsCorpus:
             if item["meta"]["task_name"] == "humaneval":
                 doc_text = item["text"]
 
-                doc_text = self.normalize_code(doc_text, normalize_type)
+                doc_text = self.normalize_code(doc_text, normalize_type, task="humaneval")
                 
                 idx = item["meta"]["task_id"]
                 metadatas.append({
@@ -252,12 +261,11 @@ class ProgrammingSolutionsCorpus:
             else:
                 doc_text = item["text"]
 
-                if normalize_type == "docstring":
-                    docstring_pattern = r'def\s+.*$'
-                    doc_text = re.sub(docstring_pattern, '', doc_text)
-                
+                doc_text = self.normalize_code(doc_text, normalize_type, task="mbpp")
+
+                idx = item["meta"]["task_id"]
                 metadatas.append({
-                    'source': f"programming-solutions_{idx}",
+                    'source': f"programming-solutions-mbpp_{idx}",
                     'index': idx,
                 })
                 documents.append(doc_text)
@@ -293,6 +301,7 @@ class ProgrammingSolutionsCorpus:
 
 if __name__ == "__main__":
     corpus = ProgrammingSolutionsCorpus()
+    # corpus.load(normalize_type="both")
     corpus.load(normalize_type="both")
-    print(corpus.search("Test input!", k=5))
+    print(corpus.search("Write a python function to remove first and last occurrence of a given character from the string", k=5))
     
