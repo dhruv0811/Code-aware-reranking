@@ -38,5 +38,25 @@
     "reranked_recall@25": 1.0,
     "reranked_recall@50": 1.0,
     "reranked_recall@100": 1.0
+  },
+  {
+    "llm_model": "meta-llama/Llama-3.1-70B-Instruct",
+    "embedding_model": "avsolatorio/GIST-large-Embedding-v0",
+    "normalization_type": "variables",
+    "rerank_k": 25,
+    "initial_k": 100,
+    "alpha": 0.7,
+    "baseline_recall@1": 0.9207317073170732,
+    "baseline_recall@5": 0.9817073170731707,
+    "baseline_recall@10": 0.9817073170731707,
+    "baseline_recall@25": 1.0,
+    "baseline_recall@50": 1.0,
+    "baseline_recall@100": 1.0,
+    "reranked_recall@1": 0.8109756097560976,
+    "reranked_recall@5": 0.8658536585365854,
+    "reranked_recall@10": 0.8963414634146342,
+    "reranked_recall@25": 1.0,
+    "reranked_recall@50": 1.0,
+    "reranked_recall@100": 1.0
   }
 ]
