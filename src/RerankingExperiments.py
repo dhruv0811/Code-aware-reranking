@@ -11,6 +11,9 @@ from Corpus import ProgrammingSolutionsCorpus
 from Reranking import ProgrammingSolutionsReranker
 
 # Configuration constants
+
+DATASET="code-rag-bench/mbpp"
+
 LLM_MODELS = [
     "meta-llama/Llama-3.1-70B-Instruct",
     "meta-llama/Llama-3.1-8B-Instruct",
@@ -104,7 +107,8 @@ def run_single_experiment(
     norm_type: str,
     rerank_k: int,
     num_samples: int,
-    cache_dir: Path
+    cache_dir: Path,
+    dataset_name: str = DATASET
 ) -> Dict[str, Any]:
     """Run a single experiment configuration and return results."""
     try:
@@ -122,13 +126,14 @@ def run_single_experiment(
         )
         
         # Run evaluation
-        results = reranker.evaluate_humaneval(
+        results = reranker.evaluate(
             k_values=K_VALUES,
             initial_k=INITIAL_K,
             rerank_k=rerank_k,
             alpha=ALPHA,
             num_samples=num_samples,
-            debug=False
+            debug=False,
+            dataset_name=dataset_name
         )
         
         # Record results
@@ -161,7 +166,7 @@ def run_single_experiment(
             "error": str(e)
         }
 
-def run_experiments(output_dir: str = "experiment_results", num_samples: int = None):
+def run_experiments(output_dir: str = "mbpp_experiment_results", num_samples: int = None):
     """Run all experiment configurations and save results."""
     output_dir = Path(output_dir)
     experiment_id = generate_experiment_id()
@@ -192,7 +197,8 @@ def run_experiments(output_dir: str = "experiment_results", num_samples: int = N
             norm_type=norm_type,
             rerank_k=rerank_k,
             num_samples=num_samples,
-            cache_dir=output_dir
+            cache_dir=output_dir,
+            dataset_name=DATASET
         )
         
         results.append(result)
@@ -209,7 +215,7 @@ def main():
     
     # Run experiments
     experiment_id = run_experiments(
-        output_dir="results/fixed_corpus_humaneval_reranker",
+        output_dir="results/fixed_corpus_mbpp_reranker",
         num_samples=None
     )
     

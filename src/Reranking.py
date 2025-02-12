@@ -230,16 +230,17 @@ class ProgrammingSolutionsReranker:
         
         return reranked_results
 
-    def evaluate_humaneval(
+    def evaluate(
         self,
         k_values: List[int] = [1, 5, 10, 50, 100],
         initial_k: int = 100,
         rerank_k: int = 5,
         alpha: float = 0.7,
         num_samples: int = None,
-        debug: bool = True
+        debug: bool = True,
+        dataset_name: str = "code-rag-bench/mbpp" # "code-rag-bench/mbpp" or "openai_humaneval"
     ) -> Dict[str, Dict[int, float]]:
-        dataset = load_dataset("openai_humaneval")
+        dataset = load_dataset(dataset_name)
         
         queries = [item['prompt'] for item in dataset['test']]
         task_ids = [item['task_id'] for item in dataset['test']]

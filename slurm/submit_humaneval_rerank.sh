@@ -13,7 +13,7 @@
 #SBATCH --mail-type=END
 #SBATCH --mail-user=dhruvgu2@andrew.cmu.edu
 
-export HF_API_KEY=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
+export HF_API_KEY=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
 
 source /home/dhruvgu2/miniconda3/etc/profile.d/conda.sh
 conda activate rag
