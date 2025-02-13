@@ -188,6 +188,8 @@ class ProgrammingSolutionsReranker:
             code_item.code_description = self._generate_code_description(code_item.code)
             
             if debug:
+                print("Code: ", {code_item.code[:100]})
+            if debug:
                 print(f"Generated description: {code_item.code_description}")
             
             if code_item.code_description:
@@ -260,6 +262,9 @@ class ProgrammingSolutionsReranker:
         
         baseline_recalls = {k: 0 for k in k_values}
         reranked_recalls = {k: 0 for k in k_values}
+
+        baseline_position_scores = {k: 0.0 for k in k_values}
+        reranked_position_scores = {k: 0.0 for k in k_values}
         
         for query_idx, (query, true_id) in enumerate(tqdm(zip(queries, task_ids), total=len(queries))):
             if debug:
@@ -290,23 +295,30 @@ class ProgrammingSolutionsReranker:
                 print("\nTop 5 baseline IDs:", baseline_ids[:5])
                 print("Top 5 reranked IDs:", reranked_ids[:5])
                 print("Looking for true_id:", true_id)
-                
-                # Add position-aware metric calculation
-                for k in k_values:
-                    try:
-                        baseline_pos = baseline_ids[:k].index(true_id)
-                        baseline_score = (k - baseline_pos) / k
+
+            for k in k_values:
+                # Baseline position-aware metric
+                try:
+                    baseline_pos = baseline_ids[:k].index(true_id)
+                    baseline_score = (k - baseline_pos) / k
+                    baseline_position_scores[k] += baseline_score
+                    if debug:
                         print(f"Baseline position-aware score @{k}: {baseline_score:.3f} (position {baseline_pos})")
-                    except ValueError:
+                except ValueError:
+                    if debug:
                         print(f"Baseline position-aware score @{k}: 0.000 (not found in top {k})")
-                        
-                    try:
-                        reranked_pos = reranked_ids[:k].index(true_id)
-                        reranked_score = (k - reranked_pos) / k
+                
+                # Reranked position-aware metric
+                try:
+                    reranked_pos = reranked_ids[:k].index(true_id)
+                    reranked_score = (k - reranked_pos) / k
+                    reranked_position_scores[k] += reranked_score
+                    if debug:
                         print(f"Reranked position-aware score @{k}: {reranked_score:.3f} (position {reranked_pos})")
-                    except ValueError:
+                except ValueError:
+                    if debug:
                         print(f"Reranked position-aware score @{k}: 0.000 (not found in top {k})")
-            
+
             for k in k_values:
                 if true_id in baseline_ids[:k]:
                     baseline_recalls[k] += 1
@@ -320,8 +332,13 @@ class ProgrammingSolutionsReranker:
         num_queries = len(queries)
         baseline_recalls = {k: count/num_queries for k, count in baseline_recalls.items()}
         reranked_recalls = {k: count/num_queries for k, count in reranked_recalls.items()}
+        avg_baseline_position_scores = {k: score/num_queries for k, score in baseline_position_scores.items()}
+        avg_reranked_position_scores = {k: score/num_queries for k, score in reranked_position_scores.items()}
+    
         
         return {
             "baseline": baseline_recalls,
-            "reranked": reranked_recalls
+            "reranked": reranked_recalls,
+            "baseline-position-metric": avg_baseline_position_scores,
+            "reranked-position-metric": avg_reranked_position_scores,
         }

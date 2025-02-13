@@ -7,17 +7,17 @@
 #SBATCH --gres=gpu:A6000:1
 #SBATCH --cpus-per-task=4
 
-#SBATCH --output=/home/dhruvgu2/CodeRAG-reranking/slurm/logs/output-%j.log
-#SBATCH --error=/home/dhruvgu2/CodeRAG-reranking/slurm/logs/error-%j.out
+#SBATCH --output=/home/gganeshl/CodeRAG-reranking/slurm/logs/humaneval-output-%j-withAddedMetric.log
+#SBATCH --error=/home/gganeshl/CodeRAG-reranking/slurm/logs/humaneval-error-%j-withAddedMetric.out
 
 #SBATCH --mail-type=END
-#SBATCH --mail-user=dhruvgu2@andrew.cmu.edu
+#SBATCH --mail-user=gganeshl@andrew.cmu.edu
 
 export HF_API_KEY=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
 
-source /home/dhruvgu2/miniconda3/etc/profile.d/conda.sh
+source /home/gganeshl/miniconda3/etc/profile.d/conda.sh
 conda activate rag
 
-cd /home/dhruvgu2/CodeRAG-reranking
+cd /home/gganeshl/CodeRAG-reranking
 
-python src/RerankingExperiments.py
+python3 src/RerankingExperiments.py

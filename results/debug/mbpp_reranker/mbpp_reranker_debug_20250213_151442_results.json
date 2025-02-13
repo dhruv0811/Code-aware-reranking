@@ -1,0 +1,42 @@
+[
+  {
+    "llm_model": "meta-llama/Llama-3.1-70B-Instruct",
+    "embedding_model": "avsolatorio/GIST-large-Embedding-v0",
+    "normalization_type": "docstring",
+    "rerank_k": 25,
+    "initial_k": 100,
+    "alpha": 0.7,
+    "baseline_recall@recall": {
+      "1": 0.7,
+      "5": 0.8,
+      "10": 0.8,
+      "25": 0.9,
+      "50": 0.9,
+      "100": 1.0
+    },
+    "baseline_recall@position_score": {
+      "1": 0.7,
+      "5": 0.72,
+      "10": 0.76,
+      "25": 0.8,
+      "50": 0.85,
+      "100": 0.899
+    },
+    "reranked_recall@recall": {
+      "1": 0.8,
+      "5": 0.9,
+      "10": 0.9,
+      "25": 0.9,
+      "50": 0.9,
+      "100": 1.0
+    },
+    "reranked_recall@position_score": {
+      "1": 0.8,
+      "5": 0.86,
+      "10": 0.8800000000000001,
+      "25": 0.892,
+      "50": 0.8960000000000001,
+      "100": 0.922
+    }
+  }
+]

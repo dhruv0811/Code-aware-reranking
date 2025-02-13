@@ -1,0 +1,2 @@
+llm_model,embedding_model,normalization_type,rerank_k,initial_k,alpha,baseline_recall@recall,baseline_recall@position_score,reranked_recall@recall,reranked_recall@position_score
+meta-llama/Llama-3.1-70B-Instruct,avsolatorio/GIST-large-Embedding-v0,docstring,25,100,0.7,"{1: 0.7, 5: 0.8, 10: 0.8, 25: 0.9, 50: 0.9, 100: 1.0}","{1: 0.7, 5: 0.72, 10: 0.76, 25: 0.8, 50: 0.85, 100: 0.899}","{1: 0.8, 5: 0.9, 10: 0.9, 25: 0.9, 50: 0.9, 100: 1.0}","{1: 0.8, 5: 0.86, 10: 0.8800000000000001, 25: 0.892, 50: 0.8960000000000001, 100: 0.922}"

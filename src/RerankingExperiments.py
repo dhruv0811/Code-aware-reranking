@@ -12,27 +12,28 @@ from Reranking import ProgrammingSolutionsReranker
 
 # Configuration constants
 
-EXPERIMENT_NAME = "mbpp_reranker_debug"
+EXPERIMENT_NAME = "humaneval_reranker_debug_metric"
+# EXPERIMENT_NAME = "mbpp_reranker_debug_metric"
 
-DATASET="code-rag-bench/mbpp"
-# DATASET="openai_humaneval"
+# DATASET="code-rag-bench/mbpp"
+DATASET="openai_humaneval"
 
 LLM_MODELS = [
-    "meta-llama/Llama-3.1-70B-Instruct"
-    # "meta-llama/Llama-3.1-8B-Instruct"
+    "meta-llama/Llama-3.1-70B-Instruct",
+    "meta-llama/Llama-3.1-8B-Instruct",
     # "mistralai/Mixtral-8x7B-Instruct-v0.1"
     # "google/gemini-pro"
 ]
 
 EMBEDDING_MODELS = [
-    "avsolatorio/GIST-large-Embedding-v0"
-    # "avsolatorio/GIST-Embedding-v0"
+    "avsolatorio/GIST-large-Embedding-v0",
+    "avsolatorio/GIST-Embedding-v0",
     # "BAAI/bge-large-en-v1.5",
     # "intfloat/multilingual-e5-large"
 ]
 
 NORMALIZATION_TYPES = [
-    # "none",
+    "none",
     "docstring",
     "variables",
     "functions",
@@ -76,7 +77,6 @@ def save_results(results: List[Dict], experiment_id: str, output_dir: Path):
     summary_path = output_dir / f"{experiment_id}_summary.txt"
     with open(summary_path, 'w') as f:
         f.write("=== Experiment Summary ===\n\n")
-        
         # Best configurations for each k value
         f.write("Best Configurations by Recall@K:\n")
         for k in K_VALUES:
@@ -155,6 +155,10 @@ def run_single_experiment(
             result_entry[f"baseline_recall@{k}"] = recall
         for k, recall in results["reranked"].items():
             result_entry[f"reranked_recall@{k}"] = recall
+        for k, metric in results["baseline-position-metric"].items():
+            result_entry[f"baseline_position_metric@{k}"] = metric
+        for k, metric in results["reranked-position-metric"].items():
+            result_entry[f"reranked_position_metric@{k}"] = metric
         
         return result_entry
         
@@ -219,8 +223,8 @@ def main():
     
     # Run experiments
     experiment_id = run_experiments(
-        output_dir="results/debug/mbpp_reranker",
-        num_samples=10
+        output_dir="results/debug/humaneval_reranker_metric",
+        num_samples=None
     )
     
     print(f"\nExperiment {experiment_id} completed!")
