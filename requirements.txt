@@ -6,4 +6,5 @@ faiss-gpu
 faiss-cpu
 pandas
 numpy
+evaluate
 tqdm

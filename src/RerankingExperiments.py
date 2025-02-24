@@ -12,11 +12,11 @@ from Reranking import ProgrammingSolutionsReranker
 
 # Configuration constants
 
-EXPERIMENT_NAME = "humaneval_reranker_debug_metric"
-# EXPERIMENT_NAME = "mbpp_reranker_debug_metric"
+# EXPERIMENT_NAME = "humaneval_reranker_debug_metric"
+EXPERIMENT_NAME = "mbpp_reranker_debug_metric"
 
-# DATASET="code-rag-bench/mbpp"
-DATASET="openai_humaneval"
+DATASET="code-rag-bench/mbpp"
+# DATASET="openai_humaneval"
 
 LLM_MODELS = [
     "meta-llama/Llama-3.1-70B-Instruct",
@@ -223,7 +223,7 @@ def main():
     
     # Run experiments
     experiment_id = run_experiments(
-        output_dir="results/debug/humaneval_reranker_metric",
+        output_dir="results/debug/mbpp_reranker_metric",
         num_samples=None
     )
     

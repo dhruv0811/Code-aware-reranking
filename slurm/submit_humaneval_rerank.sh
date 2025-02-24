@@ -1,5 +1,5 @@
 #!/bin/bash
-#SBATCH --job-name=humaneval_rerun_reranking
+#SBATCH --job-name=mbpp_rerun_reranking
 #SBATCH --partition=general
 #SBATCH --time=48:00:00 
 
@@ -7,8 +7,8 @@
 #SBATCH --gres=gpu:A6000:1
 #SBATCH --cpus-per-task=4
 
-#SBATCH --output=/home/gganeshl/CodeRAG-reranking/slurm/logs/humaneval-output-%j-withAddedMetric.log
-#SBATCH --error=/home/gganeshl/CodeRAG-reranking/slurm/logs/humaneval-error-%j-withAddedMetric.out
+#SBATCH --output=/home/gganeshl/CodeRAG-reranking/slurm/logs/mbpp-output-%j-withAddedMetric.log
+#SBATCH --error=/home/gganeshl/CodeRAG-reranking/slurm/logs/mbpp-error-%j-withAddedMetric.out
 
 #SBATCH --mail-type=END
 #SBATCH --mail-user=gganeshl@andrew.cmu.edu
