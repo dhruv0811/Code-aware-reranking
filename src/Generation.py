@@ -10,6 +10,7 @@ from tqdm import tqdm
 import time
 import ast
 import logging
+from Corpus import CodeNormalizer, ProgrammingSolutionsCorpus
 
 # Set up logging
 logging.basicConfig(
@@ -115,20 +116,27 @@ Please write a correct, efficient Python function, of the same name that solves 
         
         return ""
 
+
 class CodeRepository:
     """Class to load and manage the code corpus."""
     
-    def __init__(self, corpus: str = "code-rag-bench/programming-solutions"):
+    def __init__(self, corpus: str = "code-rag-bench/programming-solutions", normalization_type: str = "none"):
         """Initialize the code repository with HumanEval and potentially other code sources."""
         self.corpus = load_dataset(corpus)
         self.code_cache = {}  # Cache for code content by ID
+        self.normalization_type = normalization_type
+        self.code_normalizer = ProgrammingSolutionsCorpus()  # Initialize the code normalizer
         logger.info(f"Loaded corpus with {sum(len(self.corpus[split]) for split in self.corpus)} entries")
+        logger.info(f"Using normalization type: {self.normalization_type}")
         
     def get_solution_by_id(self, doc_id: str) -> str:
-        """Get the code content for a document ID."""
+        """Get the code content for a document ID with the current normalization type."""
+        # Create a cache key that includes normalization type
+        cache_key = f"{doc_id}_{self.normalization_type}"
+        
         # Check cache first
-        if doc_id in self.code_cache:
-            return self.code_cache[doc_id]
+        if cache_key in self.code_cache:
+            return self.code_cache[cache_key]
         
         # Search through all splits in the corpus
         for split in self.corpus:
@@ -136,15 +144,27 @@ class CodeRepository:
                 # Check meta column for direct task_id match
                 if "meta" in item and isinstance(item["meta"], dict) and "task_id" in item["meta"]:
                     if item["meta"]["task_id"] == doc_id:
-                        # Extract the code content
+                        # Extract the raw code content
                         if "text" in item:
-                            code = item["text"]
-                            self.code_cache[doc_id] = code
-                            return code
+                            raw_code = item["text"]
+                            
+                            # Determine the task type for proper normalization
+                            task_type = "humaneval" if "HumanEval" in doc_id else "mbpp"
+                            
+                            # Apply normalization based on the specified type
+                            normalized_code = self.code_normalizer.normalize_code(
+                                raw_code, 
+                                normalize_type=self.normalization_type,
+                                task=task_type
+                            )
+                            
+                            # Cache the normalized code
+                            self.code_cache[cache_key] = normalized_code
+                            return normalized_code
         
         # Log the miss but don't throw an error
-        logger.info(f"No solution found for ID {doc_id}")
-        self.code_cache[doc_id] = ""  # Cache the miss
+        logger.info(f"No solution found for ID {doc_id} with normalization {self.normalization_type}")
+        self.code_cache[cache_key] = ""  # Cache the miss
         return ""
 
 class HumanEvalEvaluator:
@@ -272,14 +292,49 @@ class RAGEvaluator:
         output_dir: str = "rag_results"
     ):
         """Initialize the RAG evaluator with JSON input."""
+        self.json_input_path = json_input_path
         self.json_processor = JSONInputProcessor(json_input_path)
         self.generator = CodeGenerator(model_name=model_name)
         self.evaluator = HumanEvalEvaluator()
-        self.code_repo = CodeRepository()
+        
+        # Extract normalization type from the JSON filename
+        normalization_type = self._extract_normalization_type(json_input_path)
+        logger.info(f"Extracted normalization type from filename: {normalization_type}")
+        
+        self.code_repo = CodeRepository(normalization_type=normalization_type)
         self.output_dir = output_dir
         os.makedirs(output_dir, exist_ok=True)
         
         logger.info(f"Initialized RAG evaluator with JSON input from {json_input_path}")
+    
+    def _extract_normalization_type(self, json_path: str) -> str:
+        """Extract normalization type from the JSON filename."""
+        try:
+            # Parse from pattern: docs_dataset_model_embeddings_normtype_k{k}.json
+            filename = os.path.basename(json_path)
+            parts = filename.split('_')
+            
+            # The normalization type should be the second-to-last part before the k{number}
+            if len(parts) >= 5:
+                for i, part in enumerate(parts):
+                    if part.startswith('k') and i > 0:
+                        norm_type = parts[i-1]
+                        # Validate normalization type
+                        valid_types = ["none", "docstring", "variables", "functions", "both"]
+                        if norm_type in valid_types:
+                            return norm_type
+            
+            logger.warning(f"Could not extract normalization type from filename: {filename}, using 'none'")
+            return "none"
+        except Exception as e:
+            logger.error(f"Error extracting normalization type: {e}")
+            return "none"
+    
+    def _get_output_path(self) -> str:
+        """Generate a CSV output path with the same base name as the JSON input."""
+        json_basename = os.path.basename(self.json_input_path)
+        csv_basename = json_basename.replace('.json', '')
+        return os.path.join(self.output_dir, csv_basename)
         
     def run_evaluation(
         self, 
@@ -287,16 +342,7 @@ class RAGEvaluator:
         reverse_order: bool = False,
         query_ids: Optional[List[int]] = None
     ) -> pd.DataFrame:
-        """Run the RAG evaluation for different k values using JSON input.
-        
-        Args:
-            k_values: List of k values to evaluate (number of examples to use)
-            reverse_order: If True, reverses the order of examples to test recency bias
-            query_ids: Optional list of specific query IDs to evaluate (default: all)
-            
-        Returns:
-            DataFrame with evaluation results
-        """
+        """Run the RAG evaluation for different k values using JSON input."""
         results = []
         
         # Get all query IDs if not specified
@@ -333,7 +379,6 @@ class RAGEvaluator:
                     
                     # Generate code
                     generated_code = self.generator.generate_code(query, retrieved_codes, k, reverse_order)
-                    # print(f"Generated before eval: {generated_code}")
                     
                     if not generated_code:
                         logger.warning(f"No code generated for query {query_id}, k={k}")
@@ -383,18 +428,18 @@ class RAGEvaluator:
         # Convert results to dataframe
         results_df = pd.DataFrame(results)
         
-        # Save results
-        timestamp = time.strftime("%Y%m%d_%H%M%S")
+        # Save results with the same name as the input JSON file
         order_type = "reversed" if reverse_order else "normal"
-        results_path = os.path.join(self.output_dir, f"rag_evaluation_results_{order_type}_{timestamp}.csv")
-        results_df.to_csv(results_path, index=False)
+        csv_output_path = self._get_output_path() + order_type + ".csv"
+        results_df.to_csv(csv_output_path, index=False)
+        logger.info(f"Results saved to {csv_output_path}")
         
         # Calculate aggregated metrics
         metrics = self._calculate_metrics(results_df)
-        metrics_path = os.path.join(self.output_dir, f"rag_metrics_{order_type}_{timestamp}.csv")
+        metrics_path = os.path.join(self.output_dir+"/metrics", f"metrics_{csv_output_path}")
         metrics.to_csv(metrics_path, index=False)
         
-        logger.info(f"Evaluation complete. Results saved to {results_path}")
+        logger.info(f"Evaluation complete. Results saved to {metrics_path} and {csv_output_path}")
         return results_df
     
     def _calculate_metrics(self, results_df: pd.DataFrame) -> pd.DataFrame:
@@ -542,7 +587,7 @@ def main():
     if args.query_ids:
         query_ids = [int(qid) for qid in args.query_ids.split(',')]
     
-    # Initialize evaluator
+    # Initialize evaluator (it will extract the normalization type from the JSON filename)
     evaluator = RAGEvaluator(
         json_input_path=args.json_input,
         model_name=args.model_name,
