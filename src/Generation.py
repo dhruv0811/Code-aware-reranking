@@ -86,7 +86,7 @@ Please write a correct, efficient Python function, of the same name that solves 
                     temperature=0.2,
                     stop=["````"]
                 )
-                
+                print("Prompt: ", prompt)
                 generated_code = completion.choices[0].message.content.strip()
                 
                 if "```python" in generated_code:
@@ -304,6 +304,7 @@ class RAGEvaluator:
         self.code_repo = CodeRepository(normalization_type=normalization_type)
         self.output_dir = output_dir
         os.makedirs(output_dir, exist_ok=True)
+        os.makedirs(output_dir + "/metrics", exist_ok=True)
         
         logger.info(f"Initialized RAG evaluator with JSON input from {json_input_path}")
     
@@ -430,15 +431,15 @@ class RAGEvaluator:
         
         # Save results with the same name as the input JSON file
         order_type = "reversed" if reverse_order else "normal"
-        csv_output_path = self._get_output_path() + order_type + ".csv"
+        csv_output_path = self._get_output_path() + "_" + order_type + ".csv"
         results_df.to_csv(csv_output_path, index=False)
         logger.info(f"Results saved to {csv_output_path}")
         
         # Calculate aggregated metrics
         metrics = self._calculate_metrics(results_df)
-        metrics_path = os.path.join(self.output_dir+"/metrics", f"metrics_{csv_output_path}")
+        metrics_basename = csv_output_path.split('/')[-1]
+        metrics_path = os.path.join(self.output_dir+"/metrics", f"metrics_{metrics_basename}")
         metrics.to_csv(metrics_path, index=False)
-        
         logger.info(f"Evaluation complete. Results saved to {metrics_path} and {csv_output_path}")
         return results_df
     
