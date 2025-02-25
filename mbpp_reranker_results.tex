@@ -1,0 +1,40 @@
+% Required packages: booktabs, xcolor, colortbl
+% Define colors for different levels of change
+\definecolor{lightgreen}{RGB}{220,240,220}
+\definecolor{darkgreen}{RGB}{150,200,150}
+\definecolor{lightred}{RGB}{240,220,220}
+\definecolor{darkred}{RGB}{200,150,150}
+
+\begin{table}[h]
+\centering
+\begin{tabular}{l|ccc|c}
+\toprule
+\textbf{Normalization} & \textbf{Recall@1} & \textbf{Recall@5} & \textbf{Recall@10} & \textbf{Recall@25} \\
+\midrule
+None & \cellcolor{lightred}98.6/94.6 & \cellcolor{lightred}100.0/99.6 & \cellcolor{lightred}100.0/99.8 & 100.0/- \\
+Docstring & \cellcolor{lightgreen}62.4/70.2 & \cellcolor{lightgreen}87.0/89.2 & \cellcolor{lightgreen}91.4/93.2 & 95.2/- \\
+Functions & \cellcolor{darkgreen}22.0/36.8 & \cellcolor{darkgreen}39.8/51.0 & \cellcolor{lightgreen}49.0/55.0 & 58.4/- \\
+Variables & \cellcolor{lightgreen}56.0/63.4 & \cellcolor{lightgreen}80.2/83.4 & \cellcolor{lightgreen}85.4/86.6 & 91.0/- \\
+Both & \cellcolor{lightgreen}9.0/18.4 & \cellcolor{darkgreen}18.6/29.0 & \cellcolor{lightgreen}23.6/31.4 & 33.4/- \\
+\bottomrule
+\end{tabular}
+\caption{Baseline/Pseudocode Recall Scores (\%) using meta-llama/Llama-3.1-8B-Instruct and avsolatorio/GIST-large-Embedding-v0. Dark green: $>$10 points improvement, Light green: 0-10 points improvement, Light red: 0-10 points decrease, Dark red: $>$10 points decrease. For Recall@25, only baseline scores are shown.}
+\label{tab:pseudo-scores-llama_3.1_8b_instruct}
+\end{table}
+
+\begin{table}[h]
+\centering
+\begin{tabular}{l|ccc|c}
+\toprule
+\textbf{Normalization} & \textbf{Recall@1} & \textbf{Recall@5} & \textbf{Recall@10} & \textbf{Recall@25} \\
+\midrule
+None & \cellcolor{lightred}97.8/95.2 & \cellcolor{lightred}100.0/99.8 & \cellcolor{lightred}100.0/99.8 & 100.0/- \\
+Docstring & \cellcolor{lightgreen}60.6/67.4 & \cellcolor{lightgreen}87.0/90.2 & \cellcolor{lightgreen}90.4/93.4 & 95.6/- \\
+Functions & \cellcolor{darkgreen}19.0/35.0 & \cellcolor{darkgreen}38.2/52.6 & \cellcolor{lightgreen}51.2/56.8 & 61.0/- \\
+Variables & \cellcolor{lightgreen}55.2/63.4 & \cellcolor{lightgreen}79.6/83.2 & \cellcolor{lightgreen}86.8/87.2 & 92.2/- \\
+Both & \cellcolor{darkgreen}8.4/19.4 & \cellcolor{darkgreen}18.2/28.8 & \cellcolor{lightgreen}24.0/31.8 & 34.4/- \\
+\bottomrule
+\end{tabular}
+\caption{Baseline/Pseudocode Recall Scores (\%) using meta-llama/Llama-3.1-8B-Instruct and avsolatorio/GIST-Embedding-v0. Dark green: $>$10 points improvement, Light green: 0-10 points improvement, Light red: 0-10 points decrease, Dark red: $>$10 points decrease. For Recall@25, only baseline scores are shown.}
+\label{tab:pseudo-scores-llama_3.1_8b_instruct}
+\end{table}

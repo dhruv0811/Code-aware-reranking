@@ -1,0 +1,57 @@
+=== Combined Approach Experiment Summary ===
+
+Dataset: openai_humaneval
+Experiment ID: combined_pseudo_rerank_20250220_003810
+
+Best Configurations by Recall@K:
+
+Best for Recall@1 = 0.970:
+- LLM: meta-llama/Llama-3.1-8B-Instruct
+- Embeddings: avsolatorio/GIST-large-Embedding-v0
+- Normalization: none
+- Rerank K: 25
+- Alpha: 0.7
+
+Best for Recall@5 = 0.994:
+- LLM: meta-llama/Llama-3.1-8B-Instruct
+- Embeddings: avsolatorio/GIST-large-Embedding-v0
+- Normalization: none
+- Rerank K: 25
+- Alpha: 0.7
+
+Best for Recall@10 = 0.994:
+- LLM: meta-llama/Llama-3.1-8B-Instruct
+- Embeddings: avsolatorio/GIST-large-Embedding-v0
+- Normalization: none
+- Rerank K: 25
+- Alpha: 0.7
+
+Best for Recall@25 = 0.994:
+- LLM: meta-llama/Llama-3.1-8B-Instruct
+- Embeddings: avsolatorio/GIST-large-Embedding-v0
+- Normalization: none
+- Rerank K: 25
+- Alpha: 0.7
+
+Best for Recall@50 = 0.994:
+- LLM: meta-llama/Llama-3.1-8B-Instruct
+- Embeddings: avsolatorio/GIST-large-Embedding-v0
+- Normalization: none
+- Rerank K: 25
+- Alpha: 0.7
+
+Best for Recall@100 = 1.000:
+- LLM: meta-llama/Llama-3.1-8B-Instruct
+- Embeddings: avsolatorio/GIST-large-Embedding-v0
+- Normalization: none
+- Rerank K: 25
+- Alpha: 0.7
+
+Average Improvements:
+K	Baseline	Pseudocode	Combined	Improvement over Baseline	Improvement over Pseudocode
+1	0.729	0.432	0.484	-0.245	0.052
+5	0.822	0.519	0.547	-0.275	0.029
+10	0.851	0.546	0.564	-0.287	0.018
+25	0.890	0.582	0.582	-0.308	0.000
+50	0.918	0.609	0.609	-0.309	0.000
+100	0.943	0.641	0.641	-0.302	0.000

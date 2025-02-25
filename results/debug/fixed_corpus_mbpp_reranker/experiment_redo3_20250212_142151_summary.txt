@@ -39,9 +39,9 @@ Best for Recall@100 = 1.000:
 - Rerank K: 25
 
 Average Improvements Over Baseline:
-Recall@1: -0.061
-Recall@5: -0.045
-Recall@10: -0.030
+Recall@1: 0.012
+Recall@5: 0.013
+Recall@10: -0.005
 Recall@25: 0.000
 Recall@50: 0.000
 Recall@100: 0.000

@@ -1,0 +1,11 @@
+[
+  {
+    "llm_model": "meta-llama/Llama-3.1-70B-Instruct",
+    "embedding_model": "avsolatorio/GIST-large-Embedding-v0",
+    "normalization_type": "none",
+    "rerank_k": 25,
+    "initial_k": 100,
+    "alpha": 0.7,
+    "error": "name 'load_dataset' is not defined"
+  }
+]

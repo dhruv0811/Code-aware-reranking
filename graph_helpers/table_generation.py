@@ -15,7 +15,7 @@ def create_latex_tables(json_file, output_file):
     # Group data by model combinations
     model_groups = {}
     for entry in filtered_data:
-        if entry['embedding_model'] == 'sentence-transformers/all-mpnet-base-v2':
+        if entry['llm_model'] == 'meta-llama/Llama-3.1-8B-Instruct':
             model_key = (entry['llm_model'], entry['embedding_model'])
             if model_key not in model_groups:
                 model_groups[model_key] = []
@@ -47,13 +47,13 @@ def create_latex_tables(json_file, output_file):
         # Sort the data by normalization type
         group_data.sort(key=lambda x: order[x['normalization_type']])
         
-        recall_ks = [10, 25, 50, 100]
+        recall_ks = [1, 5, 10, 25]
         
         # Build each table
         table = [
             "\\begin{table}[h]",
             "\\centering",
-            "\\begin{tabular}{l|" + "c" * (len(recall_ks) - 1) + "c}",
+            "\\begin{tabular}{l|" + "c" * (len(recall_ks) - 1) + "|c}",
             "\\toprule",
             "\\textbf{Normalization} & " + " & ".join([f"\\textbf{{Recall@{k}}}" for k in recall_ks]) + " \\\\",
             "\\midrule"
@@ -65,11 +65,11 @@ def create_latex_tables(json_file, output_file):
             scores = []
             for k in recall_ks:
                 baseline = entry[f'baseline_recall@{k}']
-                # reranked = entry[f'reranked_recall@{k}']
-                reranked = entry[f'pseudo_recall@{k}']
+                reranked = entry[f'reranked_recall@{k}']
+                # reranked = entry[f'pseudo_recall@{k}']
                 
                 # Handle Recall@25 differently
-                if k == 200:
+                if k == 25:
                     score_str = f"{baseline*100:.1f}/-"
                 else:
                     score_str = f"{baseline*100:.1f}/{reranked*100:.1f}"
@@ -78,7 +78,7 @@ def create_latex_tables(json_file, output_file):
                 diff = (reranked - baseline) * 100
                 
                 # Add cell color based on difference (skip for Recall@50)
-                if k != 200:  # Only color non-Recall@50 cells
+                if k != 25:  # Only color non-Recall@50 cells
                     if diff > 10:
                         score_str = f"\\cellcolor{{darkgreen}}{score_str}"
                     elif diff > 0:
@@ -108,6 +108,8 @@ def create_latex_tables(json_file, output_file):
         
         latex_tables.extend(table)
     
+    print(latex_tables)
+    
     # Save all tables to file
     with open(output_file, 'w') as f:
         f.write("\n".join(latex_tables))
@@ -120,9 +122,13 @@ if __name__ == "__main__":
     #                                    "tables/FIXED_all_model_results.tex")
     # print("Tables have been saved to tables/all_model_results.tex")
 
-    latex_output = create_latex_tables("pseduo_merged_results.json", 
-                                       "tables/pseudo_all_model_results.tex")
-    print("Tables have been saved to tables/all_model_results.tex")
+    # latex_output = create_latex_tables("pseduo_merged_results.json", 
+    #                                    "tables/pseudo_all_model_results.tex")
+    
+    latex_output = create_latex_tables("./results/fixed_corpus_mbpp_reranker/experiment_redo3_20250212_130621_results.json", 
+                                       "mbpp_reranker_results.tex")
+    
+    # print("Tables have been saved to tables/all_model_results.tex")
 
 # Example usage
 # if __name__ == "__main__":
