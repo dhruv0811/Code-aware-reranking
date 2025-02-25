@@ -26,8 +26,8 @@ LLM_MODELS = [
 ]
 
 EMBEDDING_MODELS = [
-    "avsolatorio/GIST-large-Embedding-v0",
-    "avsolatorio/GIST-Embedding-v0"
+    "avsolatorio/GIST-large-Embedding-v0"
+    # "avsolatorio/GIST-Embedding-v0"
     # "BAAI/bge-large-en-v1.5",
     # "intfloat/multilingual-e5-large"
 ]
