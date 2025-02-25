@@ -17,7 +17,7 @@ logging.basicConfig(
     level=logging.INFO,
     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
     handlers=[
-        logging.FileHandler("rag_evaluation.log"),
+        logging.FileHandler("logs/rag_generation_evaluation.log"),
         logging.StreamHandler()
     ]
 )
@@ -289,7 +289,9 @@ class RAGEvaluator:
         self, 
         json_input_path: str,
         model_name: str = "meta-llama/Llama-3.1-70B-Instruct",
-        output_dir: str = "rag_results"
+        output_dir: str = "results/generation/outputs",
+        metric_dir: str = "results/generation/metrics",
+        compare_dir: str = "results/generation/recency_bias",
     ):
         """Initialize the RAG evaluator with JSON input."""
         self.json_input_path = json_input_path
@@ -304,7 +306,9 @@ class RAGEvaluator:
         self.code_repo = CodeRepository(normalization_type=normalization_type)
         self.output_dir = output_dir
         os.makedirs(output_dir, exist_ok=True)
-        os.makedirs(output_dir + "/metrics", exist_ok=True)
+        os.makedirs(compare_dir, exist_ok=True)
+        os.makedirs(compare_dir + "/pivot", exist_ok=True)
+        os.makedirs(metric_dir, exist_ok=True)
         
         logger.info(f"Initialized RAG evaluator with JSON input from {json_input_path}")
     
@@ -410,7 +414,7 @@ class RAGEvaluator:
                     # Save intermediate results frequently
                     if len(results) % 10 == 0:
                         interim_df = pd.DataFrame(results)
-                        interim_path = os.path.join(self.output_dir, "interim_results.csv")
+                        interim_path = "results/generation/interim_results.csv"
                         interim_df.to_csv(interim_path, index=False)
                         
             except Exception as e:
@@ -438,7 +442,7 @@ class RAGEvaluator:
         # Calculate aggregated metrics
         metrics = self._calculate_metrics(results_df)
         metrics_basename = csv_output_path.split('/')[-1]
-        metrics_path = os.path.join(self.output_dir+"/metrics", f"metrics_{metrics_basename}")
+        metrics_path = os.path.join(self.metric_dir, f"metrics_{metrics_basename}")
         metrics.to_csv(metrics_path, index=False)
         logger.info(f"Evaluation complete. Results saved to {metrics_path} and {csv_output_path}")
         return results_df
@@ -504,7 +508,7 @@ class RAGEvaluator:
         
         # Save comparison results
         timestamp = time.strftime("%Y%m%d_%H%M%S")
-        comparison_path = os.path.join(self.output_dir, f"recency_bias_comparison_{timestamp}.csv")
+        comparison_path = os.path.join(self.compare_dir, f"recency_bias_comparison_{timestamp}.csv")
         combined_metrics.to_csv(comparison_path, index=False)
         
         # Create a pivot table for easier comparison
@@ -523,7 +527,7 @@ class RAGEvaluator:
                 columns=["ordering"]
             )
             
-        pivot_path = os.path.join(self.output_dir, f"recency_bias_pivot_{timestamp}.csv")
+        pivot_path = os.path.join(self.compare_dir+"/pivot", f"recency_bias_pivot_{timestamp}.csv")
         pivot.to_csv(pivot_path)
         
         logger.info(f"Comparison complete. Results saved to {comparison_path}")
@@ -554,7 +558,7 @@ def main():
     parser.add_argument(
         "--output_dir", 
         type=str, 
-        default="results/rag_evaluation",
+        default="results/generation/outputs",
         help="Directory to save evaluation results"
     )
     parser.add_argument(
@@ -608,4 +612,4 @@ def main():
 if __name__ == "__main__":
     main()
 
-# python Generation.py --json_input /home/gganeshl/Code-aware-reranking/results/humaneval_best_saved/retrieved_docs/docs_openai_humaneval_Llama-3.1-8B-Instruct_GIST-large-Embedding-v0_none_k5.json --k_values 1,5,10
+# python src/Generation.py --json_input /home/gganeshl/Code-aware-reranking/results/humaneval_best_saved/retrieved_docs/docs_openai_humaneval_Llama-3.1-8B-Instruct_GIST-large-Embedding-v0_none_k5.json --k_values 1,5,10
