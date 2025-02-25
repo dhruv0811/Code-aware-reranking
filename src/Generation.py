@@ -52,18 +52,13 @@ class CodeGenerator:
         if reverse_order:
             examples = examples[::-1]
             
-        examples_text = "\n\n".join([f"Example {i+1}:\n```python\n{code}\n```" for i, code in enumerate(examples)])
+        examples_text = "\n\n".join([f"Example {i+1}:\n```python\n{code}\n````" for i, code in enumerate(examples)])
         
         prompt = f"""Write this Python function:
-
 {query}
-
-Here are {min(k, len(examples))} example solutions for similar problems that might help:
-
+Here are {min(k, len(examples))} similar solutions that might help:
 {examples_text}
-
-Based on the problem description and these examples, please write a Python function, of the same name that solves the given problem. 
-Your solution should be correct, efficient, and follow good coding practices. Return the python function after "Answer:". Give no other output.
+Please write a correct, efficient Python function, of the same name that solves the given problem. Return only the python function after "```python", without the docstring. Have import statements if necessary. 
 """
         return prompt
     
@@ -88,18 +83,26 @@ Your solution should be correct, efficient, and follow good coding practices. Re
                     ],
                     max_tokens=512,
                     temperature=0.2,
-                    stop=["```"]
+                    stop=["````"]
                 )
                 
                 generated_code = completion.choices[0].message.content.strip()
-                print("Prompt: ", prompt)
-                print("Generated code: ", generated_code)
-                # Remove markdown code blocks if present
-                if generated_code.startswith("```python"):
-                    generated_code = generated_code[10:].strip()
+                
+                if "```python" in generated_code:
+                    code_parts = generated_code.split("```python", 1)[1]
+                    if "```" in code_parts:
+                        generated_code = code_parts.split("```", 1)[0].strip()
+                    else:
+                        generated_code = code_parts.strip()
+                # If no python marker but still has backticks
+                elif generated_code.startswith("```") and "```" in generated_code[3:]:
+                    generated_code = generated_code.split("```", 2)[1].strip()
+                
+                # Final cleanup - ensure no trailing backticks
                 if generated_code.endswith("```"):
                     generated_code = generated_code[:-3].strip()
-                
+                    
+                print("Generated code (cleaned): ", generated_code)
                 return generated_code
                 
             except Exception as e:
@@ -115,10 +118,11 @@ Your solution should be correct, efficient, and follow good coding practices. Re
 class CodeRepository:
     """Class to load and manage the code corpus."""
     
-    def __init__(self, humaneval_dataset_path: str = "openai_humaneval"):
+    def __init__(self, corpus: str = "code-rag-bench/programming-solutions"):
         """Initialize the code repository with HumanEval and potentially other code sources."""
-        self.humaneval_dataset = load_dataset(humaneval_dataset_path)
+        self.corpus = load_dataset(corpus)
         self.code_cache = {}  # Cache for code content by ID
+        logger.info(f"Loaded corpus with {sum(len(self.corpus[split]) for split in self.corpus)} entries")
         
     def get_solution_by_id(self, doc_id: str) -> str:
         """Get the code content for a document ID."""
@@ -126,30 +130,20 @@ class CodeRepository:
         if doc_id in self.code_cache:
             return self.code_cache[doc_id]
         
-        # Process HumanEval IDs
-        if doc_id.startswith("HumanEval/") or doc_id.isdigit() or (doc_id.startswith("HumanEval") and doc_id[9:].isdigit()):
-            task_id = doc_id
-            if doc_id.isdigit():
-                task_id = f"HumanEval/{doc_id}"
-            
-            # Search the HumanEval dataset
-            for item in self.humaneval_dataset["test"]:
-                if item["task_id"] == task_id:
-                    code = item.get("canonical_solution", "")
-                    self.code_cache[doc_id] = code
-                    return code
-            
-            # Try more flexible matching if we didn't find it
-            task_id_num = task_id.split("/")[-1]
-            for item in self.humaneval_dataset["test"]:
-                if item["task_id"].endswith(task_id_num):
-                    code = item.get("canonical_solution", "")
-                    self.code_cache[doc_id] = code
-                    return code
+        # Search through all splits in the corpus
+        for split in self.corpus:
+            for item in self.corpus[split]:
+                # Check meta column for direct task_id match
+                if "meta" in item and isinstance(item["meta"], dict) and "task_id" in item["meta"]:
+                    if item["meta"]["task_id"] == doc_id:
+                        # Extract the code content
+                        if "text" in item:
+                            code = item["text"]
+                            self.code_cache[doc_id] = code
+                            return code
         
-        # For other IDs (non-HumanEval), you would implement additional retrieval logic here
-        # This is a placeholder for future extension
-        logger.warning(f"Code for ID {doc_id} not found")
+        # Log the miss but don't throw an error
+        logger.info(f"No solution found for ID {doc_id}")
         self.code_cache[doc_id] = ""  # Cache the miss
         return ""
 
@@ -165,7 +159,7 @@ class HumanEvalEvaluator:
         """Get the problem details by task_id."""
         # Normalize task_id format (HumanEval/X or just X)
         if not task_id.startswith("HumanEval/"):
-            try:
+            try:  
                 # If it's just a number, add the prefix
                 task_id_int = int(task_id)
                 task_id = f"HumanEval/{task_id_int}"

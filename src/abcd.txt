@@ -1,0 +1,2962 @@
+Generated code (cleaned):  from typing import List
+
+def has_close_elements(numbers: List[float], threshold: float) -> bool:
+    numbers.sort()
+    for i in range(1, len(numbers)):
+        if numbers[i] - numbers[i-1] < threshold:
+            return True
+    return False
+Generated code (cleaned):  from typing import List
+
+def has_close_elements(numbers: List[float], threshold: float) -> bool:
+    numbers.sort()
+    for i in range(len(numbers) - 1):
+        if numbers[i + 1] - numbers[i] < threshold:
+            return True
+    return False
+Generated code (cleaned):  from typing import List
+
+def has_close_elements(numbers: List[float], threshold: float) -> bool:
+    numbers.sort()
+    for i in range(1, len(numbers)):
+        if numbers[i] - numbers[i-1] < threshold:
+            return True
+    return False
+Generated code (cleaned):  from typing import List
+
+def separate_paren_groups(paren_string: str) -> List[str]:
+    result = []
+    current_string = []
+    current_depth = 0
+
+    for c in paren_string.replace(' ', ''):
+        if c == '(':
+            current_depth += 1
+            current_string.append(c)
+        elif c == ')':
+            current_depth -= 1
+            current_string.append(c)
+
+            if current_depth == 0:
+                result.append(''.join(current_string))
+                current_string.clear()
+
+    return result
+Generated code (cleaned):  from typing import List
+
+def separate_paren_groups(paren_string: str) -> List[str]:
+    result = []
+    current_string = []
+    current_depth = 0
+
+    for c in paren_string.replace(' ', ''):
+        if c == '(':
+            current_depth += 1
+            current_string.append(c)
+        elif c == ')':
+            current_depth -= 1
+            current_string.append(c)
+
+            if current_depth == 0:
+                result.append(''.join(current_string))
+                current_string.clear()
+
+    return result
+Generated code (cleaned):  from typing import List
+
+def separate_paren_groups(paren_string: str) -> List[str]:
+    result = []
+    current_string = []
+    current_depth = 0
+
+    paren_string = paren_string.replace(' ', '')
+
+    for c in paren_string:
+        if c == '(':
+            current_depth += 1
+            current_string.append(c)
+        elif c == ')':
+            current_depth -= 1
+            current_string.append(c)
+
+            if current_depth == 0:
+                result.append(''.join(current_string))
+                current_string.clear()
+
+    return result
+Generated code (cleaned):  def truncate_number(number: float) -> float:
+    return number - int(number)
+Generated code (cleaned):  def truncate_number(number: float) -> float:
+    return number - int(number)
+Generated code (cleaned):  def truncate_number(number: float) -> float:
+    return number - int(number)
+Generated code (cleaned):  from typing import List
+
+def below_zero(operations: List[int]) -> bool:
+    balance = 0
+    for op in operations:
+        balance += op
+        if balance < 0:
+            return True
+    return False
+Generated code (cleaned):  from typing import List
+
+def below_zero(operations: List[int]) -> bool:
+    balance = 0
+    for op in operations:
+        balance += op
+        if balance < 0:
+            return True
+    return False
+Generated code (cleaned):  from typing import List
+
+def below_zero(operations: List[int]) -> bool:
+    balance = 0
+    for op in operations:
+        balance += op
+        if balance < 0:
+            return True
+    return False
+Generated code (cleaned):  from typing import List
+import statistics
+
+def mean_absolute_deviation(numbers: List[float]) -> float:
+    mean = statistics.mean(numbers)
+    return sum(abs(x - mean) for x in numbers) / len(numbers)
+Generated code (cleaned):  from typing import List
+
+def mean_absolute_deviation(numbers: List[float]) -> float:
+    mean = sum(numbers) / len(numbers)
+    return sum(abs(x - mean) for x in numbers) / len(numbers)
+Generated code (cleaned):  from typing import List
+
+def mean_absolute_deviation(numbers: List[float]) -> float:
+    mean = sum(numbers) / len(numbers)
+    return sum(abs(x - mean) for x in numbers) / len(numbers)
+Generated code (cleaned):  from typing import List
+from itertools import chain, repeat
+
+def intersperse(numbers: List[int], delimeter: int) -> List[int]:
+    return list(chain.from_iterable(zip(numbers, repeat(delimeter))) if numbers else []) + [numbers[-1]] if numbers else []
+Generated code (cleaned):  from typing import List
+from itertools import chain, repeat
+
+def intersperse(numbers: List[int], delimeter: int) -> List[int]:
+    return list(chain(*zip(numbers, repeat(delimeter))))[:-1] + [numbers[-1]]
+Generated code (cleaned):  from typing import List
+from itertools import chain, zip_longest
+
+def intersperse(numbers: List[int], delimeter: int) -> List[int]:
+    return list(chain.from_iterable(zip_longest(numbers, [delimeter]*len(numbers), fillvalue=delimeter)))
+Generated code (cleaned):  from typing import List
+
+def parse_nested_parens(paren_string: str) -> List[int]:
+    def parse_paren_group(s):
+        depth = 0
+        max_depth = 0
+        for c in s:
+            if c == '(':
+                depth += 1
+                max_depth = max(depth, max_depth)
+            elif c == ')':
+                depth -= 1
+        return max_depth
+
+    return [parse_paren_group(x) for x in paren_string.split() if x]
+Generated code (cleaned):  from typing import List
+
+def parse_nested_parens(paren_string: str) -> List[int]:
+    def parse_paren_group(s):
+        depth = 0
+        max_depth = 0
+        for c in s:
+            if c == '(':
+                depth += 1
+                max_depth = max(depth, max_depth)
+            elif c == ')':
+                depth -= 1
+        return max_depth
+
+    return [parse_paren_group(x) for x in paren_string.split(' ') if x]
+Generated code (cleaned):  from typing import List
+
+def parse_nested_parens(paren_string: str) -> List[int]:
+    def parse_paren_group(s):
+        depth = 0
+        max_depth = 0
+        for c in s:
+            if c == '(':
+                depth += 1
+                max_depth = max(depth, max_depth)
+            else:
+                depth -= 1
+        return max_depth
+
+    return [parse_paren_group(x) for x in paren_string.split(' ') if x]
+Generated code (cleaned):  from typing import List
+
+def filter_by_substring(strings: List[str], substring: str) -> List[str]:
+    return [x for x in strings if substring in x]
+Generated code (cleaned):  from typing import List
+
+def filter_by_substring(strings: List[str], substring: str) -> List[str]:
+    return [x for x in strings if substring in x]
+Generated code (cleaned):  from typing import List
+
+def filter_by_substring(strings: List[str], substring: str) -> List[str]:
+    return [x for x in strings if substring in x]
+Generated code (cleaned):  from typing import List, Tuple
+from math import prod
+from functools import reduce
+from operator import add
+
+def sum_product(numbers: List[int]) -> Tuple[int, int]:
+    return reduce(add, numbers, 0), prod(numbers, 1)
+Generated code (cleaned):  from typing import List, Tuple
+from math import prod
+from functools import reduce
+from operator import add
+
+def sum_product(numbers: List[int]) -> Tuple[int, int]:
+    return reduce(add, numbers, 0), prod(numbers, 1)
+Generated code (cleaned):  from typing import List, Tuple
+from math import prod
+from functools import reduce
+from operator import add
+
+def sum_product(numbers: List[int]) -> Tuple[int, int]:
+    return reduce(add, numbers, 0), prod(numbers, 1)
+Generated code (cleaned):  from typing import List
+
+def rolling_max(numbers: List[int]) -> List[int]:
+    result = []
+    running_max = float('-inf')
+    
+    for n in numbers:
+        running_max = max(running_max, n)
+        result.append(running_max)
+
+    return result
+Generated code (cleaned):  from typing import List
+
+def rolling_max(numbers: List[int]) -> List[int]:
+    return [max(numbers[:i+1]) for i in range(len(numbers))]
+Generated code (cleaned):  from typing import List
+
+def rolling_max(numbers: List[int]) -> List[int]:
+    result = []
+    current_max = float('-inf')
+    for num in numbers:
+        current_max = max(current_max, num)
+        result.append(current_max)
+    return result
+Generated code (cleaned):  def make_palindrome(string: str) -> str:
+    if not string:
+        return ''
+
+    beginning_of_suffix = len(string) - 1
+
+    while not string[beginning_of_suffix:] == string[beginning_of_suffix:][::-1]:
+        beginning_of_suffix -= 1
+
+    return string + string[:beginning_of_suffix+1][::-1]
+Generated code (cleaned):  def make_palindrome(string: str) -> str:
+    if not string:
+        return ''
+
+    beginning_of_suffix = len(string) - 1
+
+    while not string[beginning_of_suffix:] == string[beginning_of_suffix:][::-1]:
+        beginning_of_suffix -= 1
+
+    return string + string[:beginning_of_suffix+1][::-1]
+Generated code (cleaned):  def make_palindrome(string: str) -> str:
+    if not string:
+        return ''
+
+    beginning_of_suffix = len(string) - 1
+
+    while not string[beginning_of_suffix:] == string[beginning_of_suffix:][::-1]:
+        beginning_of_suffix -= 1
+
+    return string + string[:beginning_of_suffix][::-1]
+Generated code (cleaned):  from typing import List
+
+def string_xor(a: str, b: str) -> str:
+    return ''.join('0' if x == y else '1' for x, y in zip(a, b))
+Generated code (cleaned):  from typing import List
+
+def string_xor(a: str, b: str) -> str:
+    return ''.join('1' if x!= y else '0' for x, y in zip(a, b))
+Generated code (cleaned):  from typing import List
+
+def string_xor(a: str, b: str) -> str:
+    return ''.join('1' if x!= y else '0' for x, y in zip(a, b))
+Generated code (cleaned):  from typing import List, Optional
+
+def longest(strings: List[str]) -> Optional[str]:
+    return next((s for s in strings if len(s) == max(map(len, strings))), None)
+Generated code (cleaned):  from typing import List, Optional
+
+def longest(strings: List[str]) -> Optional[str]:
+    if not strings:
+        return None
+    return max(strings, key=len)
+Generated code (cleaned):  from typing import List, Optional
+
+def longest(strings: List[str]) -> Optional[str]:
+    if not strings:
+        return None
+    return max(strings, key=len)
+Generated code (cleaned):  import math
+
+def greatest_common_divisor(a: int, b: int) -> int:
+    return math.gcd(a, b)
+Generated code (cleaned):  import math
+
+def greatest_common_divisor(a: int, b: int) -> int:
+    return math.gcd(a, b)
+Generated code (cleaned):  def greatest_common_divisor(a: int, b: int) -> int:
+    while b:
+        a, b = b, a % b
+    return a
+Generated code (cleaned):  from typing import List
+
+def all_prefixes(string: str) -> List[str]:
+    return [string[:i+1] for i in range(len(string))]
+Generated code (cleaned):  from typing import List
+
+def all_prefixes(string: str) -> List[str]:
+    return [string[:i+1] for i in range(len(string))]
+Generated code (cleaned):  from typing import List
+
+def all_prefixes(string: str) -> List[str]:
+    return [string[:i+1] for i in range(len(string))]
+Generated code (cleaned):  def string_sequence(n: int) -> str:
+    return''.join(map(str, range(n + 1)))
+Generated code (cleaned):  def string_sequence(n: int) -> str:
+    return''.join(map(str, range(n + 1)))
+Generated code (cleaned):  def string_sequence(n: int) -> str:
+    return''.join(map(str, range(n + 1)))
+Generated code (cleaned):  def count_distinct_characters(string: str) -> int:
+    return len(set(string.casefold()))
+Generated code (cleaned):  def count_distinct_characters(string: str) -> int:
+    return len(set(string.casefold()))
+Generated code (cleaned):  def count_distinct_characters(string: str) -> int:
+    return len(set(string.casefold()))
+Generated code (cleaned):  from typing import List
+
+def parse_music(music_string: str) -> List[int]:
+    note_map = {'o': 4, 'o|': 2, '.|': 1}
+    return [note_map[x] for x in music_string.split() if x]
+Generated code (cleaned):  from typing import List
+
+def parse_music(music_string: str) -> List[int]:
+    note_map = {'o': 4, 'o|': 2, '.|': 1}
+    notes = music_string.split()
+    beats = []
+    i = 0
+    while i < len(notes):
+        if notes[i] == 'o':
+            beats.append(note_map['o'])
+        elif notes[i] == 'o|' or notes[i] == '.|':
+            beats.append(note_map[notes[i]])
+        else:
+            i += 1
+            continue
+        i += 1
+    return beats
+Generated code (cleaned):  from typing import List
+
+def parse_music(music_string: str) -> List[int]:
+    note_map = {'o': 4, 'o|': 2, '.|': 1}
+    notes = music_string.split()
+    result = []
+    temp = ''
+    for note in notes:
+        if note in note_map:
+            result.append(note_map[note])
+        else:
+            temp += note
+            if temp in note_map:
+                result.append(note_map[temp])
+                temp = ''
+    return result
+Generated code (cleaned):  def how_many_times(string: str, substring: str) -> int:
+    return sum(1 for i in range(len(string) - len(substring) + 1) if string[i:i+len(substring)] == substring)
+Generated code (cleaned):  def how_many_times(string: str, substring: str) -> int:
+    return sum(1 for i in range(len(string) - len(substring) + 1) if string[i:i+len(substring)] == substring)
+Generated code (cleaned):  def how_many_times(string: str, substring: str) -> int:
+    return sum(1 for i in range(len(string)) if string.startswith(substring, i))
+Generated code (cleaned):  from typing import List
+
+def sort_numbers(numbers: str) -> str:
+    value_map = {
+        'zero': 0,
+        'one': 1,
+        'two': 2,
+        'three': 3,
+        'four': 4,
+        'five': 5,
+       'six': 6,
+       'seven': 7,
+        'eight': 8,
+        'nine': 9
+    }
+    return''.join(sorted(numbers.split(), key=value_map.get))
+Generated code (cleaned):  from typing import List
+
+def sort_numbers(numbers: str) -> str:
+    value_map = {
+        'zero': 0,
+        'one': 1,
+        'two': 2,
+        'three': 3,
+        'four': 4,
+        'five': 5,
+       'six': 6,
+       'seven': 7,
+        'eight': 8,
+        'nine': 9
+    }
+    return''.join(sorted(numbers.split(), key=value_map.get))
+Generated code (cleaned):  from typing import List
+
+def sort_numbers(numbers: str) -> str:
+    value_map = {
+        'zero': 0,
+        'one': 1,
+        'two': 2,
+        'three': 3,
+        'four': 4,
+        'five': 5,
+       'six': 6,
+       'seven': 7,
+        'eight': 8,
+        'nine': 9
+    }
+    return''.join(sorted([x for x in numbers.split(' ') if x in value_map], key=lambda x: value_map[x]))
+Generated code (cleaned):  from typing import List, Tuple
+
+def find_closest_elements(numbers: List[float]) -> Tuple[float, float]:
+    numbers.sort()
+    min_distance = float('inf')
+    closest_pair = None
+
+    for i in range(len(numbers) - 1):
+        distance = numbers[i + 1] - numbers[i]
+        if distance < min_distance:
+            min_distance = distance
+            closest_pair = (numbers[i], numbers[i + 1])
+
+    return closest_pair
+Generated code (cleaned):  from typing import List, Tuple
+
+def find_closest_elements(numbers: List[float]) -> Tuple[float, float]:
+    numbers.sort()
+    min_diff = float('inf')
+    closest_pair = None
+    for i in range(len(numbers) - 1):
+        diff = numbers[i + 1] - numbers[i]
+        if diff < min_diff:
+            min_diff = diff
+            closest_pair = (numbers[i], numbers[i + 1])
+    return closest_pair
+Generated code (cleaned):  from typing import List, Tuple
+import itertools
+
+def find_closest_elements(numbers: List[float]) -> Tuple[float, float]:
+    min_distance = float('inf')
+    closest_pair = None
+    for pair in itertools.combinations(numbers, 2):
+        distance = abs(pair[0] - pair[1])
+        if distance < min_distance:
+            min_distance = distance
+            closest_pair = tuple(sorted(pair))
+    return closest_pair
+Generated code (cleaned):  from typing import List
+
+def rescale_to_unit(numbers: List[float]) -> List[float]:
+    min_number, max_number = min(numbers), max(numbers)
+    return [(x - min_number) / (max_number - min_number) for x in numbers]
+Generated code (cleaned):  from typing import List
+
+def rescale_to_unit(numbers: List[float]) -> List[float]:
+    min_number, max_number = min(numbers), max(numbers)
+    return [(x - min_number) / (max_number - min_number) for x in numbers]
+Generated code (cleaned):  from typing import List
+
+def rescale_to_unit(numbers: List[float]) -> List[float]:
+    min_number = min(numbers)
+    max_number = max(numbers)
+    return [(x - min_number) / (max_number - min_number) for x in numbers]
+Generated code (cleaned):  from typing import List, Any
+
+def filter_integers(values: List[Any]) -> List[int]:
+    return [x for x in values if isinstance(x, int)]
+Generated code (cleaned):  from typing import List, Any
+
+def filter_integers(values: List[Any]) -> List[int]:
+    return [x for x in values if isinstance(x, int)]
+Generated code (cleaned):  from typing import List, Any
+
+def filter_integers(values: List[Any]) -> List[int]:
+    return [x for x in values if isinstance(x, int)]
+Generated code (cleaned):  def strlen(string: str) -> int:
+    return len(string)
+Generated code (cleaned):  def strlen(string: str) -> int:
+    return len(string)
+Generated code (cleaned):  def strlen(string: str) -> int:
+    return len(string)
+Generated code (cleaned):  def largest_divisor(n: int) -> int:
+    for i in reversed(range(1, n)):
+        if n % i == 0:
+            return i
+Generated code (cleaned):  def largest_divisor(n: int) -> int:
+    for i in range(n - 1, 0, -1):
+        if n % i == 0:
+            return i
+Generated code (cleaned):  def largest_divisor(n: int) -> int:
+    for i in reversed(range(1, n)):
+        if n % i == 0:
+            return i
+Generated code (cleaned):  from typing import List
+import math
+
+def factorize(n: int) -> List[int]:
+    fact = []
+    i = 2
+    while i <= int(math.sqrt(n) + 1):
+        while n % i == 0:
+            fact.append(i)
+            n //= i
+        i += 1
+
+    if n > 1:
+        fact.append(n)
+    return fact
+Generated code (cleaned):  import math
+
+def factorize(n: int) -> List[int]:
+    fact = []
+    i = 2
+    while i <= int(math.sqrt(n) + 1):
+        if n % i == 0:
+            fact.append(i)
+            n //= i
+        else:
+            i += 1
+
+    if n > 1:
+        fact.append(n)
+    return fact
+Generated code (cleaned):  import math
+
+def factorize(n: int) -> List[int]:
+    fact = []
+    i = 2
+    while i <= int(math.sqrt(n) + 1):
+        if n % i == 0:
+            fact.append(i)
+            n //= i
+        else:
+            i += 1
+
+    if n > 1:
+        fact.append(n)
+    return fact
+Generated code (cleaned):  from typing import List
+import collections
+
+def remove_duplicates(numbers: List[int]) -> List[int]:
+    c = collections.Counter(numbers)
+    return [n for n in numbers if c[n] == 1]
+Generated code (cleaned):  from typing import List
+from collections import OrderedDict
+
+def remove_duplicates(numbers: List[int]) -> List[int]:
+    return list(OrderedDict.fromkeys([n for n in numbers if numbers.count(n) == 1]))
+Generated code (cleaned):  from typing import List
+from collections import Counter
+
+def remove_duplicates(numbers: List[int]) -> List[int]:
+    c = Counter(numbers)
+    return [n for n in numbers if c[n] == 1]
+Generated code (cleaned):  def flip_case(string: str) -> str:
+    return string.swapcase()
+Generated code (cleaned):  def flip_case(string: str) -> str:
+    return string.swapcase()
+Generated code (cleaned):  def flip_case(string: str) -> str:
+    return string.swapcase()
+Generated code (cleaned):  from typing import List
+
+def concatenate(strings: List[str]) -> str:
+    return ''.join(strings)
+Generated code (cleaned):  from typing import List
+
+def concatenate(strings: List[str]) -> str:
+    return ''.join(strings)
+Generated code (cleaned):  from typing import List
+
+def concatenate(strings: List[str]) -> str:
+    return ''.join(strings)
+Generated code (cleaned):  from typing import List
+
+def filter_by_prefix(strings: List[str], prefix: str) -> List[str]:
+    return [x for x in strings if x.startswith(prefix)]
+Generated code (cleaned):  from typing import List
+
+def filter_by_prefix(strings: List[str], prefix: str) -> List[str]:
+    return [x for x in strings if x.startswith(prefix)]
+Generated code (cleaned):  from typing import List
+
+def filter_by_prefix(strings: List[str], prefix: str) -> List[str]:
+    return [x for x in strings if x.startswith(prefix)]
+Generated code (cleaned):  def get_positive(l: list):
+    return [e for e in l if e > 0]
+Generated code (cleaned):  def get_positive(l: list):
+    return [e for e in l if e > 0]
+Generated code (cleaned):  def get_positive(l: list):
+    return [e for e in l if e > 0]
+Generated code (cleaned):  import math
+
+def is_prime(n):
+    if n < 2:
+        return False
+    for k in range(2, int(math.sqrt(n)) + 1):
+        if n % k == 0:
+            return False
+    return True
+Generated code (cleaned):  import math
+
+def is_prime(n):
+    if n < 2:
+        return False
+    for k in range(2, min(int(math.sqrt(n)) + 1, n - 1)):
+        if n % k == 0:
+            return False
+    return True
+Generated code (cleaned):  import math
+
+def is_prime(n):
+    if n < 2:
+        return False
+    for k in range(2, min(int(math.sqrt(n)) + 1, n - 1)):
+        if n % k == 0:
+            return False
+    return True
+Generated code (cleaned):  import math
+
+def find_zero(xs: list):
+    if len(xs) % 2!= 0 or xs[-1] == 0:
+        raise ValueError("Input list must have an even number of coefficients and a non-zero leading coefficient")
+
+    begin, end = -1., 1.
+    while poly(xs, begin) * poly(xs, end) > 0:
+        begin *= 2.0
+        end *= 2.0
+    while end - begin > 1e-10:
+        center = (begin + end) / 2.0
+        if poly(xs, center) * poly(xs, begin) > 0:
+            begin = center
+        else:
+            end = center
+    return begin
+Generated code (cleaned):  import math
+
+def find_zero(xs: list):
+    if len(xs) % 2!= 0 or xs[-1] == 0:
+        raise ValueError("Input list must have an even number of coefficients and the largest coefficient must be non-zero")
+
+    begin, end = -1., 1.
+    while poly(xs, begin) * poly(xs, end) > 0:
+        begin *= 2.0
+        end *= 2.0
+    while end - begin > 1e-10:
+        center = (begin + end) / 2.0
+        if poly(xs, center) * poly(xs, begin) > 0:
+            begin = center
+        else:
+            end = center
+    return begin
+Generated code (cleaned):  import math
+
+def find_zero(xs: list):
+    if len(xs) % 2!= 0 or xs[-1] == 0:
+        raise ValueError("Input list must have an even number of coefficients and a non-zero leading coefficient")
+
+    begin, end = -1., 1.
+    while poly(xs, begin) * poly(xs, end) > 0:
+        begin *= 2.0
+        end *= 2.0
+    while end - begin > 1e-10:
+        center = (begin + end) / 2.0
+        if poly(xs, center) * poly(xs, begin) > 0:
+            begin = center
+        else:
+            end = center
+    return begin
+Generated code (cleaned):  def sort_third(l: list):
+    l = list(l)
+    l[::3] = sorted(l[::3])
+    return l
+Generated code (cleaned):  def sort_third(l: list):
+    l = list(l)
+    l[::3] = sorted(l[::3])
+    return l
+Generated code (cleaned):  def sort_third(l: list):
+    l = list(l)
+    l[::3] = sorted(l[::3])
+    return l
+Generated code (cleaned):  def unique(l: list):
+    return sorted(set(l))
+Generated code (cleaned):  def unique(l: list):
+    return sorted(set(l))
+Generated code (cleaned):  def unique(l: list):
+    return sorted(set(l))
+Generated code (cleaned):  def max_element(l: list):
+    return max(l)
+Generated code (cleaned):  def max_element(l: list):
+    return max(l)
+Generated code (cleaned):  def max_element(l: list):
+    return max(l)
+Generated code (cleaned):  def fizz_buzz(n: int):
+    return sum(1 for i in range(n) if ('7' in str(i)) and (i % 11 == 0 or i % 13 == 0))
+Generated code (cleaned):  def fizz_buzz(n: int):
+    return sum(1 for i in range(n) if ('7' in str(i)) and (i % 11 == 0 or i % 13 == 0))
+Generated code (cleaned):  def fizz_buzz(n: int):
+    count = 0
+    for i in range(n):
+        if i % 11 == 0 or i % 13 == 0:
+            count += str(i).count('7')
+    return count
+Generated code (cleaned):  def sort_even(l: list):
+    evens = sorted(l[::2])
+    odds = l[1::2]
+    ans = []
+    for e, o in zip(evens, odds):
+        ans.extend([e, o])
+    if len(evens) > len(odds):
+        ans.append(evens[-1])
+    return ans
+Generated code (cleaned):  def sort_even(l: list):
+    evens = sorted(l[::2])
+    return [x for pair in zip(evens, l[1::2]) for x in pair] + evens[len(l[1::2]):]
+Generated code (cleaned):  def sort_even(l: list):
+    evens = sorted(l[::2])
+    return [val for pair in zip(evens, l[1::2]) for val in pair] + evens[len(l[1::2]):]
+Generated code (cleaned):  def decode_cyclic(s: str):
+    return s[1:] + s[0] if len(s) == 3 else s
+    groups = [s[(3 * i):min((3 * i + 3), len(s))] for i in range((len(s) + 2) // 3)]
+    groups = [(group[2] + group[:2]) if len(group) == 3 else group for group in groups]
+    return "".join(groups)
+Generated code (cleaned):  def decode_cyclic(s: str):
+    return encode_cyclic(encode_cyclic(s))
+Generated code (cleaned):  def decode_cyclic(s: str):
+    return encode_cyclic(encode_cyclic(s))
+Generated code (cleaned):  import math
+
+def prime_fib(n: int):
+    def is_prime(p):
+        if p < 2:
+            return False
+        for k in range(2, min(int(math.sqrt(p)) + 1, p - 1)):
+            if p % k == 0:
+                return False
+        return True
+
+    f = [0, 1]
+    while True:
+        f.append(f[-1] + f[-2])
+        if is_prime(f[-1]):
+            n -= 1
+        if n == 0:
+            return f[-1]
+Generated code (cleaned):  import math
+
+def is_prime(p):
+    if p < 2:
+        return False
+    for k in range(2, min(int(math.sqrt(p)) + 1, p - 1)):
+        if p % k == 0:
+            return False
+    return True
+
+def prime_fib(n: int):
+    a, b = 0, 1
+    count = 0
+    while True:
+        if is_prime(a):
+            count += 1
+            if count == n:
+                return a
+        a, b = b, a + b
+Generated code (cleaned):  import math
+
+def is_prime(p):
+    if p < 2:
+        return False
+    for k in range(2, min(int(math.sqrt(p)) + 1, p - 1)):
+        if p % k == 0:
+            return False
+    return True
+
+def prime_fib(n: int):
+    f = [0, 1]
+    count = 0
+    while True:
+        f.append(f[-1] + f[-2])
+        if is_prime(f[-1]):
+            count += 1
+        if count == n:
+            return f[-1]
+Generated code (cleaned):  def triples_sum_to_zero(l: list):
+    l.sort()
+    for i in range(len(l) - 2):
+        if i > 0 and l[i] == l[i - 1]:
+            continue
+        left, right = i + 1, len(l) - 1
+        while left < right:
+            total = l[i] + l[left] + l[right]
+            if total < 0:
+                left += 1
+            elif total > 0:
+                right -= 1
+            else:
+                return True
+    return False
+Generated code (cleaned):  def triples_sum_to_zero(l: list):
+    l.sort()
+    for i in range(len(l) - 2):
+        if i > 0 and l[i] == l[i - 1]:
+            continue
+        left, right = i + 1, len(l) - 1
+        while left < right:
+            total = l[i] + l[left] + l[right]
+            if total < 0:
+                left += 1
+            elif total > 0:
+                right -= 1
+            else:
+                return True
+    return False
+Generated code (cleaned):  def triples_sum_to_zero(l: list):
+    l.sort()
+    for i in range(len(l) - 2):
+        if i > 0 and l[i] == l[i - 1]:
+            continue
+        left, right = i + 1, len(l) - 1
+        while left < right:
+            total = l[i] + l[left] + l[right]
+            if total < 0:
+                left += 1
+            elif total > 0:
+                right -= 1
+            else:
+                return True
+    return False
+Generated code (cleaned):  def car_race_collision(n: int):
+    return n * n
+Generated code (cleaned):  def car_race_collision(n: int):
+    return n * n
+Generated code (cleaned):  def car_race_collision(n: int):
+    return n * n
+Generated code (cleaned):  def incr_list(l: list):
+    return [(e + 1) for e in l]
+Generated code (cleaned):  def incr_list(l: list):
+    return [e + 1 for e in l]
+Generated code (cleaned):  def incr_list(l: list):
+    return [e + 1 for e in l]
+Generated code (cleaned):  def pairs_sum_to_zero(l):
+    num_set = set()
+    for num in l:
+        if -num in num_set and -num!= num:
+            return True
+        num_set.add(num)
+    return False
+Generated code (cleaned):  def pairs_sum_to_zero(l):
+    num_set = set()
+    for num in l:
+        if -num in num_set and -num!= num:
+            return True
+        num_set.add(num)
+    return False
+Generated code (cleaned):  def pairs_sum_to_zero(l):
+    num_set = set()
+    for num in l:
+        if -num in num_set and -num!= num:
+            return True
+        num_set.add(num)
+    return False
+Generated code (cleaned):  def change_base(x: int, base: int):
+    if x == 0:
+        return '0'
+    ret = ""
+    while x > 0:
+        ret = str(x % base) + ret
+        x //= base
+    return ret
+Generated code (cleaned):  def change_base(x: int, base: int):
+    convertString = "0123456789"
+    result = ""
+    while x > 0:
+        result = convertString[x % base] + result
+        x = x // base
+    return result
+Generated code (cleaned):  def change_base(x: int, base: int):
+    convertString = "0123456789"
+    result = ""
+    while x > 0:
+        result = convertString[x % base] + result
+        x = x // base
+    return result
+Generated code (cleaned):  def triangle_area(a, h):
+    return a * h / 2.0
+Generated code (cleaned):  def triangle_area(a, h):
+    return a * h / 2.0
+Generated code (cleaned):  def triangle_area(a, h):
+    return a * h / 2.0
+Generated code (cleaned):  def fib4(n: int):
+    if n < 4:
+        return [0, 0, 2, 0][n]
+    
+    a, b, c, d = 0, 0, 2, 0
+    for _ in range(4, n + 1):
+        a, b, c, d = b, c, d, a + b + c + d
+    
+    return d
+Generated code (cleaned):  def fib4(n: int):
+    if n < 4:
+        return [0, 0, 2, 0][n]
+    a, b, c, d = 0, 0, 2, 0
+    for _ in range(4, n + 1):
+        a, b, c, d = b, c, d, a + b + c + d
+    return d
+Generated code (cleaned):  def fib4(n: int):
+    if n < 4:
+        if n == 2:
+            return 2
+        else:
+            return 0
+
+    results = [0, 0, 2, 0]
+    for _ in range(4, n + 1):
+        results.append(sum(results))
+        results.pop(0)
+
+    return results[-1]
+Generated code (cleaned):  import statistics
+
+def median(l: list):
+    return statistics.median(l)
+Generated code (cleaned):  import statistics
+
+def median(l: list):
+    return statistics.median(l)
+Generated code (cleaned):  import statistics
+
+def median(l: list):
+    return statistics.median(l)
+Generated code (cleaned):  def is_palindrome(text: str):
+    return text == text[::-1]
+Generated code (cleaned):  def is_palindrome(text: str):
+    return text == text[::-1]
+Generated code (cleaned):  def is_palindrome(text: str):
+    return text == text[::-1]
+Generated code (cleaned):  import math
+
+def modp(n: int, p: int):
+    return pow(2, n, p)
+Generated code (cleaned):  def modp(n: int, p: int):
+    ret = 1
+    base = 2
+    while n > 0:
+        if n % 2 == 1:
+            ret = (ret * base) % p
+        base = (base * base) % p
+        n = n // 2
+    return ret
+Generated code (cleaned):  def modp(n: int, p: int):
+    ret = 1
+    base = 2
+    while n > 0:
+        if n % 2 == 1:
+            ret = (ret * base) % p
+        base = (base * base) % p
+        n = n // 2
+    return ret
+Generated code (cleaned):  def decode_shift(s: str):
+    return "".join([chr(((ord(ch) - 5 - ord("a")) % 26) + ord("a")) for ch in s])
+Generated code (cleaned):  def decode_shift(s: str):
+    return "".join([chr(((ord(ch) - 5 - ord("a")) % 26) + ord("a")) for ch in s])
+Generated code (cleaned):  def decode_shift(s: str):
+    return "".join([chr(((ord(ch) - 5 - ord("a")) % 26) + ord("a")) for ch in s])
+Generated code (cleaned):  def remove_vowels(text):
+    return "".join([s for s in text if s.lower() not in "aeiou"])
+Generated code (cleaned):  def remove_vowels(text):
+    vowels = "aeiouAEIOU"
+    return "".join([s for s in text if s not in vowels])
+Generated code (cleaned):  def remove_vowels(text):
+    return "".join([s for s in text if s.lower() not in ["a", "e", "i", "o", "u"]])
+Generated code (cleaned):  def below_threshold(l: list, t: int):
+    return all(e < t for e in l)
+Generated code (cleaned):  def below_threshold(l: list, t: int):
+    return all(i < t for i in l)
+Generated code (cleaned):  def below_threshold(l: list, t: int):
+    return all(e < t for e in l)
+Generated code (cleaned):  def add(x: int, y: int) -> int:
+    return x + y
+Generated code (cleaned):  def add(x: int, y: int):
+    return x + y
+Generated code (cleaned):  def add(x: int, y: int):
+    return x + y
+Generated code (cleaned):  def same_chars(s0: str, s1: str):
+    return set(s0) == set(s1)
+Generated code (cleaned):  def same_chars(s0: str, s1: str):
+    return set(s0) == set(s1)
+Generated code (cleaned):  def same_chars(s0: str, s1: str):
+    return sorted(s0) == sorted(s1)
+Generated code (cleaned):  from functools import lru_cache
+
+def fib(n: int):
+    if n == 0:
+        return 0
+    if n == 1:
+        return 1
+    return fib(n - 1) + fib(n - 2)
+Generated code (cleaned):  def fib(n: int):
+    if n <= 1:
+        return n
+    a, b = 0, 1
+    for _ in range(2, n + 1):
+        a, b = b, a + b
+    return b
+Generated code (cleaned):  def fib(n: int):
+    if n <= 0:
+        return 0
+    elif n == 1:
+        return 1
+    else:
+        a, b = 0, 1
+        for _ in range(2, n + 1):
+            a, b = b, a + b
+        return b
+Generated code (cleaned):  def correct_bracketing(brackets: str):
+    depth = 0
+    for b in brackets:
+        if b == "<":
+            depth += 1
+        else:
+            depth -= 1
+        if depth < 0:
+            return False
+    return depth == 0
+Generated code (cleaned):  def correct_bracketing(brackets: str):
+    depth = 0
+    for b in brackets:
+        if b == "<":
+            depth += 1
+        else:
+            depth -= 1
+        if depth < 0:
+            return False
+    return depth == 0
+Generated code (cleaned):  def correct_bracketing(brackets: str):
+    depth = 0
+    for b in brackets:
+        if b == "<":
+            depth += 1
+        else:
+            depth -= 1
+        if depth < 0:
+            return False
+    return depth == 0
+Generated code (cleaned):  def monotonic(l: list):
+    increasing = decreasing = True
+
+    for i in range(len(l) - 1):
+        if l[i] > l[i + 1]:
+            increasing = False
+        if l[i] < l[i + 1]:
+            decreasing = False
+
+    return increasing or decreasing
+Generated code (cleaned):  def monotonic(l: list):
+    increasing = decreasing = True
+
+    for i in range(len(l) - 1):
+        if l[i] > l[i + 1]:
+            increasing = False
+        if l[i] < l[i + 1]:
+            decreasing = False
+
+    return increasing or decreasing
+Generated code (cleaned):  def monotonic(l: list):
+    increasing = decreasing = True
+
+    for i in range(len(l) - 1):
+        if l[i] > l[i + 1]:
+            increasing = False
+        if l[i] < l[i + 1]:
+            decreasing = False
+
+    return increasing or decreasing
+Generated code (cleaned):  def common(l1: list, l2: list):
+    return sorted(list(set(l1) & set(l2)))
+Generated code (cleaned):  def common(l1: list, l2: list):
+    return sorted(list(set(l1) & set(l2)))
+Generated code (cleaned):  def common(l1: list, l2: list):
+    return sorted(list(set(l1) & set(l2)))
+Generated code (cleaned):  import math
+
+def largest_prime_factor(n: int):
+    def is_prime(k):
+        if k < 2:
+            return False
+        for i in range(2, int(math.sqrt(k)) + 1):
+            if k % i == 0:
+                return False
+        return True
+
+    largest = 1
+    for j in range(2, int(math.sqrt(n)) + 1):
+        while n % j == 0:
+            if is_prime(j):
+                largest = max(largest, j)
+            n //= j
+    if n > 1 and is_prime(n):
+        largest = max(largest, n)
+    return largest
+Generated code (cleaned):  import math
+
+def largest_prime_factor(n: int):
+    maxPrime = -1 
+    while n % 2 == 0: 
+        maxPrime = 2
+        n >>= 1    
+    for i in range(3, int(math.sqrt(n)) + 1, 2): 
+        while n % i == 0: 
+            maxPrime = i 
+            n = n // i 
+    if n > 2: 
+        maxPrime = n  
+    return maxPrime
+Generated code (cleaned):  import math
+
+def largest_prime_factor(n: int):
+    maxPrime = -1 
+    while n % 2 == 0: 
+        maxPrime = 2
+        n >>= 1    
+    for i in range(3,int(math.sqrt(n))+1,2): 
+        while n % i == 0: 
+            maxPrime = i 
+            n = n // i 
+    if n > 2: 
+        maxPrime = n  
+    return maxPrime
+Generated code (cleaned):  def sum_to_n(n: int):
+    return n * (n + 1) // 2
+Generated code (cleaned):  def sum_to_n(n: int):
+    return n * (n + 1) // 2
+Generated code (cleaned):  def sum_to_n(n: int):
+    return n * (n + 1) // 2
+Generated code (cleaned):  def correct_bracketing(brackets: str):
+    stack = []
+    for b in brackets:
+        if b == "(":
+            stack.append(b)
+        else:
+            if not stack:
+                return False
+            stack.pop()
+    return not stack
+Generated code (cleaned):  def correct_bracketing(brackets: str):
+    depth = 0
+    for b in brackets:
+        if b == "(":
+            depth += 1
+        else:
+            depth -= 1
+        if depth < 0:
+            return False
+    return depth == 0
+Generated code (cleaned):  def correct_bracketing(brackets: str):
+    depth = 0
+    for b in brackets:
+        if b == "(":
+            depth += 1
+        else:
+            depth -= 1
+        if depth < 0:
+            return False
+    return depth == 0
+Generated code (cleaned):  def derivative(xs: list):
+    return [i * x for i, x in enumerate(xs) if i!= 0]
+Generated code (cleaned):  def derivative(xs: list):
+    return [i * x for i, x in enumerate(xs) if i!= 0]
+Generated code (cleaned):  def derivative(xs: list):
+    return [i * x for i, x in enumerate(xs) if i!= 0]
+Generated code (cleaned):  from functools import lru_cache
+
+@lru_cache(maxsize=None)
+def fibfib(n: int):
+    if n == 0:
+        return 0
+    if n == 1:
+        return 0
+    if n == 2:
+        return 1
+    return fibfib(n - 1) + fibfib(n - 2) + fibfib(n - 3)
+Generated code (cleaned):  def fibfib(n: int):
+    if n == 0:
+        return 0
+    if n == 1:
+        return 0
+    if n == 2:
+        return 1
+    results = [0, 0, 1]
+    for _ in range(3, n + 1):
+        results.append(results[-1] + results[-2] + results[-3])
+        results.pop(0)
+    return results[-1]
+Generated code (cleaned):  def fibfib(n: int):
+    if n == 0:
+        return 0
+    if n == 1:
+        return 0
+    if n == 2:
+        return 1
+    results = [0, 0, 1]
+    for _ in range(3, n + 1):
+        results.append(results[-1] + results[-2] + results[-3])
+        results.pop(0)
+    return results[-1]
+Generated code (cleaned):  def vowels_count(s):
+    vowels = "aeiouAEIOU"
+    n_vowels = sum(c in vowels for c in s[:-1])
+    if s and (s[-1] == 'y' or s[-1] == 'Y'):
+        n_vowels += 1
+    return n_vowels
+Generated code (cleaned):  def vowels_count(s):
+    vowels = "aeiouAEIOU"
+    n_vowels = sum(c in vowels for c in s[:-1])
+    if s and (s[-1] == 'y' or s[-1] == 'Y'):
+        n_vowels += 1
+    return n_vowels
+Generated code (cleaned):  def vowels_count(s):
+    vowels = "aeiouAEIOU"
+    n_vowels = sum(c in vowels for c in s)
+    if s[-1].lower() == 'y':
+        n_vowels += 1
+    return n_vowels
+Generated code (cleaned):  def circular_shift(x, shift):
+    s = str(x)
+    shift = shift % len(s)
+    return s[-shift:] + s[:-shift]
+Generated code (cleaned):  def circular_shift(x, shift):
+    s = str(x)
+    shift = shift % len(s)
+    if shift == 0:
+        return s
+    else:
+        return s[-shift:] + s[:-shift]
+Generated code (cleaned):  def circular_shift(x, shift):
+    s = str(x)
+    shift = shift % len(s)
+    if shift > len(s) // 2:
+        return s[::-1]
+    else:
+        return s[-shift:] + s[:-shift]
+Generated code (cleaned):  def digitSum(s):
+    return sum(ord(char) for char in s if char.isupper())
+Generated code (cleaned):  def digitSum(s):
+    return sum(ord(char) for char in s if char.isupper())
+Generated code (cleaned):  def digitSum(s):
+    return sum(ord(char) for char in s if char.isupper())
+Generated code (cleaned):  import re
+
+def fruit_distribution(s, n):
+    numbers = [int(num) for num in re.findall(r'\d+', s)]
+    return n - sum(numbers)
+Generated code (cleaned):  def fruit_distribution(s, n):
+    numbers = [int(word) for word in s.split() if word.isdigit()]
+    return n - sum(numbers)
+Generated code (cleaned):  def fruit_distribution(s, n):
+    import re
+    numbers = list(map(int, re.findall(r'\d+', s)))
+    return n - sum(numbers)
+Generated code (cleaned):  def pluck(arr):
+    if not arr:
+        return []
+    
+    even_nodes = [(node, index) for index, node in enumerate(arr) if node % 2 == 0]
+    
+    if not even_nodes:
+        return []
+    
+    return [min(even_nodes, key=lambda x: (x[0], x[1]))[0], min(even_nodes, key=lambda x: (x[0], x[1]))[1]]
+Generated code (cleaned):  def pluck(arr):
+    even_nodes = [(val, idx) for idx, val in enumerate(arr) if val % 2 == 0]
+    return min(even_nodes, default=[None, None]) if even_nodes else []
+Generated code (cleaned):  def pluck(arr):
+    even_nodes = [(x, i) for i, x in enumerate(arr) if x % 2 == 0]
+    if not even_nodes:
+        return []
+    return [min(even_nodes, key=lambda x: (x[0], x[1]))]
+Generated code (cleaned):  from collections import Counter
+
+def search(lst):
+    frq = Counter(lst)
+    return max((i for i in frq if frq[i] >= i), default=-1)
+Generated code (cleaned):  from collections import Counter
+
+def search(lst):
+    count = Counter(lst)
+    return max((num for num, freq in count.items() if freq >= num), default=-1)
+Generated code (cleaned):  from collections import Counter
+
+def search(lst):
+    count = Counter(lst)
+    return max((num for num, freq in count.items() if freq >= num), default=-1)
+Generated code (cleaned):  def strange_sort_list(lst):
+    res, switch = [], True
+    lst_copy = lst[:]  # Create a copy of the list to avoid modifying the original
+    while lst_copy:
+        if switch:
+            res.append(min(lst_copy))
+        else:
+            res.append(max(lst_copy))
+        lst_copy.remove(res[-1])
+        switch = not switch
+    return res
+Generated code (cleaned):  def strange_sort_list(lst):
+    res, switch = [], True
+    lst_copy = lst.copy()
+    while lst_copy:
+        if switch:
+            res.append(min(lst_copy))
+        else:
+            res.append(max(lst_copy))
+        lst_copy.remove(res[-1])
+        switch = not switch
+    return res
+Generated code (cleaned):  def strange_sort_list(lst):
+    res, switch = [], True
+    while lst:
+        res.append(min(lst) if switch else max(lst))
+        lst.remove(res[-1])
+        switch = not switch
+    return res
+Generated code (cleaned):  import math
+
+def triangle_area(a, b, c):
+    if a + b <= c or a + c <= b or b + c <= a:
+        return -1 
+    s = (a + b + c)/2    
+    area = math.sqrt(s * (s - a) * (s - b) * (s - c))
+    return round(area, 2)
+Generated code (cleaned):  import math
+
+def triangle_area(a, b, c):
+    if a + b <= c or a + c <= b or b + c <= a:
+        return -1 
+    s = (a + b + c)/2    
+    area = math.sqrt(s * (s - a) * (s - b) * (s - c))
+    return round(area, 2)
+Generated code (cleaned):  import math
+
+def triangle_area(a, b, c):
+    if a + b <= c or a + c <= b or b + c <= a:
+        return -1 
+    s = (a + b + c)/2    
+    area = (s * (s - a) * (s - b) * (s - c)) ** 0.5
+    return round(area, 2)
+Generated code (cleaned):  def will_it_fly(q, w):
+    return sum(q) <= w and q == q[::-1]
+Generated code (cleaned):  def will_it_fly(q,w):
+    return sum(q) <= w and q == q[::-1]
+Generated code (cleaned):  def will_it_fly(q,w):
+    return sum(q) <= w and q == q[::-1]
+Generated code (cleaned):  def smallest_change(arr):
+    ans = 0
+    left, right = 0, len(arr) - 1
+    while left < right:
+        if arr[left]!= arr[right]:
+            ans += 1
+        left += 1
+        right -= 1
+    return ans
+Generated code (cleaned):  def smallest_change(arr):
+    ans = 0
+    left, right = 0, len(arr) - 1
+    while left < right:
+        if arr[left]!= arr[right]:
+            ans += 1
+        left += 1
+        right -= 1
+    return ans
+Generated code (cleaned):  def smallest_change(arr):
+    return sum(a!= b for a, b in zip(arr, arr[::-1])) // 2
+Generated code (cleaned):  def total_match(lst1, lst2):
+    return lst1 if sum(len(st) for st in lst1) <= sum(len(st) for st in lst2) else lst2
+Generated code (cleaned):  def total_match(lst1, lst2):
+    return lst1 if sum(len(st) for st in lst1) <= sum(len(st) for st in lst2) else lst2
+Generated code (cleaned):  def total_match(lst1, lst2):
+    return lst1 if sum(len(st) for st in lst1) <= sum(len(st) for st in lst2) else lst2
+Generated code (cleaned):  import itertools
+
+def is_multiply_prime(a):
+    def is_prime(n):
+        if n < 2:
+            return False
+        for j in range(2, int(n**0.5) + 1):
+            if n % j == 0:
+                return False
+        return True
+
+    primes = [i for i in range(2, 101) if is_prime(i)]
+    for combination in itertools.combinations(primes, 3):
+        if combination[0] * combination[1] * combination[2] == a:
+            return True
+    return False
+Generated code (cleaned):  import itertools
+
+def is_multiply_prime(a):
+    def is_prime(n):
+        if n < 2:
+            return False
+        for k in range(2, int(n**0.5) + 1):
+            if n % k == 0:
+                return False
+        return True
+
+    primes = [i for i in range(2, 101) if is_prime(i)]
+    for combination in itertools.combinations(primes, 3):
+        if combination[0] * combination[1] * combination[2] == a:
+            return True
+    return False
+Generated code (cleaned):  import math
+
+def is_multiply_prime(a):
+    def is_prime(n):
+        if n < 2:
+            return False
+        for k in range(2, min(int(math.sqrt(n)) + 1, n - 1)):
+            if n % k == 0:
+                return False
+        return True
+
+    primes = [i for i in range(2, 100) if is_prime(i)]
+    for i in primes:
+        for j in primes:
+            for k in primes:
+                if i * j * k == a:
+                    return True
+    return False
+Generated code (cleaned):  import math
+
+def is_simple_power(x, n):
+    if n == 1:
+        return x == 1
+    if x < 1 or n < 2:
+        return False
+    log_result = math.log(x, n)
+    return math.isclose(log_result, round(log_result))
+Generated code (cleaned):  import math
+
+def is_simple_power(x, n):
+    if n == 1:
+        return x == 1
+    power = math.log(x, n)
+    return power == int(power)
+Generated code (cleaned):  import math
+
+def is_simple_power(x, n):
+    if n == 1: 
+        return x == 1 
+    power = math.log(x, n)
+    return power == int(power)
+Generated code (cleaned):  import math
+
+def iscube(a):
+    a = abs(a)
+    return math.isclose(a ** (1. / 3) % 1, 0)
+Generated code (cleaned):  import math
+
+def iscube(a):
+    root = round(math.pow(abs(a), 1/3))
+    return root ** 3 == abs(a)
+Generated code (cleaned):  import math
+
+def iscube(a):
+    cube_root = round(math.pow(abs(a), 1. / 3))
+    return cube_root ** 3 == abs(a)
+Generated code (cleaned):  def hex_key(num):
+    primes = {'2', '3', '5', '7', 'B', 'D'}
+    return sum(1 for digit in num if digit in primes)
+Generated code (cleaned):  def hex_key(num):
+    primes = {'2', '3', '5', '7', 'B', 'D'}
+    return sum(1 for digit in num if digit in primes)
+Generated code (cleaned):  def hex_key(num):
+    primes = {'2', '3', '5', '7', 'B', 'D'}
+    return sum(1 for digit in num if digit in primes)
+Generated code (cleaned):  def decimal_to_binary(decimal):
+    return "db" + bin(decimal)[2:] + "db"
+Generated code (cleaned):  def decimal_to_binary(decimal):
+    return "db" + bin(decimal)[2:] + "db"
+Generated code (cleaned):  def decimal_to_binary(decimal):
+    return "db" + bin(decimal)[2:] + "db"
+Generated code (cleaned):  def is_happy(s):
+    return len(s) >= 3 and len(set(s[i:i+3])) == 3 for i in range(len(s)-2)
+Generated code (cleaned):  def is_happy(s):
+    return len(s) >= 3 and all(len(set(s[i:i+3])) == 3 for i in range(len(s) - 2))
+Generated code (cleaned):  def is_happy(s):
+    return len(s) >= 3 and all(len(set(s[i:i+3])) == 3 for i in range(len(s)-2))
+Generated code (cleaned):  def numerical_letter_grade(grades):
+    grade_map = {
+        (4.0, 4.0): "A+",
+        (3.7, 3.999): "A",
+        (3.3, 3.699): "A-",
+        (3.0, 3.299): "B+",
+        (2.7, 2.999): "B",
+        (2.3, 2.699): "B-",
+        (2.0, 2.299): "C+",
+        (1.7, 1.999): "C",
+        (1.3, 1.699): "C-",
+        (1.0, 1.299): "D+",
+        (0.7, 0.999): "D",
+        (0.0, 0.699): "D-",
+        (0.0, 0.0): "E"
+    }
+    return [next(value for (lower, upper), value in grade_map.items() if lower <= gpa <= upper) for gpa in grades]
+Generated code (cleaned):  def numerical_letter_grade(grades):
+    boundaries = [(4.0, 'A+'), (3.7, 'A'), (3.3, 'A-'), (3.0, 'B+'), 
+                  (2.7, 'B'), (2.3, 'B-'), (2.0, 'C+'), (1.7, 'C'), 
+                  (1.3, 'C-'), (1.0, 'D+'), (0.7, 'D'), (0.0, 'D-')]
+    return [next(grade for boundary, grade in boundaries if gpa >= boundary) 
+            if gpa > 0 else 'E' for gpa in grades]
+Generated code (cleaned):  def numerical_letter_grade(grades):
+    boundaries = [4.0, 3.7, 3.3, 3.0, 2.7, 2.3, 2.0, 1.7, 1.3, 1.0, 0.7, 0.0]
+    grades_map = ['A+', 'A', 'A-', 'B+', 'B', 'B-', 'C+', 'C', 'C-', 'D+', 'D', 'D-', 'E']
+    return [grades_map[next(i for i, x in enumerate(boundaries) if g >= x)] for g in grades]
+Generated code (cleaned):  import math
+
+def prime_length(string):
+    l = len(string)
+    if l < 2:
+        return False
+    for i in range(2, int(math.sqrt(l)) + 1):
+        if l % i == 0:
+            return False
+    return True
+Generated code (cleaned):  def is_prime(n):
+    if n < 2:
+        return False
+    for k in range(2, int(n**0.5) + 1):
+        if n % k == 0:
+            return False
+    return True
+
+def prime_length(string):
+    return is_prime(len(string))
+Generated code (cleaned):  def is_prime(n):
+    if n < 2:
+        return False
+    for k in range(2, int(n**0.5) + 1):
+        if n % k == 0:
+            return False
+    return True
+
+def prime_length(string):
+    return is_prime(len(string))
+Generated code (cleaned):  def starts_one_ends(n):
+    if n == 1: return 1
+    return 2 * (9 * (10 ** (n - 1))) - 9 * (10 ** (n - 2))
+Generated code (cleaned):  def starts_one_ends(n):
+    if n == 1: return 1
+    return 9 * (10 ** (n - 1)) + 9 * (10 ** (n - 2)) + 1
+Generated code (cleaned):  def starts_one_ends(n):
+    if n == 1: return 1
+    return 9 * (10 ** (n - 1)) + 9 * (10 ** (n - 2))
+Generated code (cleaned):  def solve(N):
+    return bin(sum(int(i) for i in str(N)))[2:]
+Generated code (cleaned):  def solve(N):
+    return bin(sum(int(i) for i in str(N)))[2:]
+Generated code (cleaned):  def solve(N):
+    return bin(sum(int(i) for i in str(N)))[2:]
+Generated code (cleaned):  def add(lst):
+    return sum(x for i, x in enumerate(lst) if i % 2!= 0 and x % 2 == 0)
+Generated code (cleaned):  def add(lst):
+    return sum(x for idx, x in enumerate(lst) if idx%2==1 and x%2==0)
+Generated code (cleaned):  def add(lst):
+    return sum([lst[i] for i in range(1, len(lst), 2) if lst[i]%2 == 0])
+Generated code (cleaned):  def anti_shuffle(s):
+    return''.join([''.join(sorted(list(i), key=lambda c: (not c.isalpha(), c.lower()))) for i in s.split(' ')])
+Generated code (cleaned):  def anti_shuffle(s):
+    return''.join([''.join(sorted(i)) for i in s.split(' ')])
+Generated code (cleaned):  def anti_shuffle(s):
+    return''.join(''.join(sorted(word)) for word in s.split(' '))
+Generated code (cleaned):  def get_row(lst, x):
+    coords = [(i, j) for i, row in enumerate(lst) for j, val in enumerate(row) if val == x]
+    return sorted(coords, key=lambda x: (x[0], -x[1]))
+Generated code (cleaned):  def get_row(lst, x):
+    coords = [(i, j) for i, row in enumerate(lst) for j, val in enumerate(row) if val == x]
+    return sorted(sorted(coords, key=lambda x: (x[0], -x[1])))
+Generated code (cleaned):  def get_row(lst, x):
+    coords = [(i, j) for i, row in enumerate(lst) for j, val in enumerate(row) if val == x]
+    return sorted(sorted(coords, key=lambda x: (x[0], -x[1])))
+Generated code (cleaned):  def sort_array(array):
+    return [] if len(array) == 0 else sorted(array, reverse= (array[0]+array[-1]) % 2 == 0)
+Generated code (cleaned):  def sort_array(array):
+    return [] if len(array) == 0 else sorted(array, reverse= (array[0]+array[-1]) % 2 == 0)
+Generated code (cleaned):  def sort_array(array):
+    return [] if len(array) == 0 else sorted(array, reverse= (array[0]+array[-1]) % 2 == 0)
+Generated code (cleaned):  def encrypt(s):
+    d = 'abcdefghijklmnopqrstuvwxyz'
+    out = ''
+    for c in s:
+        if c in d:
+            out += d[(d.index(c)+4) % 26]
+        else:
+            out += c
+    return out
+Generated code (cleaned):  def encrypt(s):
+    d = 'abcdefghijklmnopqrstuvwxyz'
+    out = ''
+    for c in s:
+        if c in d:
+            out += d[(d.index(c)+2*2) % 26]
+        elif c in d.upper():
+            out += d[(d.index(c.lower())+2*2) % 26].upper()
+        else:
+            out += c
+    return out
+Generated code (cleaned):  def encrypt(s):
+    d = 'abcdefghijklmnopqrstuvwxyz'
+    out = ''
+    for c in s:
+        if c in d:
+            out += d[(d.index(c)+2*2) % 26]
+        elif c in d.upper():
+            out += d[(d.index(c.lower())+2*2) % 26].upper()
+        else:
+            out += c
+    return out
+Generated code (cleaned):  import heapq
+
+def next_smallest(lst):
+    if len(set(lst)) < 2:
+        return None
+    return heapq.nsmallest(2, set(lst))[-1]
+Generated code (cleaned):  def next_smallest(lst):
+    unique_nums = sorted(set(lst))
+    return unique_nums[1] if len(unique_nums) > 1 else None
+Generated code (cleaned):  def next_smallest(lst):
+    if len(set(lst)) < 2:
+        return None
+    return sorted(set(lst))[1]
+Generated code (cleaned):  import re
+
+def is_bored(S):
+    sentences = re.split(r'[.?!]\s*', S)
+    return sum(sentence.strip() and sentence.split()[0].lower() == 'i' for sentence in sentences)
+Generated code (cleaned):  import re
+
+def is_bored(S):
+    sentences = re.split(r'[.?!]\s*', S)
+    return sum(sentence.strip() and sentence.split()[0].lower() == 'i' for sentence in sentences)
+Generated code (cleaned):  import re
+
+def is_bored(S):
+    sentences = re.split(r'[.?!]\s*', S)
+    return sum(sentence.strip() and sentence[0].lower() == 'i' for sentence in sentences)
+Generated code (cleaned):  def any_int(x, y, z):
+    return isinstance(x, int) and isinstance(y, int) and isinstance(z, int) and (x + y == z or x + z == y or y + z == x)
+Generated code (cleaned):  def any_int(x, y, z):
+    return isinstance(x, int) and isinstance(y, int) and isinstance(z, int) and (x + y == z or x + z == y or y + z == x)
+Generated code (cleaned):  def any_int(x, y, z):
+    return isinstance(x, int) and isinstance(y, int) and isinstance(z, int) and (x + y == z or x + z == y or y + z == x)
+Generated code (cleaned):  def encode(message):
+    vowels = "aeiouAEIOU"
+    vowels_replace = str.maketrans({i: chr(ord(i) + 2) for i in vowels})
+    return message.swapcase().translate(vowels_replace)
+Generated code (cleaned):  def encode(message):
+    vowels = "aeiouAEIOU"
+    vowels_replace = {i: chr(ord(i) + 2) for i in vowels}
+    message = message.swapcase()
+    return ''.join(vowels_replace[i] if i in vowels else i for i in message)
+Generated code (cleaned):  def encode(message):
+    vowels = "aeiouAEIOU"
+    vowels_replace = {i: chr(ord(i) + 2) if i.islower() else chr(ord(i) + 2).upper() for i in vowels}
+    message = message.swapcase()
+    return ''.join([vowels_replace[i] if i in vowels else i for i in message])
+Generated code (cleaned):  import math
+
+def skjkasdkd(lst):
+    def isPrime(n):
+        if n < 2:
+            return False
+        for i in range(2, int(math.sqrt(n)) + 1):
+            if n % i == 0:
+                return False
+        return True
+
+    max_prime = max((x for x in lst if isPrime(x)), default=0)
+    return sum(int(digit) for digit in str(max_prime))
+Generated code (cleaned):  def skjkasdkd(lst):
+    def isPrime(n):
+        if n < 2:
+            return False
+        for i in range(2,int(n**0.5)+1):
+            if n%i==0:
+                return False
+        return True
+
+    max_prime = max((x for x in lst if isPrime(x)), default=0)
+    return sum(int(digit) for digit in str(max_prime))
+Generated code (cleaned):  def skjkasdkd(lst):
+    def isPrime(n):
+        if n < 2:
+            return False
+        for i in range(2,int(n**0.5)+1):
+            if n%i==0:
+                return False
+        return True
+
+    max_prime = max((num for num in lst if isPrime(num)), default=0)
+    return sum(int(digit) for digit in str(max_prime))
+Generated code (cleaned):  def check_dict_case(dict):
+    if not dict:
+        return False
+    key_types = set(type(key) for key in dict.keys())
+    if len(key_types) > 1 or list(key_types)[0]!= str:
+        return False
+    case_types = set(key.isupper() for key in dict.keys() if isinstance(key, str))
+    return len(case_types) == 1
+Generated code (cleaned):  def check_dict_case(dict):
+    if not dict:
+        return False
+    key_types = set(type(key) for key in dict.keys())
+    if len(key_types) > 1 or list(key_types)[0]!= str:
+        return False
+    case_types = set(key.isupper() for key in dict.keys() if isinstance(key, str))
+    return len(case_types) == 1
+Generated code (cleaned):  def check_dict_case(dict):
+    if not dict:
+        return False
+    key_type = type(next(iter(dict)))
+    if key_type!= str:
+        return False
+    case = next(iter(dict)).islower()
+    return all(isinstance(key, str) and (key.islower() == case) for key in dict)
+Generated code (cleaned):  import math
+
+def count_up_to(n):
+    primes = []
+    for i in range(2, n):
+        is_prime = True
+        for j in range(2, int(math.sqrt(i)) + 1):
+            if i % j == 0:
+                is_prime = False
+                break
+        if is_prime:
+            primes.append(i)
+    return primes
+Generated code (cleaned):  def count_up_to(n):
+    def is_prime(num):
+        if num < 2:
+            return False
+        for k in range(2, int(num**0.5) + 1):
+            if num % k == 0:
+                return False
+        return True
+
+    primes = [i for i in range(2, n) if is_prime(i)]
+    return primes
+Generated code (cleaned):  def count_up_to(n):
+    def is_prime(num):
+        if num < 2:
+            return False
+        for k in range(2, int(num ** 0.5) + 1):
+            if num % k == 0:
+                return False
+        return True
+
+    primes = []
+    for i in range(2, n):
+        if is_prime(i):
+            primes.append(i)
+    return primes
+Generated code (cleaned):  def multiply(a, b):
+    return abs(a % 10) * abs(b % 10)
+Generated code (cleaned):  def multiply(a, b):
+    return abs(a % 10) * abs(b % 10)
+Generated code (cleaned):  def multiply(a, b):
+    return abs(a % 10) * abs(b % 10)
+Generated code (cleaned):  def count_upper(s):
+    return sum(1 for i, c in enumerate(s) if i % 2 == 0 and c in "AEIOU")
+Generated code (cleaned):  def count_upper(s):
+    vowels = "AEIOU"
+    return sum(1 for i, c in enumerate(s) if i % 2 == 0 and c in vowels)
+Generated code (cleaned):  def count_upper(s):
+    return sum(1 for i, c in enumerate(s) if i % 2 == 0 and c in "AEIOU")
+Generated code (cleaned):  from math import copysign, floor
+
+def closest_integer(value):
+    num = float(value)
+    return floor(num + copysign(0.5, num))
+Generated code (cleaned):  from math import copysign
+
+def closest_integer(value):
+    num = float(value)
+    return int(round(num + copysign(0.5, num)))
+Generated code (cleaned):  from math import floor, ceil
+
+def closest_integer(value):
+    num = float(value)
+    if num - floor(num) == 0.5:
+        return ceil(num) if num > 0 else floor(num)
+    else:
+        return round(num)
+Generated code (cleaned):  def make_a_pile(n):
+    result = [n]
+    for i in range(1, n):
+        if n % 2 == 0:
+            result.append(result[-1] + 2)
+        else:
+            result.append(result[-1] + 2)
+    return result
+Generated code (cleaned):  def make_a_pile(n):
+    result = [n]
+    for i in range(1, n):
+        if n % 2 == 0:
+            result.append(result[-1] + 2)
+        else:
+            result.append(result[-1] + 2)
+    return result
+Generated code (cleaned):  def make_a_pile(n):
+    if n % 2 == 0:
+        return [n + 2*i for i in range(n)]
+    else:
+        return [n + 2*i if i == 0 else n + 2*i + 1 for i in range(n)]
+Generated code (cleaned):  import re
+
+def words_string(s):
+    return re.findall(r'\w+', s)
+Generated code (cleaned):  def words_string(s):
+    return s.replace(',','').split()
+Generated code (cleaned):  import re
+
+def words_string(s):
+    return re.findall(r'\w+', s)
+Generated code (cleaned):  def choose_num(x, y):
+    if x > y:
+        return -1
+    return y - (y % 2)
+Generated code (cleaned):  def choose_num(x, y):
+    if x > y:
+        return -1
+    return max((i for i in range(x, y+1) if i % 2 == 0), default=-1)
+Generated code (cleaned):  def choose_num(x, y):
+    if x > y:
+        return -1
+    return y if y % 2 == 0 else y - 1 if y - 1 >= x else -1
+Generated code (cleaned):  def rounded_avg(n, m):
+    if m < n:
+        return -1
+    return bin(round((m + n) / 2))
+Generated code (cleaned):  def rounded_avg(n, m):
+    if m < n:
+        return -1
+    return bin(round((m + n) / 2))
+Generated code (cleaned):  def rounded_avg(n, m):
+    if m < n:
+        return -1
+    return bin(round((m + n) / 2))
+Generated code (cleaned):  def unique_digits(x):
+    return sorted([i for i in x if all(int(c) % 2 == 1 for c in str(i))])
+Generated code (cleaned):  def unique_digits(x):
+    return sorted([i for i in x if all(int(c) % 2 == 1 for c in str(i))])
+Generated code (cleaned):  def unique_digits(x):
+    return sorted([i for i in x if all(int(c) % 2 == 1 for c in str(i))])
+Generated code (cleaned):  def by_length(arr):
+    dic = {
+        1: "One",
+        2: "Two",
+        3: "Three",
+        4: "Four",
+        5: "Five",
+        6: "Six",
+        7: "Seven",
+        8: "Eight",
+        9: "Nine",
+    }
+    return [dic[var] for var in sorted([x for x in arr if 1 <= x <= 9], reverse=True)]
+Generated code (cleaned):  def by_length(arr):
+    dic = {1: "One", 2: "Two", 3: "Three", 4: "Four", 5: "Five", 6: "Six", 7: "Seven", 8: "Eight", 9: "Nine"}
+    return [dic[i] for i in sorted([i for i in arr if 1 <= i <= 9], reverse=True)]
+Generated code (cleaned):  def by_length(arr):
+    dic = {1: "One", 2: "Two", 3: "Three", 4: "Four", 5: "Five", 6: "Six", 7: "Seven", 8: "Eight", 9: "Nine"}
+    return [dic[i] for i in sorted([x for x in arr if 1 <= x <= 9], reverse=True)]
+Generated code (cleaned):  import math
+
+def f(n):
+    return [math.factorial(i) if i % 2 == 0 else i * (i + 1) // 2 for i in range(1, n + 1)]
+Generated code (cleaned):  import math
+
+def f(n):
+    ret = []
+    for i in range(1, n+1):
+        if i % 2 == 0:
+            ret.append(math.factorial(i))
+        else:
+            ret.append(i * (i + 1) // 2)
+    return ret
+Generated code (cleaned):  import math
+
+def f(n):
+    ret = []
+    for i in range(1, n+1):
+        if i % 2 == 0:
+            ret.append(math.factorial(i))
+        else:
+            ret.append(i * (i + 1) // 2)
+    return ret
+Generated code (cleaned):  def even_odd_palindrome(n):
+    def is_palindrome(num):
+        return str(num) == str(num)[::-1]
+
+    even_palindrome_count = sum(1 for i in range(1, n+1) if i % 2 == 0 and is_palindrome(i))
+    odd_palindrome_count = sum(1 for i in range(1, n+1) if i % 2 == 1 and is_palindrome(i))
+    return (even_palindrome_count, odd_palindrome_count)
+Generated code (cleaned):  def even_odd_palindrome(n):
+    even_palindrome_count = 0
+    odd_palindrome_count = 0
+
+    for i in range(1, n+1):
+        if str(i) == str(i)[::-1]:
+            if i % 2 == 0:
+                even_palindrome_count += 1
+            else:
+                odd_palindrome_count += 1
+    return (even_palindrome_count, odd_palindrome_count)
+Generated code (cleaned):  def even_odd_palindrome(n):
+    even_palindrome_count = 0
+    odd_palindrome_count = 0
+
+    for i in range(1, n+1):
+        if str(i) == str(i)[::-1]:
+            if i % 2 == 0:
+                even_palindrome_count += 1
+            else:
+                odd_palindrome_count += 1
+    return (even_palindrome_count, odd_palindrome_count)
+Generated code (cleaned):  def count_nums(arr):
+    def digits_sum(n):
+        neg = 1
+        if n < 0: n, neg = -1 * n, -1 
+        n = [int(i) for i in str(n)]
+        n[0] = n[0] * neg
+        return sum(n)
+    return sum(1 for i in arr if digits_sum(i) > 0)
+Generated code (cleaned):  def count_nums(arr):
+    return sum(1 for num in arr if sum(int(digit) for digit in str(abs(num))) > 0)
+Generated code (cleaned):  def count_nums(arr):
+    return sum(1 for num in arr if sum(int(digit) for digit in str(abs(num))) > 0)
+Generated code (cleaned):  def move_one_ball(arr):
+    if len(arr) == 0:
+        return True
+    sorted_arr = sorted(arr)
+    min_index = arr.index(min(arr))
+    return arr[min_index:] + arr[:min_index] == sorted_arr
+Generated code (cleaned):  def move_one_ball(arr):
+    if len(arr) == 0:
+        return True
+    sorted_arr = sorted(arr)
+    for i in range(len(arr)):
+        if arr[i:] + arr[:i] == sorted_arr:
+            return True
+    return False
+Generated code (cleaned):  def move_one_ball(arr):
+    if len(arr) == 0:
+        return True
+    sorted_array = sorted(arr)
+    for i in range(len(arr)):
+        if arr[i:] + arr[:i] == sorted_array:
+            return True
+    return False
+Generated code (cleaned):  def exchange(lst1, lst2):
+    odd_count = sum(1 for num in lst1 if num % 2!= 0)
+    even_count = sum(1 for num in lst2 if num % 2 == 0)
+    return "YES" if even_count >= odd_count else "NO"
+Generated code (cleaned):  def exchange(lst1, lst2):
+    odd_count = sum(1 for num in lst1 if num % 2!= 0)
+    even_count = sum(1 for num in lst2 if num % 2 == 0)
+    return "YES" if even_count >= odd_count else "NO"
+Generated code (cleaned):  def exchange(lst1, lst2):
+    odd_count = sum(1 for num in lst1 if num % 2!= 0)
+    even_count = sum(1 for num in lst2 if num % 2 == 0)
+    return "YES" if even_count >= odd_count else "NO"
+Generated code (cleaned):  from collections import Counter
+
+def histogram(test):
+    counter = Counter(test.split())
+    max_count = max(counter.values(), default=0)
+    return {k: v for k, v in counter.items() if v == max_count}
+Generated code (cleaned):  from collections import Counter
+
+def histogram(test):
+    counter = Counter(test.split())
+    max_count = max(counter.values(), default=0)
+    return {k: v for k, v in counter.items() if v == max_count}
+Generated code (cleaned):  from collections import Counter
+
+def histogram(test):
+    counter = Counter(test.split())
+    max_count = max(counter.values(), default=0)
+    return {key: value for key, value in counter.items() if value == max_count}
+Generated code (cleaned):  def reverse_delete(s, c):
+    s = ''.join([char for char in s if char not in c])
+    return (s, s == s[::-1])
+Generated code (cleaned):  def reverse_delete(s,c):
+    s = ''.join([char for char in s if char not in c])
+    return (s,s[::-1] == s)
+Generated code (cleaned):  def reverse_delete(s,c):
+    s = ''.join([char for char in s if char not in c])
+    return (s,s[::-1] == s)
+Generated code (cleaned):  def odd_count(lst):
+    return [f"the number of odd elements {n}n the str{n}ng {n} of the {n}nput." 
+            for arr in lst 
+            for n in [sum(int(d)%2==1 for d in arr)]]
+Generated code (cleaned):  def odd_count(lst):
+    return ["the number of odd elements " + str(sum(int(d)%2==1 for d in arr)) + "n the str" + str(sum(int(d)%2==1 for d in arr)) + "ng " + str(sum(int(d)%2==1 for d in arr)) + " of the " + str(sum(int(d)%2==1 for d in arr)) + "nput." for arr in lst]
+Generated code (cleaned):  def odd_count(lst):
+    return ["the number of odd elements " + str(sum(int(d)%2==1 for d in arr)) + "n the str" + str(sum(int(d)%2==1 for d in arr)) +"ng " + str(sum(int(d)%2==1 for d in arr)) +" of the " + str(sum(int(d)%2==1 for d in arr)) +"nput." for arr in lst]
+Generated code (cleaned):  def minSubArraySum(nums):
+    min_sum = float('inf')
+    current_sum = 0
+    for num in nums:
+        current_sum = min(num, current_sum + num)
+        min_sum = min(min_sum, current_sum)
+    return min_sum
+Generated code (cleaned):  def minSubArraySum(nums):
+    min_sum = float('inf')
+    current_sum = 0
+    for num in nums:
+        current_sum += num
+        min_sum = min(min_sum, current_sum)
+        if current_sum > 0:
+            current_sum = 0
+    return min_sum
+Generated code (cleaned):  def minSubArraySum(nums):
+    min_sum = float('inf')
+    current_sum = 0
+    for num in nums:
+        current_sum = min(num, current_sum + num)
+        min_sum = min(min_sum, current_sum)
+    return min_sum
+Generated code (cleaned):  import math
+
+def max_fill(grid, capacity):
+    return sum(math.ceil(sum(row) / capacity) for row in grid)
+Generated code (cleaned):  import math
+
+def max_fill(grid, capacity):
+    return sum(math.ceil(sum(row) / capacity) for row in grid)
+Generated code (cleaned):  import math
+
+def max_fill(grid, capacity):
+    return sum([math.ceil(sum(arr)/capacity) for arr in grid])
+Generated code (cleaned):  def sort_array(arr):
+    return sorted(arr, key=lambda x: (bin(abs(x))[2:].count('1'), abs(x)))
+Generated code (cleaned):  def sort_array(arr):
+    return sorted(arr, key=lambda x: (bin(abs(x))[2:].count('1'), abs(x)))
+Generated code (cleaned):  def sort_array(arr):
+    return sorted(arr, key=lambda x: (bin(abs(x))[2:].count('1'), abs(x)))
+Generated code (cleaned):  def select_words(s, n):
+    vowels = set("aeiou")
+    return [word for word in s.split() if sum(1 for char in word.lower() if char not in vowels) == n]
+Generated code (cleaned):  def select_words(s, n):
+    vowels = set('aeiou')
+    return [word for word in s.split() if sum(1 for char in word.lower() if char not in vowels) == n]
+Generated code (cleaned):  def select_words(s, n):
+    vowels = set("aeiouAEIOU")
+    return [word for word in s.split() if sum(1 for char in word if char not in vowels) == n]
+Generated code (cleaned):  def get_closest_vowel(word):
+    if len(word) < 3:
+        return ""
+
+    vowels = set("aeiouAEIOU")
+    for i in range(len(word)-2, 0, -1):
+        if word[i] in vowels and word[i+1] not in vowels and word[i-1] not in vowels:
+            return word[i]
+    return ""
+Generated code (cleaned):  def get_closest_vowel(word):
+    if len(word) < 3:
+        return ""
+    
+    vowels = set("aeiouAEIOU")
+    for i in range(len(word) - 2, 0, -1):
+        if word[i] in vowels and word[i+1] not in vowels and word[i-1] not in vowels:
+            return word[i]
+    return ""
+Generated code (cleaned):  def get_closest_vowel(word):
+    vowels = {"a", "e", "i", "o", "u", "A", "E", 'O', 'U', 'I'}
+    for i in range(len(word)-2, 0, -1):
+        if word[i] in vowels and word[i+1] not in vowels and word[i-1] not in vowels:
+            return word[i]
+    return ""
+Generated code (cleaned):  def match_parens(lst):
+    def check(s):
+        return s.count('(') == s.count(')') and all(s[:i+1].count('(') >= s[:i+1].count(')') for i in range(len(s)))
+
+    S1 = lst[0] + lst[1]
+    S2 = lst[1] + lst[0]
+    return 'Yes' if check(S1) or check(S2) else 'No'
+Generated code (cleaned):  def match_parens(lst):
+    def check(s):
+        depth = 0
+        for c in s:
+            if c == '(':
+                depth += 1
+            else:
+                depth -= 1
+            if depth < 0:
+                return False
+        return depth == 0
+
+    return 'Yes' if check(lst[0] + lst[1]) or check(lst[1] + lst[0]) else 'No'
+Generated code (cleaned):  def match_parens(lst):
+    def check(s):
+        val = 0
+        for i in s:
+            if i == '(':
+                val += 1
+            else:
+                val -= 1
+            if val < 0:
+                return False
+        return val == 0
+
+    return 'Yes' if check(lst[0] + lst[1]) or check(lst[1] + lst[0]) else 'No'
+Generated code (cleaned):  import heapq
+
+def maximum(arr, k):
+    return sorted(heapq.nlargest(k, arr))
+Generated code (cleaned):  import heapq
+
+def maximum(arr, k):
+    return sorted(heapq.nlargest(k, arr))
+Generated code (cleaned):  import heapq
+
+def maximum(arr, k):
+    return heapq.nlargest(k, arr)
+Generated code (cleaned):  def solution(lst):
+    return sum(x for idx, x in enumerate(lst) if idx % 2 == 0 and x % 2 == 1)
+Generated code (cleaned):  def solution(lst):
+    return sum(x for idx, x in enumerate(lst) if idx % 2 == 0 and x % 2 == 1)
+Generated code (cleaned):  def solution(lst):
+    return sum(x for idx, x in enumerate(lst) if idx % 2 == 0 and x % 2 == 1)
+Generated code (cleaned):  def add_elements(arr, k):
+    return sum(elem for elem in arr[:k] if len(str(elem)) <= 2)
+Generated code (cleaned):  def add_elements(arr, k):
+    return sum(i for i in arr[:k] if 0 <= i <= 99)
+Generated code (cleaned):  def add_elements(arr, k):
+    return sum(i for i in arr[:k] if -99 <= i <= 99)
+Generated code (cleaned):  def get_odd_collatz(n):
+    odd_collatz = set()
+    while n!= 1:
+        if n % 2 == 1:
+            odd_collatz.add(n)
+        n = n // 2 if n % 2 == 0 else n * 3 + 1
+    odd_collatz.add(1)
+    return sorted(list(odd_collatz))
+Generated code (cleaned):  def get_odd_collatz(n):
+    odd_collatz = set()
+    while n!= 1:
+        if n % 2 == 1:
+            odd_collatz.add(n)
+        n = n // 2 if n % 2 == 0 else n * 3 + 1
+    odd_collatz.add(1)
+    return sorted(list(odd_collatz))
+Generated code (cleaned):  def get_odd_collatz(n):
+    odd_collatz = set()
+    while n!= 1:
+        if n % 2 == 1:
+            odd_collatz.add(n)
+        n = n // 2 if n % 2 == 0 else n * 3 + 1
+    odd_collatz.add(1)
+    return sorted(list(odd_collatz))
+Generated code (cleaned):  from datetime import datetime
+
+def valid_date(date):
+    try:
+        datetime.strptime(date, '%m-%d-%Y')
+        return True
+    except ValueError:
+        return False
+Generated code (cleaned):  from datetime import datetime
+
+def valid_date(date):
+    try:
+        datetime.strptime(date, '%m-%d-%Y')
+        return True
+    except ValueError:
+        return False
+Generated code (cleaned):  import re
+from datetime import datetime
+
+def valid_date(date):
+    if not re.match(r'^\d{2}-\d{2}-\d{4}$', date):
+        return False
+    try:
+        datetime.strptime(date, '%m-%d-%Y')
+        return True
+    except ValueError:
+        return False
+Generated code (cleaned):  def split_words(txt):
+    if " " in txt:
+        return txt.split()
+    elif "," in txt:
+        return txt.replace(',',' ').split()
+    else:
+        return sum(1 for i in txt if i.islower() and ord(i)%2!= 0)
+Generated code (cleaned):  def split_words(txt):
+    if " " in txt:
+        return txt.split()
+    elif "," in txt:
+        return txt.replace(',',' ').split()
+    else:
+        return sum(1 for i in txt if i.islower() and ord(i)%2!= 0)
+Generated code (cleaned):  def split_words(txt):
+    if " " in txt:
+        return txt.split()
+    elif "," in txt:
+        return txt.replace(',',' ').split()
+    else:
+        return sum(1 for i in txt if i.islower() and ord(i)%2!= 0)
+Generated code (cleaned):  def is_sorted(lst):
+    return lst == sorted(lst, key=lambda x: (x, lst.index(x))) and all(lst.count(i) < 3 for i in lst)
+Generated code (cleaned):  def is_sorted(lst):
+    return lst == sorted(lst, reverse=False) and len(lst) == len(set(lst)) + 1
+Generated code (cleaned):  def is_sorted(lst):
+    return lst == sorted(lst) and all(lst.count(i) <= 2 for i in lst)
+Generated code (cleaned):  import math
+
+def intersection(interval1, interval2):
+    def is_prime(num):
+        if num < 2:
+            return False
+        for i in range(2, int(math.sqrt(num)) + 1):
+            if num % i == 0:
+                return False
+        return True
+
+    l = max(interval1[0], interval2[0])
+    r = min(interval1[1], interval2[1])
+    length = r - l + 1  # Include the end point
+    if length > 0 and is_prime(length):
+        return "YES"
+    return "NO"
+Generated code (cleaned):  def is_prime(num):
+    if num < 2:
+        return False
+    for i in range(2, int(num**0.5) + 1):
+        if num % i == 0:
+            return False
+    return True
+
+def intersection(interval1, interval2):
+    l = max(interval1[0], interval2[0])
+    r = min(interval1[1], interval2[1])
+    length = r - l + 1  # Include the end point
+    if length > 0 and is_prime(length):
+        return "YES"
+    return "NO"
+Generated code (cleaned):  def is_prime(num):
+    if num < 2:
+        return False
+    for i in range(2, int(num**0.5) + 1):
+        if num % i == 0:
+            return False
+    return True
+
+def intersection(interval1, interval2):
+    l = max(interval1[0], interval2[0])
+    r = min(interval1[1], interval2[1])
+    length = r - l + 1  # Include the end point
+    if length > 0 and is_prime(length):
+        return "YES"
+    return "NO"
+Generated code (cleaned):  def prod_signs(arr):
+    if not arr: return None
+    prod = 0 if 0 in arr else (-1) ** sum(1 for x in arr if x < 0)
+    return prod * sum(abs(i) for i in arr)
+Generated code (cleaned):  def prod_signs(arr):
+    if not arr: return None
+    prod = 1
+    sum_magnitudes = 0
+    for num in arr:
+        sum_magnitudes += abs(num)
+        if num < 0: prod *= -1
+    return prod * sum_magnitudes
+Generated code (cleaned):  def prod_signs(arr):
+    if not arr: return None
+    prod = 1
+    for num in arr:
+        if num == 0:
+            return 0
+        elif num < 0:
+            prod *= -1
+    return prod * sum(abs(num) for num in arr)
+Generated code (cleaned):  from collections import deque
+
+def minPath(grid, k):
+    n = len(grid)
+    directions = [(0, 1), (0, -1), (1, 0), (-1, 0)]
+    min_val = float('inf')
+    min_path = None
+
+    for i in range(n):
+        for j in range(n):
+            queue = deque([(grid[i][j], [(i, j)])])
+            visited = {(i, j)}
+            while queue:
+                val, path = queue.popleft()
+                if len(path) == k:
+                    if val < min_val:
+                        min_val = val
+                        min_path = path
+                    break
+                for dx, dy in directions:
+                    nx, ny = path[-1][0] + dx, path[-1][1] + dy
+                    if 0 <= nx < n and 0 <= ny < n and (nx, ny) not in visited:
+                        queue.append((val * n * n + grid[nx][ny], path + [(nx, ny)]))
+                        visited.add((nx, ny))
+
+    return [grid[x][y] for x, y in min_path]
+Generated code (cleaned):  from collections import deque
+
+def minPath(grid, k):
+    n = len(grid)
+    directions = [(0, 1), (0, -1), (1, 0), (-1, 0)]
+    min_val = float('inf')
+    min_path = None
+
+    def bfs(i, j, path):
+        nonlocal min_val, min_path
+        if len(path) == k:
+            if path[-1] < min_val:
+                min_val = path[-1]
+                min_path = path[:]
+            return
+        for dx, dy in directions:
+            x, y = i + dx, j + dy
+            if 0 <= x < n and 0 <= y < n:
+                bfs(x, y, path + [grid[x][y]])
+
+    for i in range(n):
+        for j in range(n):
+            if grid[i][j] == 1:
+                bfs(i, j, [1])
+
+    return min_path
+Generated code (cleaned):  import heapq
+
+def minPath(grid, k):
+    n = len(grid)
+    directions = [(0, 1), (0, -1), (1, 0), (-1, 0)]
+    min_val = float('inf')
+    min_path = []
+    for i in range(n):
+        for j in range(n):
+            if grid[i][j] == 1:
+                pq = [(grid[i][j], [(i, j)])]
+                visited = {(i, j)}
+                while pq:
+                    val, path = heapq.heappop(pq)
+                    if len(path) == k:
+                        if val < min_val:
+                            min_val = val
+                            min_path = path
+                        break
+                    x, y = path[-1]
+                    for dx, dy in directions:
+                        nx, ny = x + dx, y + dy
+                        if 0 <= nx < n and 0 <= ny < n and (nx, ny) not in visited:
+                            visited.add((nx, ny))
+                            heapq.heappush(pq, (val + grid[nx][ny], path + [(nx, ny)]))
+    return [grid[x][y] for x, y in min_path]
+Generated code (cleaned):  def tri(n):
+    if n == 0:
+        return [1]
+    my_tri = [1, 3]
+    for i in range(2, n + 1):
+        if i % 2 == 0:
+            my_tri.append(1 + i / 2)
+        else:
+            my_tri.append(my_tri[i - 1] + my_tri[i - 2] + my_tri[i - 3] if i >= 3 else my_tri[i - 1] + my_tri[i - 2] + 3)
+    return my_tri
+Generated code (cleaned):  def tri(n):
+    if n == 0:
+        return [1]
+    my_tri = [1, 3]
+    for i in range(2, n + 1):
+        if i % 2 == 0:
+            my_tri.append(i / 2 + 1)
+        else:
+            my_tri.append(my_tri[i - 1] + my_tri[i - 2] + my_tri[i - 3] if i > 2 else my_tri[i - 1] + my_tri[i - 2] + 3)
+    return my_tri
+Generated code (cleaned):  def tri(n):
+    if n == 0:
+        return [1]
+    my_tri = [1, 3]
+    for i in range(2, n + 1):
+        if i % 2 == 0:
+            my_tri.append(i / 2 + 1)
+        else:
+            my_tri.append(my_tri[i - 1] + my_tri[i - 2] + my_tri[i - 3] + 1)
+    return my_tri
+Generated code (cleaned):  def digits(n):
+    product = 1
+    for digit in str(n):
+        int_digit = int(digit)
+        if int_digit % 2 == 1:
+            product *= int_digit
+    return product if product!= 1 else 0
+Generated code (cleaned):  def digits(n):
+    product = 1
+    for digit in str(n):
+        int_digit = int(digit)
+        if int_digit % 2 == 1:
+            product *= int_digit
+    return product if product!= 1 else 0
+Generated code (cleaned):  def digits(n):
+    product = 1
+    for digit in str(n):
+        int_digit = int(digit)
+        if int_digit % 2 == 1:
+            product *= int_digit
+    return product if product!= 1 else 0
+Generated code (cleaned):  def is_nested(string):
+    stack = []
+    for char in string:
+        if char == '[':
+            stack.append(char)
+        else:
+            if len(stack) > 1:
+                return True
+            stack.pop()
+    return False
+Generated code (cleaned):  def is_nested(string):
+    depth = 0
+    max_depth = 0
+    for b in string:
+        if b == '[':
+            depth += 1
+            max_depth = max(depth, max_depth)
+        else:
+            depth -= 1
+    return max_depth > 1
+Generated code (cleaned):  def is_nested(string):
+    depth = 0
+    max_depth = 0
+    for char in string:
+        if char == '[':
+            depth += 1
+            max_depth = max(depth, max_depth)
+        else:
+            depth -= 1
+    return max_depth > 1
+Generated code (cleaned):  import math
+
+def sum_squares(lst):
+    return sum(math.ceil(i)**2 for i in lst)
+Generated code (cleaned):  import math
+
+def sum_squares(lst):
+    return sum(math.ceil(i)**2 for i in lst)
+Generated code (cleaned):  import math
+
+def sum_squares(lst):
+    return sum(math.ceil(i)**2 for i in lst)
+Generated code (cleaned):  def check_if_last_char_is_a_letter(txt):
+    if not txt or txt[-1] =='':
+        return False
+    check = txt.split(' ')[-1]
+    return len(check) == 1 and check.isalpha()
+Generated code (cleaned):  def check_if_last_char_is_a_letter(txt):
+    words = txt.split()
+    if len(words) == 0 or words[-1] == '' or len(words[-1]) > 1:
+        return False
+    return words[-1][0].isalpha()
+Generated code (cleaned):  def check_if_last_char_is_a_letter(txt):
+    words = txt.split()
+    if not words or words[-1]!= txt.strip()[-1]:
+        return False
+    return len(words[-1]) == 1 and words[-1].isalpha()
+Generated code (cleaned):  def can_arrange(arr):
+    return next((i for i in range(len(arr) - 1, 0, -1) if arr[i] < arr[i-1]), -1)
+Generated code (cleaned):  def can_arrange(arr):
+    for i in range(len(arr) - 1, 0, -1):
+        if arr[i] < arr[i-1]:
+            return i
+    return -1
+Generated code (cleaned):  def can_arrange(arr):
+    for i in range(len(arr) - 1, 0, -1):
+        if arr[i] < arr[i - 1]:
+            return i
+    return -1
+Generated code (cleaned):  def largest_smallest_integers(lst):
+    negatives = [x for x in lst if x < 0]
+    positives = [x for x in lst if x > 0]
+    return (max(negatives) if negatives else None, min(positives) if positives else None)
+Generated code (cleaned):  def largest_smallest_integers(lst):
+    negatives = [x for x in lst if x < 0]
+    positives = [x for x in lst if x > 0]
+    return (max(negatives) if negatives else None, min(positives) if positives else None)
+Generated code (cleaned):  def largest_smallest_integers(lst):
+    negatives = [x for x in lst if x < 0]
+    positives = [x for x in lst if x > 0]
+    return (max(negatives) if negatives else None, min(positives) if positives else None)
+Generated code (cleaned):  def compare_one(a, b):
+    temp_a, temp_b = a, b
+    if isinstance(temp_a, str): temp_a = temp_a.replace(',','.')
+    if isinstance(temp_b, str): temp_b = temp_b.replace(',','.')
+    if float(temp_a) == float(temp_b): return None
+    return a if float(temp_a) > float(temp_b) else b
+Generated code (cleaned):  def compare_one(a, b):
+    temp_a, temp_b = a, b
+    if isinstance(temp_a, str): temp_a = temp_a.replace(',','.')
+    if isinstance(temp_b, str): temp_b = temp_b.replace(',','.')
+    if float(temp_a) == float(temp_b): return None
+    return a if float(temp_a) > float(temp_b) else b
+Generated code (cleaned):  def compare_one(a, b):
+    temp_a, temp_b = a, b
+    if isinstance(temp_a, str): temp_a = temp_a.replace(',','.')
+    if isinstance(temp_b, str): temp_b = temp_b.replace(',','.')
+    if float(temp_a) == float(temp_b): return None
+    return a if float(temp_a) > float(temp_b) else b
+Generated code (cleaned):  def is_equal_to_sum_even(n):
+    return n >= 8 and n % 2 == 0
+Generated code (cleaned):  def is_equal_to_sum_even(n):
+    return n%2 == 0 and n >= 8
+Generated code (cleaned):  def is_equal_to_sum_even(n):
+    return n >= 8 and n % 2 == 0
+Generated code (cleaned):  import math
+
+def special_factorial(n):
+    special_fact = 1
+    for i in range(1, n+1):
+        special_fact *= math.factorial(i)
+    return special_fact
+Generated code (cleaned):  import math
+
+def special_factorial(n):
+    special_fact = 1
+    for i in range(1, n+1):
+        special_fact *= math.factorial(i)
+    return special_fact
+Generated code (cleaned):  import math
+
+def special_factorial(n):
+    special_fact = 1
+    for i in range(1, n+1):
+        special_fact *= math.factorial(i)
+    return special_fact
+Generated code (cleaned):  import re
+
+def fix_spaces(text):
+    text = re.sub(' +', lambda m: '_' if len(m.group()) == 1 else '-', text)
+    return text
+Generated code (cleaned):  import re
+
+def fix_spaces(text):
+    text = re.sub(' +', lambda m: '-' if len(m.group()) > 2 else '_' * len(m.group()), text)
+    return text
+Generated code (cleaned):  import re
+
+def fix_spaces(text):
+    text = re.sub(' +', lambda m: '_' if len(m.group()) == 1 else '-', text)
+    return text
+Generated code (cleaned):  import re
+
+def file_name_check(file_name):
+    suf = ['txt', 'exe', 'dll']
+    lst = file_name.split(sep='.')
+    if len(lst)!= 2 or lst[1] not in suf or not lst[0] or not lst[0][0].isalpha():
+        return 'No'
+    if len(re.findall('\d', lst[0])) > 3:
+        return 'No'
+    return 'Yes'
+Generated code (cleaned):  import re
+
+def file_name_check(file_name):
+    suf = ['txt', 'exe', 'dll']
+    lst = file_name.split(sep='.')
+    if len(lst)!= 2 or lst[1] not in suf or len(lst[0]) == 0 or not lst[0][0].isalpha():
+        return 'No'
+    if len(re.findall('\d', lst[0])) > 3:
+        return 'No'
+    return 'Yes'
+Generated code (cleaned):  import re
+
+def file_name_check(file_name):
+    if len(re.findall('\d', file_name)) > 3:
+        return 'No'
+    if len(file_name.split('.'))!= 2:
+        return 'No'
+    if not file_name.split('.')[0] or not file_name.split('.')[0][0].isalpha():
+        return 'No'
+    if file_name.split('.')[1] not in ['txt', 'exe', 'dll']:
+        return 'No'
+    return 'Yes'
+Generated code (cleaned):  def sum_squares(lst):
+    return sum(x**2 if i % 3 == 0 else x**3 if i % 4 == 0 else x for i, x in enumerate(lst))
+Generated code (cleaned):  def sum_squares(lst):
+    return sum(i**2 if idx % 3 == 0 else i**3 if idx % 4 == 0 else i for idx, i in enumerate(lst))
+Generated code (cleaned):  def sum_squares(lst):
+    return sum([lst[i]**2 if i % 3 == 0 else lst[i]**3 if i % 4 == 0 else lst[i] for i in range(len(lst))])
+Generated code (cleaned):  def is_prime(n):
+    if n < 2:
+        return False
+    for i in range(2, int(n**0.5) + 1):
+        if n % i == 0:
+            return False
+    return True
+
+def words_in_sentence(sentence):
+    return " ".join(word for word in sentence.split() if is_prime(len(word)))
+Generated code (cleaned):  def is_prime(n):
+    if n < 2:
+        return False
+    for i in range(2, int(n**0.5) + 1):
+        if n % i == 0:
+            return False
+    return True
+
+def words_in_sentence(sentence):
+    return''.join(word for word in sentence.split() if is_prime(len(word)))
+Generated code (cleaned):  def is_prime(n):
+    if n < 2:
+        return False
+    for i in range(2, int(n**0.5) + 1):
+        if n % i == 0:
+            return False
+    return True
+
+def words_in_sentence(sentence):
+    return''.join(word for word in sentence.split() if is_prime(len(word)))
+Generated code (cleaned):  from math import gcd
+
+def simplify(x, n):
+    a, b = map(int, x.split("/"))
+    c, d = map(int, n.split("/"))
+    numerator = a * c
+    denom = b * d
+    common_divisor = gcd(numerator, denom)
+    return numerator // common_divisor == (numerator // common_divisor)
+Generated code (cleaned):  from fractions import Fraction
+
+def simplify(x, n):
+    result = Fraction(x) * Fraction(n)
+    return result.denominator == 1
+Generated code (cleaned):  from fractions import Fraction
+
+def simplify(x, n):
+    result = Fraction(x) * Fraction(n)
+    return result.denominator == 1
+Generated code (cleaned):  def order_by_points(nums):
+    def digits_sum(n):
+        return sum(int(i) for i in str(abs(n)))
+    return sorted(nums, key=lambda x: (digits_sum(x), nums.index(x)))
+Generated code (cleaned):  def order_by_points(nums):
+    return sorted(enumerate(nums), key=lambda x: (sum(int(digit) for digit in str(abs(x[1]))), x[0]))
+Generated code (cleaned):  def order_by_points(nums):
+    return sorted(nums, key=lambda x: (sum(int(i) for i in str(abs(x))), nums.index(x)))
+Generated code (cleaned):  def specialFilter(nums):
+    count = 0
+    odd_digits = set('13579')
+    for num in nums:
+        if num > 10 and str(num)[0] in odd_digits and str(num)[-1] in odd_digits:
+            count += 1
+    return count
+Generated code (cleaned):  def specialFilter(nums):
+    count = 0
+    odd_digits = set('13579')
+    for num in nums:
+        if num > 10 and str(num)[0] in odd_digits and str(num)[-1] in odd_digits:
+            count += 1
+    return count
+Generated code (cleaned):  def specialFilter(nums):
+    count = 0
+    for num in nums:
+        if num > 10:
+            odd_digits = (1, 3, 5, 7, 9)
+            number_as_string = str(abs(num))  # Use abs to handle negative numbers
+            if int(number_as_string[0]) in odd_digits and int(number_as_string[-1]) in odd_digits:
+                count += 1
+    return count
+Generated code (cleaned):  from collections import defaultdict
+
+def get_max_triples(n):
+    A = [i*i - i + 1 for i in range(1,n+1)]
+    count = defaultdict(int)
+    for num in A:
+        count[num % 3] += 1
+    res = count[0] * (count[1] * (count[2] - 1) // 2) + count[0] * (count[0] - 1) * (count[0] - 2) // 6 + count[1] * (count[1] - 1) * (count[1] - 2) // 6 + count[2] * (count[2] - 1) * (count[2] - 2) // 6
+    return res
+Generated code (cleaned):  def get_max_triples(n):
+    A = [i*i - i + 1 for i in range(1,n+1)]
+    count = [0, 0, 0]
+    for num in A:
+        count[num % 3] += 1
+    ans = count[0] * (count[1] * count[2])
+    ans += count[0] * (count[0] - 1) * (count[0] - 2) // 6
+    ans += count[1] * (count[1] - 1) * (count[1] - 2) // 6
+    ans += count[2] * (count[2] - 1) * (count[2] - 2) // 6
+    return ans
+Generated code (cleaned):  def get_max_triples(n):
+    A = [i*i - i + 1 for i in range(1,n+1)]
+    count = 0
+    for i in range(n):
+        for j in range(i+1,n):
+            for k in range(j+1,n):
+                if (A[i]+A[j]+A[k])%3 == 0:
+                    count += 1
+    return count
+Generated code (cleaned):  def bf(planet1, planet2):
+    planet_names = ("Mercury", "Venus", "Earth", "Mars", "Jupiter", "Saturn", "Uranus", "Neptune")
+    if planet1 not in planet_names or planet2 not in planet_names or planet1 == planet2:
+        return ()
+    planet1_index = planet_names.index(planet1)
+    planet2_index = planet_names.index(planet2)
+    if planet1_index < planet2_index:
+        return planet_names[planet1_index + 1: planet2_index]
+    else:
+        return planet_names[planet2_index + 1 : planet1_index]
+Generated code (cleaned):  def bf(planet1, planet2):
+    planet_names = ("Mercury", "Venus", "Earth", "Mars", "Jupiter", "Saturn", "Uranus", "Neptune")
+    if planet1 not in planet_names or planet2 not in planet_names or planet1 == planet2:
+        return ()
+    planet1_index = planet_names.index(planet1)
+    planet2_index = planet_names.index(planet2)
+    if planet1_index < planet2_index:
+        return planet_names[planet1_index + 1: planet2_index]
+    else:
+        return planet_names[planet2_index + 1 : planet1_index]
+Generated code (cleaned):  def bf(planet1, planet2):
+    planet_names = ("Mercury", "Venus", "Earth", "Mars", "Jupiter", "Saturn", "Uranus", "Neptune")
+    if planet1 not in planet_names or planet2 not in planet_names or planet1 == planet2:
+        return ()
+    planet1_index = planet_names.index(planet1)
+    planet2_index = planet_names.index(planet2)
+    if planet1_index < planet2_index:
+        return planet_names[planet1_index + 1: planet2_index]
+    else:
+        return planet_names[planet2_index + 1 : planet1_index]
+Generated code (cleaned):  def sorted_list_sum(lst):
+    return sorted([i for i in lst if len(i) % 2 == 0], key=lambda x: (len(x), x))
+Generated code (cleaned):  def sorted_list_sum(lst):
+    return sorted([i for i in lst if len(i) % 2 == 0], key=lambda x: (len(x), x))
+Generated code (cleaned):  def sorted_list_sum(lst):
+    return sorted([i for i in lst if len(i) % 2 == 0], key=lambda x: (len(x), x))
+Generated code (cleaned):  import math
+
+def x_or_y(n, x, y):
+    if n < 2:
+        return y
+    for i in range(2, int(math.sqrt(n)) + 1):
+        if n % i == 0:
+            return y
+    return x
+Generated code (cleaned):  import math
+
+def x_or_y(n, x, y):
+    if n < 2:
+        return y
+    for i in range(2, int(math.sqrt(n)) + 1):
+        if n % i == 0:
+            return y
+    return x
+Generated code (cleaned):  def x_or_y(n, x, y):
+    if n < 2:
+        return y
+    for i in range(2, int(n**0.5) + 1):
+        if n % i == 0:
+            return y
+    return x
+Generated code (cleaned):  def double_the_difference(lst):
+    return sum(i**2 for i in lst if isinstance(i, int) and i > 0 and i % 2!= 0)
+Generated code (cleaned):  def double_the_difference(lst):
+    return sum(i**2 for i in lst if isinstance(i, int) and i > 0 and i % 2!= 0)
+Generated code (cleaned):  def double_the_difference(lst):
+    return sum([i**2 for i in lst if isinstance(i, int) and i > 0 and i%2!=0])
+Generated code (cleaned):  def compare(game, guess):
+    return [abs(x-y) for x,y in zip(game,guess)]
+Generated code (cleaned):  def compare(game, guess):
+    return [abs(x-y) for x,y in zip(game,guess)]
+Generated code (cleaned):  def compare(game, guess):
+    return [abs(x-y) for x,y in zip(game,guess)]
+Generated code (cleaned):  def Strongest_Extension(class_name, extensions):
+    def extension_strength(extension):
+        return sum(1 for c in extension if c.isupper()) - sum(1 for c in extension if c.islower())
+
+    strongest_extension = max(extensions, key=extension_strength)
+    return class_name + "." + strongest_extension
+Generated code (cleaned):  def Strongest_Extension(class_name, extensions):
+    def extension_strength(extension):
+        return sum(1 for c in extension if c.isupper()) - sum(1 for c in extension if c.islower())
+
+    strongest_extension = max(extensions, key=extension_strength)
+    return class_name + "." + strongest_extension
+Generated code (cleaned):  def Strongest_Extension(class_name, extensions):
+    def extension_strength(extension):
+        return sum(1 for char in extension if char.isupper()) - sum(1 for char in extension if char.islower())
+
+    strongest_extension = max(extensions, key=extension_strength)
+    return class_name + "." + strongest_extension
+Generated code (cleaned):  def cycpattern_check(a, b):
+    return b in a + a or any(b[i:] + b[:i] in a for i in range(1, len(b)))
+Generated code (cleaned):  def cycpattern_check(a, b):
+    return b in a + a or any(b[i:] + b[:i] in a for i in range(len(b)))
+Generated code (cleaned):  def cycpattern_check(a, b):
+    return b in a + a
+Generated code (cleaned):  def even_odd_count(num):
+    even_count = sum(1 for i in str(abs(num)) if int(i) % 2 == 0)
+    odd_count = len(str(abs(num))) - even_count
+    return (even_count, odd_count)
+Generated code (cleaned):  def even_odd_count(num):
+    even_count = sum(1 for digit in str(abs(num)) if int(digit) % 2 == 0)
+    odd_count = len(str(abs(num))) - even_count
+    return (even_count, odd_count)
+Generated code (cleaned):  def even_odd_count(num):
+    even_count = sum(1 for digit in str(abs(num)) if int(digit) % 2 == 0)
+    odd_count = len(str(abs(num))) - even_count
+    return (even_count, odd_count)
+Generated code (cleaned):  def int_to_mini_roman(number):
+    num = [1, 4, 5, 9, 10, 40, 50, 90, 100, 400, 500, 900, 1000] 
+    sym = ["i", "iv", "v", "ix", "x", "xl", "l", "xc", "c", "cd", "d", "cm", "m"] 
+    i = 12
+    res = ''
+    while number: 
+        div = number // num[i] 
+        number %= num[i] 
+        while div: 
+            res += sym[i] 
+            div -= 1
+        i -= 1
+    return res
+Generated code (cleaned):  def int_to_mini_roman(number):
+    val = [1000, 900, 500, 400, 100, 90, 50, 40, 10, 9, 5, 4, 1]
+    syb = ["M", "CM", "D", "CD", "C", "XC", "L", "XL", "X", "IX", "V", "IV", "I"]
+    roman_num = ''
+    i = 0
+    while number > 0:
+        for _ in range(number // val[i]):
+            roman_num += syb[i]
+            number -= val[i]
+        i += 1
+    return roman_num.lower()
+Generated code (cleaned):  def int_to_mini_roman(number):
+    val = [1000, 900, 500, 400, 100, 90, 50, 40, 10, 9, 5, 4, 1]
+    syb = ["M", "CM", "D", "CD", "C", "XC", "L", "XL", "X", "IX", "V", "IV", "I"]
+    roman_num = ''
+    i = 0
+    while number > 0:
+        for _ in range(number // val[i]):
+            roman_num += syb[i]
+            number -= val[i]
+        i += 1
+    return roman_num.lower()
+Generated code (cleaned):  import math
+
+def right_angle_triangle(a, b, c):
+    sides = [a, b, c]
+    sides.sort()
+    return math.isclose(sides[0]**2 + sides[1]**2, sides[2]**2)
+Generated code (cleaned):  import math
+
+def right_angle_triangle(a, b, c):
+    sides = [a, b, c]
+    sides.sort()
+    return math.isclose(sides[0]**2 + sides[1]**2, sides[2]**2)
+Generated code (cleaned):  def right_angle_triangle(a, b, c):
+    sides = [a, b, c]
+    sides.sort()
+    return sides[0]**2 + sides[1]**2 == sides[2]**2
+Generated code (cleaned):  def find_max(words):
+    return max(words, key=lambda x: (len(set(x)), x))
+Generated code (cleaned):  def find_max(words):
+    return max(words, key=lambda x: (len(set(x)), x))
+Generated code (cleaned):  def find_max(words):
+    return max(words, key=lambda x: (len(set(x)), x))
+Generated code (cleaned):  def eat(number, need, remaining):
+    total_eaten = number + min(need, remaining)
+    carrots_left = max(0, remaining - need)
+    return [total_eaten, carrots_left]
+Generated code (cleaned):  def eat(number, need, remaining):
+    total_eaten = number + min(need, remaining)
+    carrots_left = max(0, remaining - need)
+    return [total_eaten, carrots_left]
+Generated code (cleaned):  def eat(number, need, remaining):
+    total_eaten = number + min(need, remaining)
+    carrots_left = remaining - min(need, remaining)
+    return [total_eaten, carrots_left]
+Generated code (cleaned):  def do_algebra(operator, operand):
+    expression = str(operand[0])
+    for oprt, oprn in zip(operator, operand[1:]):
+        if oprt == '//':
+            expression += '//' + str(oprn)
+        else:
+            expression += oprt + str(oprn)
+    return eval(expression)
+Generated code (cleaned):  def do_algebra(operator, operand):
+    expression = str(operand[0])
+    for oprt, oprn in zip(operator, operand[1:]):
+        expression += oprt + str(oprn)
+    return eval(expression)
+Generated code (cleaned):  def do_algebra(operator, operand):
+    expression = str(operand[0])
+    for oprt, oprn in zip(operator, operand[1:]):
+        expression += oprt + str(oprn)
+    return eval(expression)
+Generated code (cleaned):  def solve(s):
+    if any(c.isalpha() for c in s):
+        return ''.join(c.swapcase() if c.isalpha() else c for c in s)
+    return s[::-1]
+Generated code (cleaned):  def solve(s):
+    if any(c.isalpha() for c in s):
+        return ''.join(c.swapcase() if c.isalpha() else c for c in s)
+    else:
+        return s[::-1]
+Generated code (cleaned):  def solve(s):
+    if any(c.isalpha() for c in s):
+        return ''.join(c.swapcase() if c.isalpha() else c for c in s)
+    else:
+        return s[::-1]
+Generated code (cleaned):  import hashlib
+
+def string_to_md5(text):
+    return hashlib.md5(text.encode('utf-8')).hexdigest() if text else None
+Generated code (cleaned):  import hashlib
+
+def string_to_md5(text):
+    return hashlib.md5(text.encode('utf-8')).hexdigest() if text else None
+Generated code (cleaned):  import hashlib
+
+def string_to_md5(text):
+    return hashlib.md5(text.encode('utf-8')).hexdigest() if text else None
+Generated code (cleaned):  def generate_integers(a, b):
+    lower = min(a, b)
+    upper = max(a, b)
+    return [i for i in range(lower, upper+1) if i % 2 == 0 and i <= 8]
+Generated code (cleaned):  def generate_integers(a, b):
+    lower = min(a, b)
+    upper = max(a, b)
+    return [i for i in range(lower, upper+1) if i % 2 == 0 and i <= 8 and i >= 2]
+Generated code (cleaned):  def generate_integers(a, b):
+    lower = min(a, b)
+    upper = max(a, b)
+    return [i for i in range(lower, upper+1) if i % 2 == 0 and 0 < i < 10]

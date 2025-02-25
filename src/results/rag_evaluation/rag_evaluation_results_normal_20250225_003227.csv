@@ -2953,3 +2953,11 @@ def string_to_md5(text):
     lower = min(a, b)
     upper = max(a, b)
     return [i for i in range(lower, upper+1) if i % 2 == 0 and i <= 8]",1.0,"defaultdict(<class 'list'>, {0: [(0, {'task_id': 0, 'passed': True, 'result': 'passed', 'completion_id': 0})]})"
+163,HumanEval/163,5,normal,"['HumanEval/163', 'HumanEval/102', 'HumanEval/97', 'HumanEval/131', 'HumanEval/13']","def generate_integers(a, b):
+    lower = min(a, b)
+    upper = max(a, b)
+    return [i for i in range(lower, upper+1) if i % 2 == 0 and i <= 8 and i >= 2]",1.0,"defaultdict(<class 'list'>, {0: [(0, {'task_id': 0, 'passed': True, 'result': 'passed', 'completion_id': 0})]})"
+163,HumanEval/163,10,normal,"['HumanEval/163', 'HumanEval/102', 'HumanEval/97', 'HumanEval/131', 'HumanEval/13', '558', '891', '498', 'HumanEval/155', '47']","def generate_integers(a, b):
+    lower = min(a, b)
+    upper = max(a, b)
+    return [i for i in range(lower, upper+1) if i % 2 == 0 and 0 < i < 10]",1.0,"defaultdict(<class 'list'>, {0: [(0, {'task_id': 0, 'passed': True, 'result': 'passed', 'completion_id': 0})]})"
