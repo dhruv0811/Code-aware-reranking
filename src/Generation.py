@@ -2,7 +2,7 @@ import os
 import json
 import pandas as pd
 import numpy as np
-from typing import List, Dict, Any, Optional
+from typing import List, Dict, Any, Optional, Tuple
 from datasets import load_dataset
 from evaluate import load
 from huggingface_hub import InferenceClient
@@ -54,7 +54,7 @@ class CodeGenerator:
             
         examples_text = "\n\n".join([f"Example {i+1}:\n```python\n{code}\n```" for i, code in enumerate(examples)])
         
-        prompt = f"""I need you to write a Python function to solve the following problem:
+        prompt = f"""Write this Python function:
 
 {query}
 
@@ -62,10 +62,8 @@ Here are {min(k, len(examples))} example solutions for similar problems that mig
 
 {examples_text}
 
-Based on the problem description and these examples, please write a Python function that solves the given problem. 
-Your solution should be correct, efficient, and follow good coding practices.
-
-```python
+Based on the problem description and these examples, please write a Python function, of the same name that solves the given problem. 
+Your solution should be correct, efficient, and follow good coding practices. Return the python function after "Answer:". Give no other output.
 """
         return prompt
     
@@ -94,6 +92,8 @@ Your solution should be correct, efficient, and follow good coding practices.
                 )
                 
                 generated_code = completion.choices[0].message.content.strip()
+                print("Prompt: ", prompt)
+                print("Generated code: ", generated_code)
                 # Remove markdown code blocks if present
                 if generated_code.startswith("```python"):
                     generated_code = generated_code[10:].strip()
@@ -110,6 +110,47 @@ Your solution should be correct, efficient, and follow good coding practices.
                 logger.warning(f"Attempt {attempt + 1} failed, retrying in {wait_time} seconds...")
                 time.sleep(wait_time)
         
+        return ""
+
+class CodeRepository:
+    """Class to load and manage the code corpus."""
+    
+    def __init__(self, humaneval_dataset_path: str = "openai_humaneval"):
+        """Initialize the code repository with HumanEval and potentially other code sources."""
+        self.humaneval_dataset = load_dataset(humaneval_dataset_path)
+        self.code_cache = {}  # Cache for code content by ID
+        
+    def get_solution_by_id(self, doc_id: str) -> str:
+        """Get the code content for a document ID."""
+        # Check cache first
+        if doc_id in self.code_cache:
+            return self.code_cache[doc_id]
+        
+        # Process HumanEval IDs
+        if doc_id.startswith("HumanEval/") or doc_id.isdigit() or (doc_id.startswith("HumanEval") and doc_id[9:].isdigit()):
+            task_id = doc_id
+            if doc_id.isdigit():
+                task_id = f"HumanEval/{doc_id}"
+            
+            # Search the HumanEval dataset
+            for item in self.humaneval_dataset["test"]:
+                if item["task_id"] == task_id:
+                    code = item.get("canonical_solution", "")
+                    self.code_cache[doc_id] = code
+                    return code
+            
+            # Try more flexible matching if we didn't find it
+            task_id_num = task_id.split("/")[-1]
+            for item in self.humaneval_dataset["test"]:
+                if item["task_id"].endswith(task_id_num):
+                    code = item.get("canonical_solution", "")
+                    self.code_cache[doc_id] = code
+                    return code
+        
+        # For other IDs (non-HumanEval), you would implement additional retrieval logic here
+        # This is a placeholder for future extension
+        logger.warning(f"Code for ID {doc_id} not found")
+        self.code_cache[doc_id] = ""  # Cache the miss
         return ""
 
 class HumanEvalEvaluator:
@@ -180,129 +221,140 @@ class HumanEvalEvaluator:
                 "results": str(e)
             }
 
+class JSONInputProcessor:
+    """Process JSON input files with reranking information."""
+    
+    def __init__(self, json_path: str):
+        """Initialize the processor with the path to the JSON file."""
+        self.data = self._load_json(json_path)
+        logger.info(f"Loaded JSON input with {len(self.data)} queries")
+        
+    def _load_json(self, json_path: str) -> List[Dict]:
+        """Load and parse the JSON input file."""
+        try:
+            with open(json_path, 'r') as f:
+                data = json.load(f)
+            return data
+        except Exception as e:
+            logger.error(f"Error loading JSON file {json_path}: {e}")
+            raise
+    
+    def get_retrieved_docs(self, query_id: int, k: int) -> Tuple[str, List[str]]:
+        """Get the query and top-k retrieved documents for a query ID.
+        
+        Args:
+            query_id: The ID of the query
+            k: Number of top documents to retrieve
+            
+        Returns:
+            Tuple of (query_text, list_of_doc_ids)
+        """
+        for item in self.data:
+            if item["query_id"] == query_id:
+                query = item["query"]
+                docs = item["reranked_docs"][:k]
+                return query, docs
+        
+        raise ValueError(f"Query ID {query_id} not found in the JSON data")
+    
+    def get_all_query_ids(self) -> List[int]:
+        """Get all query IDs from the JSON data."""
+        return [item["query_id"] for item in self.data]
+    
+    def get_true_id(self, query_id: int) -> str:
+        """Get the true ID for a query ID."""
+        for item in self.data:
+            if item["query_id"] == query_id:
+                return item.get("true_id", "")
+        return ""
+
 class RAGEvaluator:
-    """Class to orchestrate the RAG process and evaluation."""
+    """Class to orchestrate the RAG process and evaluation using JSON input."""
     
     def __init__(
         self, 
-        reranking_results_path: str,
+        json_input_path: str,
         model_name: str = "meta-llama/Llama-3.1-70B-Instruct",
         output_dir: str = "rag_results"
     ):
-        """Initialize the RAG evaluator with reranking results."""
-        self.reranking_df = pd.read_csv(reranking_results_path)
+        """Initialize the RAG evaluator with JSON input."""
+        self.json_processor = JSONInputProcessor(json_input_path)
         self.generator = CodeGenerator(model_name=model_name)
         self.evaluator = HumanEvalEvaluator()
+        self.code_repo = CodeRepository()
         self.output_dir = output_dir
         os.makedirs(output_dir, exist_ok=True)
         
-        # Verify required columns
-        required_cols = ["query_id"]
-        missing_cols = [col for col in required_cols if col not in self.reranking_df.columns]
-        if missing_cols:
-            raise ValueError(f"Missing required columns in reranking results: {missing_cols}")
+        logger.info(f"Initialized RAG evaluator with JSON input from {json_input_path}")
         
-        logger.info(f"Loaded reranking results with {len(self.reranking_df)} rows")
-        logger.info(f"Columns: {self.reranking_df.columns.tolist()}")
-    
-    def _parse_retrieved_codes(self, row: pd.Series, k: int) -> List[str]:
-        """Parse retrieved codes from the dataframe row for a given k."""
-        column_name = f"k={k}"
-        
-        if column_name not in row:
-            logger.warning(f"Column '{column_name}' not found in row")
-            return []
-        
-        retrieved_codes = row[column_name]
-        
-        # Handle different formats of retrieved codes in the dataframe
-        if pd.isna(retrieved_codes):
-            return []
-        
-        # If it's already a list, return it
-        if isinstance(retrieved_codes, list):
-            return retrieved_codes
-        
-        # If it's a string, try to parse it as a list
-        if isinstance(retrieved_codes, str):
-            try:
-                # Try parsing as JSON
-                parsed = json.loads(retrieved_codes)
-                if isinstance(parsed, list):
-                    return parsed
-                return [parsed]
-            except json.JSONDecodeError:
-                pass
-                
-            try:
-                # Try parsing as Python literal
-                parsed = ast.literal_eval(retrieved_codes)
-                if isinstance(parsed, list):
-                    return parsed
-                return [parsed]
-            except (SyntaxError, ValueError):
-                # If all else fails, return as single item list
-                return [retrieved_codes]
-        
-        # If it's some other type, return as single item list
-        return [str(retrieved_codes)]
-    
     def run_evaluation(
         self, 
         k_values: List[int] = [1, 5, 10], 
         reverse_order: bool = False,
-        num_samples: Optional[int] = None
+        query_ids: Optional[List[int]] = None
     ) -> pd.DataFrame:
-        """Run the RAG evaluation for different k values.
+        """Run the RAG evaluation for different k values using JSON input.
         
         Args:
             k_values: List of k values to evaluate (number of examples to use)
             reverse_order: If True, reverses the order of examples to test recency bias
-            num_samples: Number of samples to evaluate (default: all)
+            query_ids: Optional list of specific query IDs to evaluate (default: all)
+            
+        Returns:
+            DataFrame with evaluation results
         """
         results = []
         
-        # Limit the number of samples if specified
-        df_to_process = self.reranking_df.sample(n=num_samples) if num_samples else self.reranking_df
+        # Get all query IDs if not specified
+        if query_ids is None:
+            query_ids = self.json_processor.get_all_query_ids()
         
-        for idx, row in tqdm(df_to_process.iterrows(), total=len(df_to_process)):
-            task_id = row.get("query_id", f"unknown_{idx}")
-            
+        for query_id in tqdm(query_ids, desc="Processing queries"):
             try:
-                # Get problem details
-                problem = self.evaluator.get_problem_by_task_id(task_id)
-                query = problem["prompt"]
+                # Get the true ID for evaluation
+                true_id = self.json_processor.get_true_id(query_id)
                 
                 for k in k_values:
                     # Create a descriptive suffix for the ordering type
                     order_suffix = "reversed" if reverse_order else "normal"
-                    logger.info(f"Processing task {task_id} with k={k} (order: {order_suffix})")
+                    logger.info(f"Processing query {query_id} with k={k} (order: {order_suffix})")
                     
-                    # Get retrieved code examples for this k
-                    retrieved_codes = self._parse_retrieved_codes(row, k)
-                    logger.info(f"Retrieved {len(retrieved_codes)} examples for k={k}")
+                    # Get query and retrieved document IDs
+                    query, doc_ids = self.json_processor.get_retrieved_docs(query_id, k)
                     
-                    # Skip if no examples were retrieved
+                    if not doc_ids:
+                        logger.warning(f"No documents retrieved for query {query_id}, k={k}")
+                        continue
+                    
+                    # Get actual code content for each document ID
+                    retrieved_codes = []
+                    for doc_id in doc_ids:
+                        code = self.code_repo.get_solution_by_id(doc_id)
+                        if code:
+                            retrieved_codes.append(code)
+                    
                     if not retrieved_codes:
-                        logger.warning(f"No examples retrieved for k={k}, skipping")
+                        logger.warning(f"No code content found for documents of query {query_id}, k={k}")
                         continue
                     
                     # Generate code
                     generated_code = self.generator.generate_code(query, retrieved_codes, k, reverse_order)
+                    # print(f"Generated before eval: {generated_code}")
                     
-                    # Skip if no code was generated
                     if not generated_code:
-                        logger.warning(f"No code generated for task {task_id} with k={k}, skipping")
+                        logger.warning(f"No code generated for query {query_id}, k={k}")
                         continue
                     
                     # Evaluate solution
-                    eval_result = self.evaluator.evaluate_solution(task_id, generated_code)
+                    eval_result = self.evaluator.evaluate_solution(true_id, generated_code)
                     
                     # Store results
                     result_entry = {
-                        "task_id": task_id,
+                        "query_id": query_id,
+                        "true_id": true_id,
                         "k": k,
                         "order_type": order_suffix,
+                        "retrieved_docs": doc_ids,
                         "generated_code": generated_code,
                         "pass@1": eval_result["pass@1"]
                     }
@@ -320,13 +372,15 @@ class RAGEvaluator:
                         interim_df = pd.DataFrame(results)
                         interim_path = os.path.join(self.output_dir, "interim_results.csv")
                         interim_df.to_csv(interim_path, index=False)
-            
+                        
             except Exception as e:
-                logger.error(f"Error processing task {task_id}: {e}")
+                logger.error(f"Error processing query {query_id}: {e}")
                 results.append({
-                    "task_id": task_id,
+                    "query_id": query_id,
+                    "true_id": self.json_processor.get_true_id(query_id),
                     "k": "error",
                     "order_type": "error",
+                    "retrieved_docs": [],
                     "generated_code": "",
                     "pass@1": 0.0,
                     "result_details": str(e)
@@ -383,21 +437,21 @@ class RAGEvaluator:
         logger.info(f"Metrics:\n{metrics_df.to_string()}")
         return metrics_df
 
-    def compare_orderings(self, k_values: List[int] = [1, 5, 10], num_samples: Optional[int] = None) -> pd.DataFrame:
+    def compare_orderings(self, k_values: List[int] = [1, 5, 10], query_ids: Optional[List[int]] = None) -> pd.DataFrame:
         """Run evaluation with both normal and reversed ordering to compare recency bias effects.
         
         Args:
             k_values: List of k values to evaluate
-            num_samples: Number of samples to evaluate (default: all)
+            query_ids: Optional list of specific query IDs to evaluate (default: all)
             
         Returns:
             DataFrame with comparison results
         """
         logger.info("Running evaluation with normal document ordering...")
-        normal_results = self.run_evaluation(k_values, reverse_order=False, num_samples=num_samples)
+        normal_results = self.run_evaluation(k_values, reverse_order=False, query_ids=query_ids)
         
         logger.info("Running evaluation with reversed document ordering...")
-        reversed_results = self.run_evaluation(k_values, reverse_order=True, num_samples=num_samples)
+        reversed_results = self.run_evaluation(k_values, reverse_order=True, query_ids=query_ids)
         
         # Combine results and calculate comparison metrics
         normal_metrics = self._calculate_metrics(normal_results)
@@ -446,10 +500,10 @@ def main():
     import argparse
     parser = argparse.ArgumentParser(description="Run RAG evaluation on HumanEval")
     parser.add_argument(
-        "--reranking_results", 
+        "--json_input", 
         type=str, 
         required=True,
-        help="Path to the reranking results CSV file"
+        help="Path to the JSON input file with reranking information"
     )
     parser.add_argument(
         "--model_name", 
@@ -480,31 +534,38 @@ def main():
         help="Run evaluation with both normal and reversed ordering to compare recency bias"
     )
     parser.add_argument(
-        "--num_samples", 
-        type=int, 
+        "--query_ids", 
+        type=str, 
         default=None,
-        help="Number of samples to evaluate (default: all)"
+        help="Comma-separated list of query IDs to evaluate (default: all)"
     )
     
     args = parser.parse_args()
     k_values = [int(k) for k in args.k_values.split(',')]
     
+    # Parse query IDs if provided
+    query_ids = None
+    if args.query_ids:
+        query_ids = [int(qid) for qid in args.query_ids.split(',')]
+    
     # Initialize evaluator
     evaluator = RAGEvaluator(
-        reranking_results_path=args.reranking_results,
+        json_input_path=args.json_input,
         model_name=args.model_name,
         output_dir=args.output_dir
     )
     
     # Run evaluation
     if args.compare_orderings:
-        evaluator.compare_orderings(k_values=k_values, num_samples=args.num_samples)
+        evaluator.compare_orderings(k_values=k_values, query_ids=query_ids)
     else:
         evaluator.run_evaluation(
             k_values=k_values, 
             reverse_order=args.reverse_order, 
-            num_samples=args.num_samples
+            query_ids=query_ids
         )
 
 if __name__ == "__main__":
     main()
+
+# python Generation.py --json_input /home/gganeshl/Code-aware-reranking/results/humaneval_best_saved/retrieved_docs/docs_openai_humaneval_Llama-3.1-8B-Instruct_GIST-large-Embedding-v0_none_k5.json --k_values 1,5,10
