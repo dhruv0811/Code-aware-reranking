@@ -305,6 +305,8 @@ class RAGEvaluator:
         
         self.code_repo = CodeRepository(normalization_type=normalization_type)
         self.output_dir = output_dir
+        self.metric_dir = metric_dir
+        self.compare_dir = compare_dir
         os.makedirs(output_dir, exist_ok=True)
         os.makedirs(compare_dir, exist_ok=True)
         os.makedirs(compare_dir + "/pivot", exist_ok=True)
