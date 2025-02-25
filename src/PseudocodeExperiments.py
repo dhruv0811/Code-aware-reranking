@@ -12,11 +12,11 @@ from Pseudocode import HumanEvalPseudoRetrieval
 
 # Configuration constants
 
-DATASET="code-rag-bench/mbpp"
-# DATASET="openai_humaneval"
+# DATASET="code-rag-bench/mbpp"
+DATASET="openai_humaneval"
 
 LLM_MODELS = [
-    "meta-llama/Llama-3.1-70B-Instruct",
+    # "meta-llama/Llama-3.1-70B-Instruct",
     "meta-llama/Llama-3.1-8B-Instruct"
     # "mistralai/Mixtral-8x7B-Instruct-v0.1",
 ]
@@ -148,6 +148,20 @@ def run_single_experiment(
             result_entry[f"baseline_recall@{k}"] = recall
         for k, recall in results["pseudo"].items():
             result_entry[f"pseudo_recall@{k}"] = recall
+        
+        # Save retrieved documents to a separate file
+        if "retrieved_docs" in results:
+            pseudo_tag = "pseudo" if is_pseudo else "direct"
+            docs_filename = f"docs_{DATASET.split('/')[-1]}_{llm_model.split('/')[-1]}_{embedding_model.split('/')[-1]}_{norm_type}_{pseudo_tag}.json"
+            docs_path = cache_dir / "retrieved_docs" / docs_filename
+            
+            # Create directory if it doesn't exist
+            (cache_dir / "retrieved_docs").mkdir(parents=True, exist_ok=True)
+            
+            with open(docs_path, 'w') as f:
+                json.dump(results["retrieved_docs"], f, indent=2)
+                
+            print(f"Saved retrieved documents to {docs_path}")
         
         return result_entry
         

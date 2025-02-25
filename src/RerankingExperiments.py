@@ -12,22 +12,22 @@ from Reranking import ProgrammingSolutionsReranker
 
 # Configuration constants
 
-# EXPERIMENT_NAME = "humaneval_reranker_debug_metric"
-EXPERIMENT_NAME = "mbpp_reranker_debug_metric"
+EXPERIMENT_NAME = "humaneval_reranker_saved"
+# EXPERIMENT_NAME = "mbpp_reranker_debug_metric"
 
-DATASET="code-rag-bench/mbpp"
-# DATASET="openai_humaneval"
+# DATASET="code-rag-bench/mbpp"
+DATASET="openai_humaneval"
 
 LLM_MODELS = [
-    "meta-llama/Llama-3.1-70B-Instruct",
-    "meta-llama/Llama-3.1-8B-Instruct",
+    # "meta-llama/Llama-3.1-70B-Instruct",
+    "meta-llama/Llama-3.1-8B-Instruct"
     # "mistralai/Mixtral-8x7B-Instruct-v0.1"
     # "google/gemini-pro"
 ]
 
 EMBEDDING_MODELS = [
     "avsolatorio/GIST-large-Embedding-v0",
-    "avsolatorio/GIST-Embedding-v0",
+    "avsolatorio/GIST-Embedding-v0"
     # "BAAI/bge-large-en-v1.5",
     # "intfloat/multilingual-e5-large"
 ]
@@ -41,7 +41,7 @@ NORMALIZATION_TYPES = [
 ]
 
 # RERANK_K_VALUES = [5, 10, 25]
-RERANK_K_VALUES = [25]
+RERANK_K_VALUES = [1, 5, 10, 25]
 INITIAL_K = 100
 ALPHA = 0.7
 
@@ -160,6 +160,19 @@ def run_single_experiment(
         for k, metric in results["reranked-position-metric"].items():
             result_entry[f"reranked_position_metric@{k}"] = metric
         
+        # Save retrieved documents to a separate file
+        if "retrieved_docs" in results:
+            docs_filename = f"docs_{dataset_name.split('/')[-1]}_{llm_model.split('/')[-1]}_{embedding_model.split('/')[-1]}_{norm_type}_k{rerank_k}.json"
+            docs_path = cache_dir / "retrieved_docs" / docs_filename
+            
+            # Create directory if it doesn't exist
+            (cache_dir / "retrieved_docs").mkdir(parents=True, exist_ok=True)
+            
+            with open(docs_path, 'w') as f:
+                json.dump(results["retrieved_docs"], f, indent=2)
+                
+            print(f"Saved retrieved documents to {docs_path}")
+        
         return result_entry
         
     except Exception as e:
@@ -223,7 +236,7 @@ def main():
     
     # Run experiments
     experiment_id = run_experiments(
-        output_dir="results/debug/mbpp_reranker_metric",
+        output_dir="results/humaneval_best_saved",
         num_samples=None
     )
     

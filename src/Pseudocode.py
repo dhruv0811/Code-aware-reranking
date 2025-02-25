@@ -147,6 +147,9 @@ class HumanEvalPseudoRetrieval:
         pseudo_recalls = {k: 0 for k in k_values}
         max_k = max(k_values)
         
+        # Store the retrieved documents for each query
+        retrieved_docs_list = []
+        
         for query_idx, (query, true_id) in enumerate(tqdm(zip(queries, task_ids), total=len(queries))):
             pseudocode = self.generate_pseudocode(query)
             
@@ -161,6 +164,16 @@ class HumanEvalPseudoRetrieval:
 
             true_id = str(true_id)
             retrieved_ids = [str(id) for id in retrieved_ids]
+            
+            # Store the retrieved documents for this query
+            retrieved_docs_list.append({
+                "query_id": query_idx,
+                "query": query,
+                "pseudocode": pseudocode,
+                "true_id": true_id,
+                "is_pseudo": is_pseudo,
+                "retrieved_docs": retrieved_ids[:max_k]
+            })
                 
             recalls = pseudo_recalls if is_pseudo else direct_recalls
             for k in k_values:
@@ -173,5 +186,6 @@ class HumanEvalPseudoRetrieval:
         
         return {
             "baseline": direct_recalls,
-            "pseudo": pseudo_recalls
+            "pseudo": pseudo_recalls,
+            "retrieved_docs": retrieved_docs_list
         }

@@ -253,8 +253,6 @@ class ProgrammingSolutionsReranker:
         if num_samples:
             queries = queries[:num_samples]
             task_ids = task_ids[:num_samples]
-            print(queries)
-            print(task_ids)
         
         if debug:
             print(f"\nEvaluating {len(queries)} queries")
@@ -265,6 +263,9 @@ class ProgrammingSolutionsReranker:
 
         baseline_position_scores = {k: 0.0 for k in k_values}
         reranked_position_scores = {k: 0.0 for k in k_values}
+        
+        # Store the retrieved documents for each query
+        retrieved_docs_list = []
         
         for query_idx, (query, true_id) in enumerate(tqdm(zip(queries, task_ids), total=len(queries))):
             if debug:
@@ -290,6 +291,15 @@ class ProgrammingSolutionsReranker:
             true_id = str(true_id)
             baseline_ids = [str(id) for id in baseline_ids]
             reranked_ids = [str(id) for id in reranked_ids]
+            
+            # Store the retrieved documents for this query
+            retrieved_docs_list.append({
+                "query_id": query_idx,
+                "query": query,
+                "true_id": true_id,
+                "baseline_docs": baseline_ids[:max(k_values)],
+                "reranked_docs": reranked_ids[:max(k_values)]
+            })
             
             if debug:
                 print("\nTop 5 baseline IDs:", baseline_ids[:5])
@@ -341,4 +351,5 @@ class ProgrammingSolutionsReranker:
             "reranked": reranked_recalls,
             "baseline-position-metric": avg_baseline_position_scores,
             "reranked-position-metric": avg_reranked_position_scores,
+            "retrieved_docs": retrieved_docs_list
         }
