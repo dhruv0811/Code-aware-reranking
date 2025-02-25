@@ -1,5 +1,5 @@
 #!/bin/bash
-#SBATCH --job-name=mbpp_reranking
+#SBATCH --job-name=norm_experiment
 #SBATCH --partition=general
 #SBATCH --time=48:00:00 
 
@@ -7,8 +7,8 @@
 #SBATCH --gres=gpu:A6000:1
 #SBATCH --cpus-per-task=4
 
-#SBATCH --output=/home/dhruvgu2/CodeRAG-reranking/slurm/logs/humaneval-output-%j-withAddedMetric.log
-#SBATCH --error=/home/dhruvgu2/CodeRAG-reranking/slurm/logs/humaneval-error-%j-withAddedMetric.out
+#SBATCH --output=/home/dhruvgu2/CodeRAG-reranking/slurm/logs/norm_experiment-output-%j.log
+#SBATCH --error=/home/dhruvgu2/CodeRAG-reranking/slurm/logs/norm_experiment-error-%j.out
 
 #SBATCH --mail-type=END
 #SBATCH --mail-user=dhruvgu2@andrew.cmu.edu
@@ -20,4 +20,4 @@ conda activate rag
 
 cd /home/dhruvgu2/CodeRAG-reranking
 
-python3 src/RerankingExperiments.py
+python3 src/analysis/run_normalization_experiment.py

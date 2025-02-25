@@ -248,7 +248,7 @@ def main():
     
     # Run experiments
     experiment_id = run_experiments(
-        output_dir="results/humaneval_metrics",
+        output_dir="results/mbpp_metrics",
         num_samples=None
     )
     
