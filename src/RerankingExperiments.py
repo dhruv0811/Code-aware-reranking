@@ -12,11 +12,11 @@ from Reranking import ProgrammingSolutionsReranker
 
 # Configuration constants
 
-EXPERIMENT_NAME = "humaneval_reranker_saved"
-# EXPERIMENT_NAME = "mbpp_reranker_debug_metric"
+# EXPERIMENT_NAME = "humaneval_reranker_metrics"
+EXPERIMENT_NAME = "mbpp_reranker_metrics"
 
-# DATASET="code-rag-bench/mbpp"
-DATASET="openai_humaneval"
+DATASET="code-rag-bench/mbpp"
+# DATASET="openai_humaneval"
 
 LLM_MODELS = [
     # "meta-llama/Llama-3.1-70B-Instruct",
@@ -41,7 +41,7 @@ NORMALIZATION_TYPES = [
 ]
 
 # RERANK_K_VALUES = [5, 10, 25]
-RERANK_K_VALUES = [5, 10, 25]
+RERANK_K_VALUES = [5, 25]
 INITIAL_K = 100
 ALPHA = 0.7
 
@@ -155,10 +155,22 @@ def run_single_experiment(
             result_entry[f"baseline_recall@{k}"] = recall
         for k, recall in results["reranked"].items():
             result_entry[f"reranked_recall@{k}"] = recall
+            
+        # Add position-aware metrics
         for k, metric in results["baseline-position-metric"].items():
             result_entry[f"baseline_position_metric@{k}"] = metric
         for k, metric in results["reranked-position-metric"].items():
             result_entry[f"reranked_position_metric@{k}"] = metric
+            
+        # Add NDCG metrics
+        for k, ndcg in results["baseline-ndcg"].items():
+            result_entry[f"baseline_ndcg@{k}"] = ndcg
+        for k, ndcg in results["reranked-ndcg"].items():
+            result_entry[f"reranked_ndcg@{k}"] = ndcg
+            
+        # Add MRR metrics
+        result_entry["baseline_mrr"] = results["baseline-mrr"]
+        result_entry["reranked_mrr"] = results["reranked-mrr"]
         
         # Save retrieved documents to a separate file
         if "retrieved_docs" in results:
@@ -177,8 +189,6 @@ def run_single_experiment(
         
     except Exception as e:
         print(f"Error running configuration: {e}")
-        import traceback
-        traceback.print_exc()
         return {
             "llm_model": llm_model,
             "embedding_model": embedding_model,
@@ -238,7 +248,7 @@ def main():
     
     # Run experiments
     experiment_id = run_experiments(
-        output_dir="results/humaneval_best_saved",
+        output_dir="results/humaneval_metrics",
         num_samples=None
     )
     

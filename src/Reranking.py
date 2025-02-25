@@ -1,3 +1,4 @@
+import math
 import os 
 import pickle
 import hashlib
@@ -231,6 +232,40 @@ class ProgrammingSolutionsReranker:
         #             print(f"Description: {result.code_description}")
         
         return reranked_results
+    
+    def _compute_ndcg_at_k(self, retrieved_ids: List[str], true_id: str, k: int) -> float:
+        """
+        Compute NDCG@k for a single query.
+        For our case, relevance is binary (1 if it matches true_id, 0 otherwise).
+        """
+        # Get relevance scores for top k results
+        relevance = [1 if doc_id == true_id else 0 for doc_id in retrieved_ids[:k]]
+        
+        # Calculate DCG@k
+        dcg = 0
+        for i, rel in enumerate(relevance):
+            # Using log base 2 (i+2 because ranks start at 1, and log(1) = 0)
+            dcg += rel / math.log2(i + 2)
+        
+        # Calculate IDCG@k (ideal DCG)
+        # For binary relevance, ideal ranking would have the relevant doc at position 1
+        idcg = 1.0  # 1/log2(1+1) = 1
+        
+        # Return NDCG@k
+        return dcg / idcg if idcg > 0 else 0.0
+    
+    def _compute_mrr(self, retrieved_ids: List[str], true_id: str) -> float:
+        """
+        Compute Mean Reciprocal Rank for a single query.
+        Returns 1/rank of the first relevant document, or 0 if not found.
+        """
+        try:
+            # Find the first occurrence of true_id
+            rank = retrieved_ids.index(true_id) + 1
+            return 1.0 / rank
+        except ValueError:
+            # If true_id is not in the list
+            return 0.0
 
     def evaluate(
         self,
@@ -263,6 +298,14 @@ class ProgrammingSolutionsReranker:
 
         baseline_position_scores = {k: 0.0 for k in k_values}
         reranked_position_scores = {k: 0.0 for k in k_values}
+        
+        # Add NDCG metrics
+        baseline_ndcg = {k: 0.0 for k in k_values}
+        reranked_ndcg = {k: 0.0 for k in k_values}
+        
+        # Add MRR metrics
+        baseline_mrr = 0.0
+        reranked_mrr = 0.0
         
         # Store the retrieved documents for each query
         retrieved_docs_list = []
@@ -306,7 +349,12 @@ class ProgrammingSolutionsReranker:
                 print("Top 5 reranked IDs:", reranked_ids[:5])
                 print("Looking for true_id:", true_id)
 
+            # Calculate NDCG for each k
             for k in k_values:
+                # Calculate NDCG@k
+                baseline_ndcg[k] += self._compute_ndcg_at_k(baseline_ids, true_id, k)
+                reranked_ndcg[k] += self._compute_ndcg_at_k(reranked_ids, true_id, k)
+                
                 # Baseline position-aware metric
                 try:
                     baseline_pos = baseline_ids[:k].index(true_id)
@@ -329,7 +377,7 @@ class ProgrammingSolutionsReranker:
                     if debug:
                         print(f"Reranked position-aware score @{k}: 0.000 (not found in top {k})")
 
-            for k in k_values:
+                # Check if true_id is in the top-k results
                 if true_id in baseline_ids[:k]:
                     baseline_recalls[k] += 1
                     if debug:
@@ -338,18 +386,44 @@ class ProgrammingSolutionsReranker:
                     reranked_recalls[k] += 1
                     if debug:
                         print(f"Found in reranked top-{k}")
+            
+            # Calculate MRR
+            baseline_mrr += self._compute_mrr(baseline_ids, true_id)
+            reranked_mrr += self._compute_mrr(reranked_ids, true_id)
         
         num_queries = len(queries)
+        
+        # Normalize metrics
         baseline_recalls = {k: count/num_queries for k, count in baseline_recalls.items()}
         reranked_recalls = {k: count/num_queries for k, count in reranked_recalls.items()}
+        
         avg_baseline_position_scores = {k: score/num_queries for k, score in baseline_position_scores.items()}
         avg_reranked_position_scores = {k: score/num_queries for k, score in reranked_position_scores.items()}
-    
+        
+        # Normalize NDCG
+        avg_baseline_ndcg = {k: score/num_queries for k, score in baseline_ndcg.items()}
+        avg_reranked_ndcg = {k: score/num_queries for k, score in reranked_ndcg.items()}
+        
+        # Normalize MRR
+        avg_baseline_mrr = baseline_mrr / num_queries
+        avg_reranked_mrr = reranked_mrr / num_queries
+        
+        if debug:
+            print("\nAverage Metrics:")
+            print(f"Baseline MRR: {avg_baseline_mrr:.4f}")
+            print(f"Reranked MRR: {avg_reranked_mrr:.4f}")
+            for k in k_values:
+                print(f"Baseline NDCG@{k}: {avg_baseline_ndcg[k]:.4f}")
+                print(f"Reranked NDCG@{k}: {avg_reranked_ndcg[k]:.4f}")
         
         return {
             "baseline": baseline_recalls,
             "reranked": reranked_recalls,
             "baseline-position-metric": avg_baseline_position_scores,
             "reranked-position-metric": avg_reranked_position_scores,
+            "baseline-ndcg": avg_baseline_ndcg,
+            "reranked-ndcg": avg_reranked_ndcg,
+            "baseline-mrr": avg_baseline_mrr,
+            "reranked-mrr": avg_reranked_mrr,
             "retrieved_docs": retrieved_docs_list
         }
