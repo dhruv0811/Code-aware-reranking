@@ -223,12 +223,12 @@ class ProgrammingSolutionsReranker:
         )
         reranked_results.extend(remaining)
         
-        if debug:
-            print("\nFinal reranking results:")
-            for i, result in enumerate(reranked_results[:5]):
-                print(f"Rank {i+1}: task_id={result.task_id}, score={result.reranked_score:.2f}")
-                if result.code_description:
-                    print(f"Description: {result.code_description}")
+        # if debug:
+        #     print("\nFinal reranking results:")
+        #     for i, result in enumerate(reranked_results[:5]):
+        #         print(f"Rank {i+1}: task_id={result.task_id}, score={result.reranked_score:.2f}")
+        #         if result.code_description:
+        #             print(f"Description: {result.code_description}")
         
         return reranked_results
 

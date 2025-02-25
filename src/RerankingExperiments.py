@@ -41,7 +41,7 @@ NORMALIZATION_TYPES = [
 ]
 
 # RERANK_K_VALUES = [5, 10, 25]
-RERANK_K_VALUES = [1, 5, 10, 25]
+RERANK_K_VALUES = [5, 10, 25]
 INITIAL_K = 100
 ALPHA = 0.7
 
@@ -136,7 +136,7 @@ def run_single_experiment(
             rerank_k=rerank_k,
             alpha=ALPHA,
             num_samples=num_samples,
-            debug=True,
+            debug=False,
             dataset_name=dataset_name
         )
         
@@ -177,6 +177,8 @@ def run_single_experiment(
         
     except Exception as e:
         print(f"Error running configuration: {e}")
+        import traceback
+        traceback.print_exc()
         return {
             "llm_model": llm_model,
             "embedding_model": embedding_model,
