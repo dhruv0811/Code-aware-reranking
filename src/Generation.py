@@ -55,13 +55,20 @@ class CodeGenerator:
             
         examples_text = "\n\n".join([f"Example {i+1}:\n```python\n{code}\n````" for i, code in enumerate(examples)])
         
-        prompt = f"""Write this Python function:
+        if k == 0:
+            prompt = f"""Write this Python function:
 {query}
-Here are {min(k, len(examples))} similar solutions that might help:
-{examples_text}
 Please write a correct, efficient Python function, of the same name that solves the given problem. Return only the python function after "```python", without the docstring. Have import statements if necessary. 
 """
-        return prompt
+            return prompt
+        else:
+            prompt = f"""Write this Python function:
+    {query}
+    Here are {min(k, len(examples))} similar solutions that might help:
+    {examples_text}
+    Please write a correct, efficient Python function, of the same name that solves the given problem. Return only the python function after "```python", without the docstring. Have import statements if necessary. 
+    """
+            return prompt
     
     def generate_code(self, query: str, retrieved_codes: List[str], k: int, reverse_order: bool = False, max_retries: int = 3) -> str:
         """Generate code using the LLM with RAG context.
@@ -295,6 +302,7 @@ class RAGEvaluator:
     ):
         """Initialize the RAG evaluator with JSON input."""
         self.json_input_path = json_input_path
+        self.model_name = model_name
         self.json_processor = JSONInputProcessor(json_input_path)
         self.generator = CodeGenerator(model_name=model_name)
         self.evaluator = HumanEvalEvaluator()
@@ -369,20 +377,21 @@ class RAGEvaluator:
                     # Get query and retrieved document IDs
                     query, doc_ids = self.json_processor.get_retrieved_docs(query_id, k)
                     
-                    if not doc_ids:
+                    if not doc_ids and k > 0:
                         logger.warning(f"No documents retrieved for query {query_id}, k={k}")
                         continue
                     
-                    # Get actual code content for each document ID
                     retrieved_codes = []
-                    for doc_id in doc_ids:
-                        code = self.code_repo.get_solution_by_id(doc_id)
-                        if code:
-                            retrieved_codes.append(code)
-                    
-                    if not retrieved_codes:
-                        logger.warning(f"No code content found for documents of query {query_id}, k={k}")
-                        continue
+                    if k != 0:
+                        # Get actual code content for each document ID
+                        for doc_id in doc_ids:
+                            code = self.code_repo.get_solution_by_id(doc_id)
+                            if code:
+                                retrieved_codes.append(code)
+                        
+                        if not retrieved_codes:
+                            logger.warning(f"No code content found for documents of query {query_id}, k={k}")
+                            continue
                     
                     # Generate code
                     generated_code = self.generator.generate_code(query, retrieved_codes, k, reverse_order)
@@ -416,7 +425,7 @@ class RAGEvaluator:
                     # Save intermediate results frequently
                     if len(results) % 10 == 0:
                         interim_df = pd.DataFrame(results)
-                        interim_path = "results/generation/interim_results.csv"
+                        interim_path = f"results/generation/interim_results_{self.model_name}.csv"
                         interim_df.to_csv(interim_path, index=False)
                         
             except Exception as e:
@@ -437,14 +446,14 @@ class RAGEvaluator:
         
         # Save results with the same name as the input JSON file
         order_type = "reversed" if reverse_order else "normal"
-        csv_output_path = self._get_output_path() + "_" + order_type + ".csv"
+        csv_output_path = self._get_output_path() + "_" + self.model_name + "_" + order_type + ".csv"
         results_df.to_csv(csv_output_path, index=False)
         logger.info(f"Results saved to {csv_output_path}")
         
         # Calculate aggregated metrics
         metrics = self._calculate_metrics(results_df)
         metrics_basename = csv_output_path.split('/')[-1]
-        metrics_path = os.path.join(self.metric_dir, f"metrics_{metrics_basename}")
+        metrics_path = os.path.join(self.metric_dir, f"metrics_{metrics_basename}_{self.model_name}")
         metrics.to_csv(metrics_path, index=False)
         logger.info(f"Evaluation complete. Results saved to {metrics_path} and {csv_output_path}")
         return results_df
@@ -510,7 +519,7 @@ class RAGEvaluator:
         
         # Save comparison results
         timestamp = time.strftime("%Y%m%d_%H%M%S")
-        comparison_path = os.path.join(self.compare_dir, f"recency_bias_comparison_{timestamp}.csv")
+        comparison_path = os.path.join(self.compare_dir, f"recency_bias_comparison_{timestamp}_{self.model_name}.csv")
         combined_metrics.to_csv(comparison_path, index=False)
         
         # Create a pivot table for easier comparison
@@ -614,4 +623,16 @@ def main():
 if __name__ == "__main__":
     main()
 
+## Llama 3.1 70B - Instruct
 # python src/Generation.py --json_input /home/gganeshl/Code-aware-reranking/results/humaneval_best_saved/retrieved_docs/docs_openai_humaneval_Llama-3.1-8B-Instruct_GIST-large-Embedding-v0_none_k5.json --k_values 1,5,10
+# python src/Generation.py --json_input /home/gganeshl/Code-aware-reranking/results/humaneval_best_saved/retrieved_docs/docs_openai_humaneval_Llama-3.1-8B-Instruct_GIST-large-Embedding-v0_docstring_k5.json --k_values 1,5,10
+# python src/Generation.py --json_input /home/gganeshl/Code-aware-reranking/results/humaneval_best_saved/retrieved_docs/docs_openai_humaneval_Llama-3.1-8B-Instruct_GIST-large-Embedding-v0_variables_k5.json --k_values 1,5,10
+# python src/Generation.py --json_input /home/gganeshl/Code-aware-reranking/results/humaneval_best_saved/retrieved_docs/docs_openai_humaneval_Llama-3.1-8B-Instruct_GIST-large-Embedding-v0_functions_k5.json --k_values 1,5,10
+# python src/Generation.py --json_input /home/gganeshl/Code-aware-reranking/results/humaneval_best_saved/retrieved_docs/docs_openai_humaneval_Llama-3.1-8B-Instruct_GIST-large-Embedding-v0_both_k5.json --k_values 0,1,5,10
+
+## Llama 3.1 8B Instruct
+# python src/Generation.py --json_input /home/gganeshl/Code-aware-reranking/results/humaneval_best_saved/retrieved_docs/docs_openai_humaneval_Llama-3.1-8B-Instruct_GIST-large-Embedding-v0_none_k5.json --k_values 1,5,10 --model_name meta-llama/Llama-3.1-8B-Instruct
+# python src/Generation.py --json_input /home/gganeshl/Code-aware-reranking/results/humaneval_best_saved/retrieved_docs/docs_openai_humaneval_Llama-3.1-8B-Instruct_GIST-large-Embedding-v0_docstring_k5.json --k_values 1,5,10 --model_name meta-llama/Llama-3.1-8B-Instruct
+# python src/Generation.py --json_input /home/gganeshl/Code-aware-reranking/results/humaneval_best_saved/retrieved_docs/docs_openai_humaneval_Llama-3.1-8B-Instruct_GIST-large-Embedding-v0_variables_k5.json --k_values 1,5,10 --model_name meta-llama/Llama-3.1-8B-Instruct
+# python src/Generation.py --json_input /home/gganeshl/Code-aware-reranking/results/humaneval_best_saved/retrieved_docs/docs_openai_humaneval_Llama-3.1-8B-Instruct_GIST-large-Embedding-v0_functions_k5.json --k_values 1,5,10 --model_name meta-llama/Llama-3.1-8B-Instruct
+# python src/Generation.py --json_input /home/gganeshl/Code-aware-reranking/results/humaneval_best_saved/retrieved_docs/docs_openai_humaneval_Llama-3.1-8B-Instruct_GIST-large-Embedding-v0_both_k5.json --k_values 0,1,5,10 --model_name meta-llama/Llama-3.1-8B-Instruct

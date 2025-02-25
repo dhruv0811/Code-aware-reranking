@@ -4387,3 +4387,23 @@ def string_to_md5(text):
 
 def string_to_md5(text):
     return hashlib.md5(text.encode('utf-8')).hexdigest() if text else None",1.0,"defaultdict(<class 'list'>, {0: [(0, {'task_id': 0, 'passed': True, 'result': 'passed', 'completion_id': 0})]})"
+162,HumanEval/162,5,normal,"['HumanEval/162', '319', '877', '330', '374']","import hashlib
+
+def string_to_md5(text):
+    return hashlib.md5(text.encode('utf-8')).hexdigest() if text else None",1.0,"defaultdict(<class 'list'>, {0: [(0, {'task_id': 0, 'passed': True, 'result': 'passed', 'completion_id': 0})]})"
+162,HumanEval/162,10,normal,"['HumanEval/162', '319', '877', '330', '374', '403', '217', '53', '823', '99']","import hashlib
+
+def string_to_md5(text):
+    return hashlib.md5(text.encode('utf-8')).hexdigest() if text else None",1.0,"defaultdict(<class 'list'>, {0: [(0, {'task_id': 0, 'passed': True, 'result': 'passed', 'completion_id': 0})]})"
+163,HumanEval/163,0,normal,[],"def generate_integers(a, b):
+    start, end = min(a, b), max(a, b)
+    return [i for i in range(start, end + 1) if i % 2 == 0]",1.0,"defaultdict(<class 'list'>, {0: [(0, {'task_id': 0, 'passed': True, 'result': 'passed', 'completion_id': 0})]})"
+163,HumanEval/163,1,normal,['406'],"def generate_integers(a, b):
+    start, end = min(a, b), max(a, b)
+    return [i for i in range(start, end + 1) if i % 2 == 0]",1.0,"defaultdict(<class 'list'>, {0: [(0, {'task_id': 0, 'passed': True, 'result': 'passed', 'completion_id': 0})]})"
+163,HumanEval/163,5,normal,"['406', '134', '781', '621', '873']","def generate_integers(a, b):
+    start, end = min(a, b), max(a, b)
+    return [i for i in range(start, end + 1) if i % 2 == 0]",1.0,"defaultdict(<class 'list'>, {0: [(0, {'task_id': 0, 'passed': True, 'result': 'passed', 'completion_id': 0})]})"
+163,HumanEval/163,10,normal,"['406', '134', '781', '621', '873', '843', '260', '342', '905', '218']","def generate_integers(a, b):
+    start, end = min(a, b), max(a, b)
+    return [i for i in range(start, end + 1) if i % 2 == 0]",1.0,"defaultdict(<class 'list'>, {0: [(0, {'task_id': 0, 'passed': True, 'result': 'passed', 'completion_id': 0})]})"
