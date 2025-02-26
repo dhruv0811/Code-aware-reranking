@@ -16,7 +16,7 @@ def main():
                         help="LLM model to use for reranking")
                         
     parser.add_argument("--dataset", type=str, 
-                        default="openai_humaneval",
+                        default="openai_humaneval", 
                         choices=["openai_humaneval", "code-rag-bench/mbpp"],
                         help="Dataset to use for queries")
     
@@ -40,7 +40,7 @@ def main():
                         help="Directory to save results")
                         
     parser.add_argument("--cache-dir", type=str,
-                        default="results/humaneval_best_saved",
+                        default="results/humaneval_best_saved", #"results/humaneval_best_saved" or "results/mbpp_metrics"
                         help="Directory for cache files")
     
     args = parser.parse_args()

@@ -1,6 +1,6 @@
 import json
 
-def create_latex_tables(json_file, output_file):
+def create_latex_tables(json_file, output_file, metric='Recall'):
     # Read JSON data
     with open(json_file, 'r') as f:
         data = json.load(f)
@@ -28,7 +28,7 @@ def create_latex_tables(json_file, output_file):
         'docstring': 'Docstring',
         'functions': 'Functions',
         'variables': 'Variables',
-        'both': 'Both'
+        'both': 'Functions \& Variables'
     }
     
     # Start the LaTeX document
@@ -55,7 +55,7 @@ def create_latex_tables(json_file, output_file):
             "\\centering",
             "\\begin{tabular}{l|" + "c" * (len(recall_ks) - 1) + "|c}",
             "\\toprule",
-            "\\textbf{Normalization} & " + " & ".join([f"\\textbf{{Recall@{k}}}" for k in recall_ks]) + " \\\\",
+            "\\textbf{Normalization} & " + " & ".join([f"\\textbf{{{metric}@{k}}}" for k in recall_ks]) + " \\\\",
             "\\midrule"
         ]
         
@@ -64,8 +64,8 @@ def create_latex_tables(json_file, output_file):
             norm_type = name_mapping[entry['normalization_type']]
             scores = []
             for k in recall_ks:
-                baseline = entry[f'baseline_recall@{k}']
-                reranked = entry[f'reranked_recall@{k}']
+                baseline = entry[f'baseline_{metric.lower()}@{k}']
+                reranked = entry[f'reranked_{metric.lower()}@{k}']
                 # reranked = entry[f'pseudo_recall@{k}']
                 
                 # Handle Recall@25 differently
@@ -97,10 +97,10 @@ def create_latex_tables(json_file, output_file):
         table.extend([
             "\\bottomrule",
             "\\end{tabular}",
-            f"\\caption{{Baseline/Pseudocode Recall Scores (\\%) using {llm_model} and {embedding_model}. " +
+            f"\\caption{{Baseline/Pseudocode {metric} Scores (\\%) using {llm_model} and {embedding_model}. " +
             "Dark green: $>$10 points improvement, Light green: 0-10 points improvement, " +
             "Light red: 0-10 points decrease, Dark red: $>$10 points decrease. " +
-            "For Recall@25, only baseline scores are shown.}",
+            "For {metric}@25, only baseline scores are shown.}",
             "\\label{tab:pseudo-scores-" + llm_model.split('/')[-1].lower().replace('-', '_') + "}",
             "\\end{table}",
             ""
@@ -108,7 +108,7 @@ def create_latex_tables(json_file, output_file):
         
         latex_tables.extend(table)
     
-    print(latex_tables)
+    # print(latex_tables)
     
     # Save all tables to file
     with open(output_file, 'w') as f:
@@ -125,8 +125,9 @@ if __name__ == "__main__":
     # latex_output = create_latex_tables("pseduo_merged_results.json", 
     #                                    "tables/pseudo_all_model_results.tex")
     
-    latex_output = create_latex_tables("./results/fixed_corpus_mbpp_reranker/experiment_redo3_20250212_130621_results.json", 
-                                       "mbpp_reranker_results.tex")
+    latex_output = create_latex_tables("./results/humaneval_metrics/humaneval_reranker_metrics_20250225_130238_results.json", 
+                                       "humaneval_reranker_results.tex",
+                                       metric='Recall')
     
     # print("Tables have been saved to tables/all_model_results.tex")
 

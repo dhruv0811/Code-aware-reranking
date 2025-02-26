@@ -1,0 +1,23 @@
+% Required packages: booktabs, xcolor, colortbl
+% Define colors for different levels of change
+\definecolor{lightgreen}{RGB}{220,240,220}
+\definecolor{darkgreen}{RGB}{150,200,150}
+\definecolor{lightred}{RGB}{240,220,220}
+\definecolor{darkred}{RGB}{200,150,150}
+
+\begin{table}[h]
+\centering
+\begin{tabular}{l|ccc|c}
+\toprule
+\textbf{Normalization} & \textbf{Recall@1} & \textbf{Recall@5} & \textbf{Recall@10} & \textbf{Recall@25} \\
+\midrule
+None & \cellcolor{lightred}100.0/99.4 & 100.0/100.0 & 100.0/100.0 & 100.0/- \\
+Docstring & 98.8/98.8 & 100.0/100.0 & 100.0/100.0 & 100.0/- \\
+Functions & \cellcolor{darkgreen}54.3/69.5 & \cellcolor{lightgreen}77.4/86.0 & \cellcolor{lightgreen}83.5/89.6 & 92.7/- \\
+Variables & \cellcolor{darkred}92.1/56.1 & \cellcolor{darkred}98.2/71.3 & \cellcolor{darkred}98.2/80.5 & 100.0/- \\
+Both & \cellcolor{darkgreen}18.9/31.7 & \cellcolor{lightgreen}34.1/43.3 & \cellcolor{lightgreen}42.7/46.3 & 50.6/- \\
+\bottomrule
+\end{tabular}
+\caption{Baseline/Pseudocode Recall Scores (\%) using meta-llama/Llama-3.1-8B-Instruct and avsolatorio/GIST-large-Embedding-v0. Dark green: $>$10 points improvement, Light green: 0-10 points improvement, Light red: 0-10 points decrease, Dark red: $>$10 points decrease. For Recall@25, only baseline scores are shown.}
+\label{tab:pseudo-scores-llama_3.1_8b_instruct}
+\end{table}
