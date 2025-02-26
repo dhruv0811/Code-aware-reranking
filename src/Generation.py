@@ -11,13 +11,18 @@ import time
 import ast
 import logging
 from Corpus import CodeNormalizer, ProgrammingSolutionsCorpus
+import random
+
+# Generate a random number (for example, between 1000 and 9999)
+random_number = random.randint(1000, 9999)
+print("Random number: ", random_number)
 
 # Set up logging
 logging.basicConfig(
     level=logging.INFO,
     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
     handlers=[
-        logging.FileHandler("logs/rag_generation_evaluation.log"),
+        logging.FileHandler(f"logs/rag_generation_evaluation_{random_number}.log"),
         logging.StreamHandler()
     ]
 )
@@ -81,6 +86,8 @@ Please write a correct, efficient Python function, of the same name that solves 
             max_retries: Maximum number of retry attempts on API failure
         """
         prompt = self._create_prompt(query, retrieved_codes, k, reverse_order)
+        if k == 1:
+            print("Retrieved Documents: ", retrieved_codes)
         
         for attempt in range(max_retries):
             try:
@@ -93,7 +100,7 @@ Please write a correct, efficient Python function, of the same name that solves 
                     temperature=0.2,
                     stop=["````"]
                 )
-                print("Prompt: ", prompt)
+                #print("Prompt: ", prompt)
                 generated_code = completion.choices[0].message.content.strip()
                 
                 if "```python" in generated_code:
@@ -110,7 +117,7 @@ Please write a correct, efficient Python function, of the same name that solves 
                 if generated_code.endswith("```"):
                     generated_code = generated_code[:-3].strip()
                     
-                print("Generated code (cleaned): ", generated_code)
+                #print("Generated code (cleaned): ", generated_code)
                 return generated_code
                 
             except Exception as e:
@@ -219,6 +226,11 @@ class HumanEvalEvaluator:
         entry_point = problem["entry_point"]
         if not any(line.strip().startswith(f"def {entry_point}") for line in generated_code.split('\n')):
             logger.warning(f"Entry point '{entry_point}' not found in solution for {task_id}")
+            return {
+                "task_id": task_id,
+                "pass@1": 0.0,
+                "results": "entry point not found"
+            }
         
         # Compute pass@k metrics
         candidates = [[generated_code]]
@@ -422,10 +434,11 @@ class RAGEvaluator:
                     
                     results.append(result_entry)
                     
+                    global random_number
                     # Save intermediate results frequently
                     if len(results) % 10 == 0:
                         interim_df = pd.DataFrame(results)
-                        interim_path = f"results/generation/interim_results_{self.model_name}.csv"
+                        interim_path = f"results/generation/interim_results_{random_number}.csv"
                         interim_df.to_csv(interim_path, index=False)
                         
             except Exception as e:
@@ -446,14 +459,14 @@ class RAGEvaluator:
         
         # Save results with the same name as the input JSON file
         order_type = "reversed" if reverse_order else "normal"
-        csv_output_path = self._get_output_path() + "_" + self.model_name + "_" + order_type + ".csv"
+        csv_output_path = self._get_output_path() + "_" + order_type + ".csv"
         results_df.to_csv(csv_output_path, index=False)
         logger.info(f"Results saved to {csv_output_path}")
         
         # Calculate aggregated metrics
         metrics = self._calculate_metrics(results_df)
         metrics_basename = csv_output_path.split('/')[-1]
-        metrics_path = os.path.join(self.metric_dir, f"metrics_{metrics_basename}_{self.model_name}")
+        metrics_path = os.path.join(self.metric_dir, f"metrics_{metrics_basename}")
         metrics.to_csv(metrics_path, index=False)
         logger.info(f"Evaluation complete. Results saved to {metrics_path} and {csv_output_path}")
         return results_df
@@ -519,7 +532,7 @@ class RAGEvaluator:
         
         # Save comparison results
         timestamp = time.strftime("%Y%m%d_%H%M%S")
-        comparison_path = os.path.join(self.compare_dir, f"recency_bias_comparison_{timestamp}_{self.model_name}.csv")
+        comparison_path = os.path.join(self.compare_dir, f"recency_bias_comparison_{timestamp}.csv")
         combined_metrics.to_csv(comparison_path, index=False)
         
         # Create a pivot table for easier comparison
@@ -636,3 +649,4 @@ if __name__ == "__main__":
 # python src/Generation.py --json_input /home/gganeshl/Code-aware-reranking/results/humaneval_best_saved/retrieved_docs/docs_openai_humaneval_Llama-3.1-8B-Instruct_GIST-large-Embedding-v0_variables_k5.json --k_values 1,5,10 --model_name meta-llama/Llama-3.1-8B-Instruct
 # python src/Generation.py --json_input /home/gganeshl/Code-aware-reranking/results/humaneval_best_saved/retrieved_docs/docs_openai_humaneval_Llama-3.1-8B-Instruct_GIST-large-Embedding-v0_functions_k5.json --k_values 1,5,10 --model_name meta-llama/Llama-3.1-8B-Instruct
 # python src/Generation.py --json_input /home/gganeshl/Code-aware-reranking/results/humaneval_best_saved/retrieved_docs/docs_openai_humaneval_Llama-3.1-8B-Instruct_GIST-large-Embedding-v0_both_k5.json --k_values 0,1,5,10 --model_name meta-llama/Llama-3.1-8B-Instruct
+

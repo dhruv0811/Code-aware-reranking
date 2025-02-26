@@ -3523,3 +3523,47 @@ def find_max(words: List[str]) -> str:
     if not any(c.isalpha() for c in s):
         return s[::-1]
     return s",1.0,"defaultdict(<class 'list'>, {0: [(0, {'task_id': 0, 'passed': True, 'result': 'passed', 'completion_id': 0})]})"
+161,HumanEval/161,5,normal,"['HumanEval/161', 'HumanEval/27', '557', '182', '39']","def solve(s):
+    new_str = list(s)
+    for i in range(len(s)):
+        if s[i].isalpha():
+            new_str[i] = s[i].swapcase()
+    s = """".join(new_str)
+    if not any(c.isalpha() for c in s):
+        return s[::-1]
+    return s",1.0,"defaultdict(<class 'list'>, {0: [(0, {'task_id': 0, 'passed': True, 'result': 'passed', 'completion_id': 0})]})"
+161,HumanEval/161,10,normal,"['HumanEval/161', 'HumanEval/27', '557', '182', '39', 'HumanEval/112', '131', 'HumanEval/89', 'HumanEval/84', '364']","def solve(s):
+    new_str = list(s)
+    flg = 0
+    for i in range(len(s)):
+        if s[i].isalpha():
+            new_str[i] = s[i].swapcase()
+            flg = 1
+    if flg == 0:
+        return ''.join(new_str[::-1])
+    return ''.join(new_str)",1.0,"defaultdict(<class 'list'>, {0: [(0, {'task_id': 0, 'passed': True, 'result': 'passed', 'completion_id': 0})]})"
+162,HumanEval/162,1,normal,['HumanEval/162'],"import hashlib
+
+def string_to_md5(text):
+    return hashlib.md5(text.encode('ascii')).hexdigest() if text else None",1.0,"defaultdict(<class 'list'>, {0: [(0, {'task_id': 0, 'passed': True, 'result': 'passed', 'completion_id': 0})]})"
+162,HumanEval/162,5,normal,"['HumanEval/162', '146', '330', 'HumanEval/89', '708']","import hashlib
+
+def string_to_md5(text):
+    return hashlib.md5(text.encode('ascii')).hexdigest() if text else None",1.0,"defaultdict(<class 'list'>, {0: [(0, {'task_id': 0, 'passed': True, 'result': 'passed', 'completion_id': 0})]})"
+162,HumanEval/162,10,normal,"['HumanEval/162', '146', '330', 'HumanEval/89', '708', '39', '217', '230', '933', '813']","import hashlib
+
+def string_to_md5(text):
+    return hashlib.md5(text.encode('ascii')).hexdigest() if text else None",1.0,"defaultdict(<class 'list'>, {0: [(0, {'task_id': 0, 'passed': True, 'result': 'passed', 'completion_id': 0})]})"
+163,HumanEval/163,1,normal,['HumanEval/163'],"def generate_integers(a, b):
+    lower = max(2, min(a, b))
+    upper = min(8, max(a, b))
+
+    return [i for i in range(lower, upper+1) if i % 2 == 0]",1.0,"defaultdict(<class 'list'>, {0: [(0, {'task_id': 0, 'passed': True, 'result': 'passed', 'completion_id': 0})]})"
+163,HumanEval/163,5,normal,"['HumanEval/163', '47', '345', '257', '503']","def generate_integers(a, b):
+    lower = max(2, min(a, b))
+    upper = min(8, max(a, b))
+    return [i for i in range(lower, upper+1) if i % 2 == 0]",1.0,"defaultdict(<class 'list'>, {0: [(0, {'task_id': 0, 'passed': True, 'result': 'passed', 'completion_id': 0})]})"
+163,HumanEval/163,10,normal,"['HumanEval/163', '47', '345', '257', '503', '690', 'HumanEval/13', '221', 'HumanEval/131', '745']","def generate_integers(a, b):
+    lower = max(2, min(a, b))
+    upper = min(8, max(a, b))
+    return [i for i in range(lower, upper+1) if i % 2 == 0]",1.0,"defaultdict(<class 'list'>, {0: [(0, {'task_id': 0, 'passed': True, 'result': 'passed', 'completion_id': 0})]})"
