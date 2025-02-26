@@ -1,0 +1,23 @@
+% Required packages: booktabs, xcolor, colortbl
+% Define colors for different levels of change
+\definecolor{lightgreen}{RGB}{220,240,220}
+\definecolor{darkgreen}{RGB}{150,200,150}
+\definecolor{lightred}{RGB}{240,220,220}
+\definecolor{darkred}{RGB}{200,150,150}
+
+\begin{table}[h]
+\centering
+\begin{tabular}{l|ccc|c}
+\toprule
+\textbf{Normalization} & \textbf{NDCG@1} & \textbf{NDCG@5} & \textbf{NDCG@10} & \textbf{NDCG@25} \\
+\midrule
+None & \cellcolor{lightred}98.6/94.6 & \cellcolor{lightred}99.5/97.6 & \cellcolor{lightred}99.5/97.7 & 99.5/- \\
+Docstring & \cellcolor{lightgreen}62.4/70.2 & \cellcolor{lightgreen}76.0/80.9 & \cellcolor{lightgreen}77.4/82.3 & 78.3/- \\
+Functions & \cellcolor{darkgreen}22.0/36.8 & \cellcolor{darkgreen}31.1/44.6 & \cellcolor{darkgreen}34.1/45.9 & 36.4/- \\
+Variables & \cellcolor{lightgreen}56.0/63.2 & \cellcolor{lightgreen}69.0/74.5 & \cellcolor{lightgreen}70.6/75.5 & 72.0/- \\
+Functions \& Variables & \cellcolor{lightgreen}9.0/18.4 & \cellcolor{darkgreen}14.0/24.1 & \cellcolor{lightgreen}15.6/24.9 & 18.0/- \\
+\bottomrule
+\end{tabular}
+\caption{Baseline/Pseudocode NDCG Scores (\%) using meta-llama/Llama-3.1-8B-Instruct and avsolatorio/GIST-large-Embedding-v0. Dark green: $>$10 points improvement, Light green: 0-10 points improvement, Light red: 0-10 points decrease, Dark red: $>$10 points decrease. For NDCG@25, only baseline scores are shown.}
+\label{tab:pseudo-scores-llama_3.1_8b_instruct}
+\end{table}

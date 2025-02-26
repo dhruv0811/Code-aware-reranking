@@ -47,7 +47,10 @@ def create_latex_tables(json_file, output_file, metric='Recall'):
         # Sort the data by normalization type
         group_data.sort(key=lambda x: order[x['normalization_type']])
         
-        recall_ks = [1, 5, 10, 25]
+        if metric == 'MRR':
+            recall_ks = [5, 25]
+        else:
+            recall_ks = [1, 5, 10, 25]
         
         # Build each table
         table = [
@@ -69,7 +72,7 @@ def create_latex_tables(json_file, output_file, metric='Recall'):
                 # reranked = entry[f'pseudo_recall@{k}']
                 
                 # Handle Recall@25 differently
-                if k == 25:
+                if k == 25 and metric != 'MRR':
                     score_str = f"{baseline*100:.1f}/-"
                 else:
                     score_str = f"{baseline*100:.1f}/{reranked*100:.1f}"
@@ -78,7 +81,7 @@ def create_latex_tables(json_file, output_file, metric='Recall'):
                 diff = (reranked - baseline) * 100
                 
                 # Add cell color based on difference (skip for Recall@50)
-                if k != 25:  # Only color non-Recall@50 cells
+                if k != 25 and metric != 'MRR':  # Only color non-Recall@50 cells
                     if diff > 10:
                         score_str = f"\\cellcolor{{darkgreen}}{score_str}"
                     elif diff > 0:
@@ -100,7 +103,7 @@ def create_latex_tables(json_file, output_file, metric='Recall'):
             f"\\caption{{Baseline/Pseudocode {metric} Scores (\\%) using {llm_model} and {embedding_model}. " +
             "Dark green: $>$10 points improvement, Light green: 0-10 points improvement, " +
             "Light red: 0-10 points decrease, Dark red: $>$10 points decrease. " +
-            "For {metric}@25, only baseline scores are shown.}",
+            f"For {metric}@25, only baseline scores are shown." + "}",
             "\\label{tab:pseudo-scores-" + llm_model.split('/')[-1].lower().replace('-', '_') + "}",
             "\\end{table}",
             ""
@@ -118,6 +121,21 @@ def create_latex_tables(json_file, output_file, metric='Recall'):
 
 # Example usage
 if __name__ == "__main__":
+
+    
+    # latex_output = create_latex_tables("./results/humaneval_metrics/humaneval_reranker_metrics_20250225_130238_results.json", 
+    #                                    "humaneval_reranker_results.tex",
+    #                                    metric='Recall')
+    
+    latex_output = create_latex_tables("./results/mbpp_metrics/mbpp_reranker_metrics_20250225_134929_results.json", 
+                                       "mbpp_mrr_reranker_results.tex",
+                                       metric='MRR')
+    
+    latex_output = create_latex_tables("./results/humaneval_metrics/humaneval_reranker_metrics_20250225_130238_results.json", 
+                                       "humaneval_mrr_reranker_results.tex",
+                                       metric='MRR')
+    
+
     # latex_output = create_latex_tables("all_results_fixed_corpus/experiment_redo3_20241207_234604_results.json", 
     #                                    "tables/FIXED_all_model_results.tex")
     # print("Tables have been saved to tables/all_model_results.tex")
@@ -125,9 +143,9 @@ if __name__ == "__main__":
     # latex_output = create_latex_tables("pseduo_merged_results.json", 
     #                                    "tables/pseudo_all_model_results.tex")
     
-    latex_output = create_latex_tables("./results/humaneval_metrics/humaneval_reranker_metrics_20250225_130238_results.json", 
-                                       "humaneval_reranker_results.tex",
-                                       metric='Recall')
+    # latex_output = create_latex_tables("./results/humaneval_metrics/humaneval_reranker_metrics_20250225_130238_results.json", 
+    #                                    "humaneval_mrr_reranker_results.tex",
+    #                                    metric='MRR')
     
     # print("Tables have been saved to tables/all_model_results.tex")
 
