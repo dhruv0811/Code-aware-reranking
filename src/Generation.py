@@ -6,12 +6,15 @@ from typing import List, Dict, Any, Optional, Tuple
 from datasets import load_dataset
 from evaluate import load
 from huggingface_hub import InferenceClient
+import huggingface_hub
 from tqdm import tqdm
 import time
 import ast
 import logging
 from Corpus import CodeNormalizer, ProgrammingSolutionsCorpus
 import random
+from transformers import AutoTokenizer, AutoModelForCausalLM
+from transformers import pipeline
 
 # Generate a random number (for example, between 1000 and 9999)
 random_number = random.randint(1000, 9999)
@@ -41,7 +44,9 @@ class CodeGenerator:
             raise ValueError("Must provide HuggingFace API key as HF_API_KEY environment variable")
         
         self.model_name = model_name
-        self.client = InferenceClient(api_key=hf_api_key)
+        self.client = huggingface_hub.InferenceClient(api_key=hf_api_key)
+        if "llama" not in self.model_name.lower():
+            self.pipe = pipeline("text-generation", model="Qwen/CodeQwen1.5-7B-Chat")
     
     def _create_prompt(self, query: str, retrieved_codes: List[str], k: int, reverse_order: bool = False) -> str:
         """Create a prompt for code generation using the query and retrieved examples.
@@ -88,48 +93,82 @@ Please write a correct, efficient Python function, of the same name that solves 
         prompt = self._create_prompt(query, retrieved_codes, k, reverse_order)
         if k == 1:
             print("Retrieved Documents: ", retrieved_codes)
-        
-        for attempt in range(max_retries):
-            try:
-                completion = self.client.chat.completions.create(
-                    model=self.model_name,
-                    messages=[
-                        {"role": "user", "content": prompt}
-                    ],
-                    max_tokens=512,
-                    temperature=0.2,
-                    stop=["````"]
-                )
-                #print("Prompt: ", prompt)
-                generated_code = completion.choices[0].message.content.strip()
-                
-                if "```python" in generated_code:
-                    code_parts = generated_code.split("```python", 1)[1]
-                    if "```" in code_parts:
-                        generated_code = code_parts.split("```", 1)[0].strip()
-                    else:
-                        generated_code = code_parts.strip()
-                # If no python marker but still has backticks
-                elif generated_code.startswith("```") and "```" in generated_code[3:]:
-                    generated_code = generated_code.split("```", 2)[1].strip()
-                
-                # Final cleanup - ensure no trailing backticks
-                if generated_code.endswith("```"):
-                    generated_code = generated_code[:-3].strip()
+
+        # Check if using a Llama model
+        if "llama" in self.model_name.lower():
+            # Use InferenceClient for Llama models
+            for attempt in range(max_retries):
+                try:
+                    completion = self.client.chat.completions.create(
+                        model=self.model_name,
+                        messages=[
+                            {"role": "user", "content": prompt}
+                        ],
+                        max_tokens=512,
+                        temperature=0.2,
+                        stop=["````"]
+                    )
+                    #print("Prompt: ", prompt)
+                    generated_code = completion.choices[0].message.content.strip()
                     
-                #print("Generated code (cleaned): ", generated_code)
-                return generated_code
-                
-            except Exception as e:
-                if attempt == max_retries - 1:
-                    logger.error(f"Failed to generate code: {e}")
-                    return ""
-                wait_time = 2 ** attempt
-                logger.warning(f"Attempt {attempt + 1} failed, retrying in {wait_time} seconds...")
-                time.sleep(wait_time)
+                    # Apply the same code extraction logic
+                    return self._extract_code(generated_code)
+                    
+                except Exception as e:
+                    if attempt == max_retries - 1:
+                        logger.error(f"Failed to generate code: {e}")
+                        return ""
+                    wait_time = 2 ** attempt
+                    logger.warning(f"Attempt {attempt + 1} failed, retrying in {wait_time} seconds...")
+                    time.sleep(wait_time)
+        else:
+            # For other models, use the pipeline
+            for attempt in range(max_retries):
+                try:
+                    messages = [{"role": "user", "content": prompt}]
+                    # Generate response without stop parameter since it's not supported
+                    response = self.pipe(messages, max_new_tokens=512, temperature=0.2)
+                    generated_code =  response[0]["generated_text"][1]['content']
+                    # print("Generated code: ", generated_code)
+                    return self._extract_code(generated_code)
+                    
+                except Exception as e:
+                    if attempt == max_retries - 1:
+                        logger.error(f"Failed to generate code with pipeline model: {e}")
+                        return ""
+                    wait_time = 2 ** attempt
+                    logger.warning(f"Attempt {attempt + 1} failed, retrying in {wait_time} seconds...")
+                    time.sleep(wait_time)
         
         return ""
 
+
+    def _extract_code(self, generated_text: str) -> str:
+        """Extract code from generated text by handling various markdown formats.
+        
+        Args:
+            generated_text: Raw text generated by the model
+            
+        Returns:
+            Extracted code with markdown and unnecessary markers removed
+        """
+        if "```python" in generated_text:
+            code_parts = generated_text.split("```python", 1)[1]
+            if "```" in code_parts:
+                extracted_code = code_parts.split("```", 1)[0].strip()
+            else:
+                extracted_code = code_parts.strip()
+        # If no python marker but still has backticks
+        elif generated_text.startswith("```") and "```" in generated_text[3:]:
+            extracted_code = generated_text.split("```", 2)[1].strip()
+        else:
+            extracted_code = generated_text.strip()
+        
+        # Final cleanup - ensure no trailing backticks
+        if extracted_code.endswith("```"):
+            extracted_code = extracted_code[:-3].strip()
+        
+        return extracted_code
 
 class CodeRepository:
     """Class to load and manage the code corpus."""
@@ -317,6 +356,7 @@ class RAGEvaluator:
         self.model_name = model_name
         self.json_processor = JSONInputProcessor(json_input_path)
         self.generator = CodeGenerator(model_name=model_name)
+        logger.info(f"Generation model: {model_name}")
         self.evaluator = HumanEvalEvaluator()
         
         # Extract normalization type from the JSON filename
@@ -407,6 +447,7 @@ class RAGEvaluator:
                     
                     # Generate code
                     generated_code = self.generator.generate_code(query, retrieved_codes, k, reverse_order)
+                    print("Generated code: ", generated_code)
                     
                     if not generated_code:
                         logger.warning(f"No code generated for query {query_id}, k={k}")
@@ -558,6 +599,8 @@ class RAGEvaluator:
         logger.info(f"Pivot table saved to {pivot_path}")
         
         return combined_metrics
+
+
 
 def main():
     """Main function to run the RAG evaluation."""

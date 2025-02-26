@@ -1,0 +1,3887 @@
+Random number:  9271
+Initializing Embedding Model...
+Corpus loaded!
+Retrieved Documents:  ['from typing import List\n\ndef has_close_elements(var_0: List[float], var_1: float) -> bool:\n    for var_2, var_3 in enumerate(var_0):\n        for var_4, var_5 in enumerate(var_0):\n            if var_2 != var_4:\n                var_6 = abs(var_3 - var_5)\n                if var_6 < var_1:\n                    return True\n    return False']
+Generated code:  from typing import List
+
+def has_close_elements(numbers: List[float], threshold: float) -> bool:
+    for i in range(len(numbers)):
+        for j in range(i + 1, len(numbers)):
+            if abs(numbers[i] - numbers[j]) < threshold:
+                return True
+    return False
+Generated code:  from typing import List
+
+def has_close_elements(numbers: List[float], threshold: float) -> bool:
+    for i in range(len(numbers)):
+        for j in range(i + 1, len(numbers)):
+            if abs(numbers[i] - numbers[j]) < threshold:
+                return True
+    return False
+Generated code:  from typing import List
+
+def has_close_elements(numbers: List[float], threshold: float) -> bool:
+    for i in range(len(numbers)):
+        for j in range(i + 1, len(numbers)):
+            if abs(numbers[i] - numbers[j]) < threshold:
+                return True
+    return False
+Retrieved Documents:  ["from typing import List\n\ndef separate_paren_groups(var_0: str) -> List[str]:\n    var_1 = []\n    var_2 = []\n    var_3 = 0\n    for var_4 in var_0:\n        if var_4 == '(':\n            var_3 += 1\n            var_2.append(var_4)\n        elif var_4 == ')':\n            var_3 -= 1\n            var_2.append(var_4)\n            if var_3 == 0:\n                var_1.append(''.join(var_2))\n                var_2.clear()\n    return var_1"]
+Generated code:  from typing import List
+
+def separate_paren_groups(paren_string: str) -> List[str]:
+    result = []
+    current_group = []
+    depth = 0
+
+    for char in paren_string.replace(" ", ""):
+        if char == '(':
+            depth += 1
+            current_group.append(char)
+        elif char == ')':
+            depth -= 1
+            current_group.append(char)
+            if depth == 0:
+                result.append(''.join(current_group))
+                current_group = []
+
+    return result
+Generated code:  from typing import List
+
+def separate_paren_groups(paren_string: str) -> List[str]:
+    result = []
+    current_group = []
+    depth = 0
+
+    for char in paren_string.replace(" ", ""):
+        if char == '(':
+            depth += 1
+            current_group.append(char)
+        elif char == ')':
+            depth -= 1
+            current_group.append(char)
+            if depth == 0:
+                result.append(''.join(current_group))
+                current_group = []
+
+    return result
+Generated code:  from typing import List
+
+def separate_paren_groups(paren_string: str) -> List[str]:
+    result = []
+    current_group = []
+    depth = 0
+
+    for char in paren_string.replace(" ", ""):
+        if char == "(":
+            depth += 1
+            current_group.append(char)
+        elif char == ")":
+            depth -= 1
+            current_group.append(char)
+            if depth == 0:
+                result.append("".join(current_group))
+                current_group = []
+
+    return result
+Retrieved Documents:  ['def truncate_number(var_0: float) -> float:\n    return var_0 % 1.0']
+Generated code:  def truncate_number(number: float) -> float:
+    return number - int(number)
+Generated code:  def truncate_number(number: float) -> float:
+    return number - int(number)
+Generated code:  def truncate_number(number: float) -> float:
+    return number - int(number)
+Retrieved Documents:  ['from typing import List\n\ndef below_zero(var_0: List[int]) -> bool:\n    var_1 = 0\n    for var_2 in var_0:\n        var_1 += var_2\n        if var_1 < 0:\n            return True\n    return False']
+Generated code:  from typing import List
+
+def below_zero(operations: List[int]) -> bool:
+    balance = 0
+    for operation in operations:
+        balance += operation
+        if balance < 0:
+            return True
+    return False
+Generated code:  from typing import List
+
+def below_zero(operations: List[int]) -> bool:
+    balance = 0
+    for operation in operations:
+        balance += operation
+        if balance < 0:
+            return True
+    return False
+Generated code:  def below_zero(operations: List[int]) -> bool:
+    balance = 0
+    for operation in operations:
+        balance += operation
+        if balance < 0:
+            return True
+    return False
+Retrieved Documents:  ['from typing import List\n\ndef mean_absolute_deviation(var_0: List[float]) -> float:\n    var_1 = sum(var_0) / len(var_0)\n    return sum((abs(x - var_1) for var_2 in var_0)) / len(var_0)']
+Generated code:  from typing import List
+
+def mean_absolute_deviation(numbers: List[float]) -> float:
+    """ For a given list of input numbers, calculate Mean Absolute Deviation
+    around the mean of this dataset.
+    Mean Absolute Deviation is the average absolute difference between each
+    element and a centerpoint (mean in this case):
+    MAD = average | x - x_mean |
+    >>> mean_absolute_deviation([1.0, 2.0, 3.0, 4.0])
+    1.0
+    """
+    if not numbers:
+        return 0.0  # Return 0 for an empty list
+
+    mean = sum(numbers) / len(numbers)
+    return sum(abs(x - mean) for x in numbers) / len(numbers)
+Generated code:  def mean_absolute_deviation(numbers: List[float]) -> float:
+    mean = sum(numbers) / len(numbers)
+    return sum(abs(x - mean) for x in numbers) / len(numbers)
+Generated code:  from typing import List
+
+def mean_absolute_deviation(numbers: List[float]) -> float:
+    mean = sum(numbers) / len(numbers)
+    return sum(abs(x - mean) for x in numbers) / len(numbers)
+Retrieved Documents:  ['from typing import List\n\ndef intersperse(var_0: List[int], var_1: int) -> List[int]:\n    if not var_0:\n        return []\n    var_2 = []\n    for var_3 in var_0[:-1]:\n        var_2.append(var_3)\n        var_2.append(var_1)\n    var_2.append(var_0[-1])\n    return var_2']
+Generated code:  from typing import List
+
+def intersperse(numbers: List[int], delimeter: int) -> List[int]:
+    if not numbers:
+        return []
+    result = [numbers[0]]
+    for num in numbers[1:]:
+        result.extend([delimeter, num])
+    return result
+Generated code:  from typing import List
+
+def intersperse(numbers: List[int], delimeter: int) -> List[int]:
+    if not numbers:
+        return []
+    result = [numbers[0]]
+    for num in numbers[1:]:
+        result += [delimeter, num]
+    return result
+Generated code:  def intersperse(numbers: List[int], delimeter: int) -> List[int]:
+    if not numbers:
+        return []
+    result = []
+    for number in numbers[:-1]:
+        result.append(number)
+        result.append(delimeter)
+    result.append(numbers[-1])
+    return result
+Retrieved Documents:  ["from typing import List\n\ndef parse_nested_parens(var_0: str) -> List[int]:\n\n    def parse_paren_group(var_1):\n        var_2 = 0\n        var_3 = 0\n        for var_4 in var_1:\n            if var_4 == '(':\n                var_2 += 1\n                var_3 = max(var_2, var_3)\n            else:\n                var_2 -= 1\n        return var_3\n    return [parse_paren_group(x) for var_5 in var_0.split(' ') if var_5]"]
+Generated code:  from typing import List
+
+def parse_nested_parens(paren_string: str) -> List[int]:
+    """ Input to this function is a string represented multiple groups for nested parentheses separated by spaces.
+    For each of the group, output the deepest level of nesting of parentheses.
+    E.g. (()()) has maximum two levels of nesting while ((())) has three.
+
+    >>> parse_nested_parens('(()()) ((())) () ((())()())')
+    [2, 3, 1, 3]
+    """
+
+    def parse_paren_group(paren_group):
+        depth = 0
+        max_depth = 0
+        for char in paren_group:
+            if char == '(':
+                depth += 1
+                max_depth = max(depth, max_depth)
+            elif char == ')':
+                depth -= 1
+        return max_depth
+
+    return [parse_paren_group(group) for group in paren_string.split(' ') if group]
+Generated code:  from typing import List
+
+def parse_nested_parens(paren_string: str) -> List[int]:
+    def parse_paren_group(paren_group):
+        max_depth = 0
+        current_depth = 0
+        for char in paren_group:
+            if char == '(':
+                current_depth += 1
+                max_depth = max(max_depth, current_depth)
+            elif char == ')':
+                current_depth -= 1
+        return max_depth
+
+    return [parse_paren_group(group) for group in paren_string.split(' ') if group]
+Generated code:  from typing import List
+
+def parse_nested_parens(paren_string: str) -> List[int]:
+    def parse_paren_group(var_1):
+        var_2 = 0
+        var_3 = 0
+        for var_4 in var_1:
+            if var_4 == '(':
+                var_2 += 1
+                var_3 = max(var_2, var_3)
+            else:
+                var_2 -= 1
+        return var_3
+    return [parse_paren_group(x) for x in paren_string.split(' ') if x]
+Retrieved Documents:  ['from typing import List\n\ndef filter_by_substring(var_0: List[str], var_1: str) -> List[str]:\n    return [x for var_2 in var_0 if var_1 in var_2]']
+Generated code:  from typing import List
+
+def filter_by_substring(strings: List[str], substring: str) -> List[str]:
+    return [s for s in strings if substring in s]
+Generated code:  from typing import List
+
+def filter_by_substring(strings: List[str], substring: str) -> List[str]:
+    return [s for s in strings if substring in s]
+Generated code:  from typing import List
+
+def filter_by_substring(strings: List[str], substring: str) -> List[str]:
+    return [s for s in strings if substring in s]
+Retrieved Documents:  ['from typing import List, Tuple\n\ndef sum_product(var_0: List[int]) -> Tuple[int, int]:\n    var_1 = 0\n    var_2 = 1\n    for var_3 in var_0:\n        var_1 += var_3\n        var_2 *= var_3\n    return (var_1, var_2)']
+Generated code:  from typing import List, Tuple
+
+def sum_product(numbers: List[int]) -> Tuple[int, int]:
+    """ For a given list of integers, return a tuple consisting of a sum and a product of all the integers in a list.
+    Empty sum should be equal to 0 and empty product should be equal to 1.
+    >>> sum_product([])
+    (0, 1)
+    >>> sum_product([1, 2, 3, 4])
+    (10, 24)
+    """
+    return sum(numbers), prod(numbers)
+
+def prod(numbers: List[int]) -> int:
+    result = 1
+    for number in numbers:
+        result *= number
+    return result
+Generated code:  from typing import List, Tuple
+
+def sum_product(numbers: List[int]) -> Tuple[int, int]:
+    """ For a given list of integers, return a tuple consisting of a sum and a product of all the integers in a list.
+    Empty sum should be equal to 0 and empty product should be equal to 1.
+    >>> sum_product([])
+    (0, 1)
+    >>> sum_product([1, 2, 3, 4])
+    (10, 24)
+    """
+
+    var_1 = 0
+    var_2 = 1
+    for var_3 in numbers:
+        var_1 += var_3
+        var_2 *= var_3
+    return (var_1, var_2)
+Generated code:  from typing import List, Tuple
+
+def sum_product(numbers: List[int]) -> Tuple[int, int]:
+    var_1 = 0
+    var_2 = 1
+    for var_3 in numbers:
+        var_1 += var_3
+        var_2 *= var_3
+    return (var_1, var_2)
+Retrieved Documents:  ['from typing import List, Tuple\n\ndef rolling_max(var_0: List[int]) -> List[int]:\n    var_1 = None\n    var_2 = []\n    for var_3 in var_0:\n        if var_1 is None:\n            var_1 = var_3\n        else:\n            var_1 = max(var_1, var_3)\n        var_2.append(var_1)\n    return var_2']
+Generated code:  from typing import List, Tuple
+
+def rolling_max(numbers: List[int]) -> List[int]:
+    """ From a given list of integers, generate a list of rolling maximum element found until given moment
+    in the sequence.
+    >>> rolling_max([1, 2, 3, 2, 3, 4, 2])
+    [1, 2, 3, 3, 3, 4, 4]
+    """
+    max_so_far = None
+    rolling_max_list = []
+    for num in numbers:
+        if max_so_far is None or num > max_so_far:
+            max_so_far = num
+        rolling_max_list.append(max_so_far)
+    return rolling_max_list
+Generated code:  def rolling_max(numbers: List[int]) -> List[int]:
+    max_so_far = None
+    rolling_maxes = []
+    for number in numbers:
+        if max_so_far is None or number > max_so_far:
+            max_so_far = number
+        rolling_maxes.append(max_so_far)
+    return rolling_maxes
+Generated code:  def rolling_max(numbers: List[int]) -> List[int]:
+    max_so_far = None
+    rolling_maxes = []
+    for number in numbers:
+        if max_so_far is None or number > max_so_far:
+            max_so_far = number
+        rolling_maxes.append(max_so_far)
+    return rolling_maxes
+Retrieved Documents:  ["def is_palindrome(var_0: str) -> bool:\n    return var_0 == var_0[::-1]\n\ndef make_palindrome(var_0: str) -> str:\n    if not var_0:\n        return ''\n    var_1 = 0\n    while not is_palindrome(var_0[var_1:]):\n        var_1 += 1\n    return var_0 + var_0[:var_1][::-1]"]
+Generated code:  def is_palindrome(string: str) -> bool:
+    """ Test if given string is a palindrome """
+    return string == string[::-1]
+
+def make_palindrome(string: str) -> str:
+    """ Find the shortest palindrome that begins with a supplied string.
+    Algorithm idea is simple:
+    - Find the longest postfix of supplied string that is a palindrome.
+    - Append to the end of the string reverse of a string prefix that comes before the palindromic suffix.
+    >>> make_palindrome('')
+    ''
+    >>> make_palindrome('cat')
+    'catac'
+    >>> make_palindrome('cata')
+    'catac'
+    """
+
+    if not string:
+        return ''
+    var_1 = 0
+    while not is_palindrome(string[var_1:]):
+        var_1 += 1
+    return string + string[:var_1][::-1]
+Generated code:  def is_palindrome(string: str) -> bool:
+    """ Test if given string is a palindrome """
+    return string == string[::-1]
+
+def make_palindrome(string: str) -> str:
+    """ Find the shortest palindrome that begins with a supplied string.
+    Algorithm idea is simple:
+    - Find the longest postfix of supplied string that is a palindrome.
+    - Append to the end of the string reverse of a string prefix that comes before the palindromic suffix.
+    >>> make_palindrome('')
+    ''
+    >>> make_palindrome('cat')
+    'catac'
+    >>> make_palindrome('cata')
+    'catac'
+    """
+    if not string:
+        return ''
+    for i in range(len(string)):
+        if is_palindrome(string[i:]):
+            return string + string[:i][::-1]
+Generated code:  def is_palindrome(string: str) -> bool:
+    """ Test if given string is a palindrome """
+    return string == string[::-1]
+
+def make_palindrome(string: str) -> str:
+    """ Find the shortest palindrome that begins with a supplied string.
+    Algorithm idea is simple:
+    - Find the longest postfix of supplied string that is a palindrome.
+    - Append to the end of the string reverse of a string prefix that comes before the palindromic suffix.
+    >>> make_palindrome('')
+    ''
+    >>> make_palindrome('cat')
+    'catac'
+    >>> make_palindrome('cata')
+    'catac'
+    """
+    if not string:
+        return ''
+    for i in range(len(string)):
+        if is_palindrome(string[i:]):
+            return string + string[:i][::-1]
+Retrieved Documents:  ["from typing import List\n\ndef string_xor(var_0: str, var_1: str) -> str:\n\n    def xor(var_2, var_3):\n        if var_2 == var_3:\n            return '0'\n        else:\n            return '1'\n    return ''.join((xor(x, y) for var_4, var_5 in zip(var_0, var_1)))"]
+Generated code:  from typing import List
+
+def string_xor(a: str, b: str) -> str:
+    return ''.join(str(int(x) ^ int(y)) for x, y in zip(a, b))
+Generated code:  def string_xor(a: str, b: str) -> str:
+    return ''.join(str(int(x) ^ int(y)) for x, y in zip(a, b))
+Generated code:  def string_xor(a: str, b: str) -> str:
+    return ''.join(str(int(x) ^ int(y)) for x, y in zip(a, b))
+Retrieved Documents:  ['from typing import List, Optional\n\ndef longest(var_0: List[str]) -> Optional[str]:\n    if not var_0:\n        return None\n    var_1 = max((len(x) for var_2 in var_0))\n    for var_3 in var_0:\n        if len(var_3) == var_1:\n            return var_3']
+Generated code:  from typing import List, Optional
+
+def longest(strings: List[str]) -> Optional[str]:
+    if not strings:
+        return None
+    return max(strings, key=len)
+Generated code:  from typing import List, Optional
+
+def longest(strings: List[str]) -> Optional[str]:
+    if not strings:
+        return None
+    return max(strings, key=len)
+Generated code:  def longest(strings: List[str]) -> Optional[str]:
+    if not strings:
+        return None
+    return max(strings, key=len)
+Retrieved Documents:  ['def greatest_common_divisor(var_0: int, var_1: int) -> int:\n    while var_1:\n        var_0, var_1 = (var_1, var_0 % var_1)\n    return var_0']
+Generated code:  def greatest_common_divisor(a: int, b: int) -> int:
+    while b!= 0:
+        a, b = b, a % b
+    return a
+Generated code:  def greatest_common_divisor(var_0: int, var_1: int) -> int:
+    while var_1:
+        var_0, var_1 = (var_1, var_0 % var_1)
+    return var_0
+Generated code:  def greatest_common_divisor(var_0: int, var_1: int) -> int:
+    while var_1:
+        var_0, var_1 = (var_1, var_0 % var_1)
+    return var_0
+Retrieved Documents:  ['from typing import List\n\ndef all_prefixes(var_0: str) -> List[str]:\n    var_1 = []\n    for var_2 in range(len(var_0)):\n        var_1.append(var_0[:var_2 + 1])\n    return var_1']
+Generated code:  from typing import List
+
+def all_prefixes(string: str) -> List[str]:
+    return [string[:i+1] for i in range(len(string))]
+Generated code:  from typing import List
+
+def all_prefixes(string: str) -> List[str]:
+    return [string[:i+1] for i in range(len(string))]
+Generated code:  from typing import List
+
+def all_prefixes(string: str) -> List[str]:
+    return [string[:i] for i in range(1, len(string) + 1)]
+Retrieved Documents:  ["def string_sequence(var_0: int) -> str:\n    return ' '.join([str(x) for var_1 in range(var_0 + 1)])"]
+Generated code:  def string_sequence(n: int) -> str:
+    return''.join(map(str, range(n + 1)))
+Generated code:  def string_sequence(n: int) -> str:
+    return''.join(str(i) for i in range(n + 1))
+Generated code:  def string_sequence(n: int) -> str:
+    return''.join(str(i) for i in range(n + 1))
+Retrieved Documents:  ['def count_distinct_characters(var_0: str) -> int:\n    return len(set(var_0.lower()))']
+Generated code:  def count_distinct_characters(string: str) -> int:
+    return len(set(string.lower()))
+Generated code:  def count_distinct_characters(string: str) -> int:
+    return len(set(string.lower()))
+Generated code:  def count_distinct_characters(string: str) -> int:
+    return len(set(string.lower()))
+Retrieved Documents:  ["from typing import List\n\ndef parse_music(var_0: str) -> List[int]:\n    var_1 = {'o': 4, 'o|': 2, '.|': 1}\n    return [var_1[x] for var_2 in var_0.split(' ') if var_2]"]
+Generated code:  def parse_music(music_string: str) -> List[int]:
+    note_to_beats = {'o': 4, 'o|': 2, '.|': 1}
+    return [note_to_beats[note] for note in music_string.split() if note]
+Generated code:  from typing import List
+
+def parse_music(music_string: str) -> List[int]:
+    var_1 = {'o': 4, 'o|': 2, '.|': 1}
+    return [var_1[x] for x in music_string.split(' ') if x]
+Generated code:  def parse_music(music_string: str) -> List[int]:
+    var_1 = {'o': 4, 'o|': 2, '.|': 1}
+    return [var_1[x] for x in music_string.split(' ') if x]
+Retrieved Documents:  ['def how_many_times(var_0: str, var_1: str) -> int:\n    var_2 = 0\n    for var_3 in range(len(var_0) - len(var_1) + 1):\n        if var_0[var_3:var_3 + len(var_1)] == var_1:\n            var_2 += 1\n    return var_2']
+Generated code:  def how_many_times(string: str, substring: str) -> int:
+    count = 0
+    start = 0
+    while start < len(string):
+        pos = string.find(substring, start)
+        if pos!= -1:
+            count += 1
+            start = pos + 1
+        else:
+            break
+    return count
+Generated code:  def how_many_times(string: str, substring: str) -> int:
+    var_2 = 0
+    for var_3 in range(len(string) - len(substring) + 1):
+        if string[var_3:var_3 + len(substring)] == substring:
+            var_2 += 1
+    return var_2
+Generated code:  def how_many_times(string: str, substring: str) -> int:
+    var_2 = 0
+    for var_3 in range(len(string) - len(substring) + 1):
+        if string[var_3:var_3 + len(substring)] == substring:
+            var_2 += 1
+    return var_2
+Retrieved Documents:  ["from typing import List\n\ndef sort_numbers(var_0: str) -> str:\n    var_1 = {'zero': 0, 'one': 1, 'two': 2, 'three': 3, 'four': 4, 'five': 5, 'six': 6, 'seven': 7, 'eight': 8, 'nine': 9}\n    return ' '.join(sorted([x for var_2 in var_0.split(' ') if var_2], key=lambda x: var_1[var_2]))"]
+Generated code:  from typing import List
+
+def sort_numbers(numbers: str) -> str:
+    num_dict = {'zero': 0, 'one': 1, 'two': 2, 'three': 3, 'four': 4, 'five': 5,'six': 6,'seven': 7, 'eight': 8, 'nine': 9}
+    sorted_numbers = sorted(numbers.split(), key=lambda x: num_dict[x])
+    return''.join(sorted_numbers)
+Generated code:  def sort_numbers(numbers: str) -> str:
+    num_dict = {'zero': 0, 'one': 1, 'two': 2, 'three': 3, 'four': 4, 'five': 5,'six': 6,'seven': 7, 'eight': 8, 'nine': 9}
+    sorted_numbers = sorted(numbers.split(), key=lambda x: num_dict[x])
+    return''.join(sorted_numbers)
+Generated code:  from typing import List
+
+def sort_numbers(numbers: str) -> str:
+    num_dict = {'zero': 0, 'one': 1, 'two': 2, 'three': 3, 'four': 4, 'five': 5,'six': 6,'seven': 7, 'eight': 8, 'nine': 9}
+    sorted_nums = sorted(numbers.split(), key=lambda x: num_dict[x])
+    return''.join(sorted_nums)
+Retrieved Documents:  ['from typing import List, Tuple\n\ndef find_closest_elements(var_0: List[float]) -> Tuple[float, float]:\n    var_1 = None\n    var_2 = None\n    for var_3, var_4 in enumerate(var_0):\n        for var_5, var_6 in enumerate(var_0):\n            if var_3 != var_5:\n                if var_2 is None:\n                    var_2 = abs(var_4 - var_6)\n                    var_1 = tuple(sorted([var_4, var_6]))\n                else:\n                    var_7 = abs(var_4 - var_6)\n                    if var_7 < var_2:\n                        var_2 = var_7\n                        var_1 = tuple(sorted([var_4, var_6]))\n    return var_1']
+Generated code:  def find_closest_elements(numbers: List[float]) -> Tuple[float, float]:
+    closest_pair = (numbers[0], numbers[1])
+    smallest_diff = abs(numbers[0] - numbers[1])
+
+    for i in range(len(numbers)):
+        for j in range(i + 1, len(numbers)):
+            current_diff = abs(numbers[i] - numbers[j])
+            if current_diff < smallest_diff:
+                smallest_diff = current_diff
+                closest_pair = (min(numbers[i], numbers[j]), max(numbers[i], numbers[j]))
+
+    return closest_pair
+Generated code:  def find_closest_elements(numbers: List[float]) -> Tuple[float, float]:
+    closest_distance = float('inf')
+    closest_pair = (None, None)
+    for i in range(len(numbers)):
+        for j in range(i + 1, len(numbers)):
+            distance = abs(numbers[i] - numbers[j])
+            if distance < closest_distance:
+                closest_distance = distance
+                closest_pair = (min(numbers[i], numbers[j]), max(numbers[i], numbers[j]))
+    return closest_pair
+Generated code:  def find_closest_elements(numbers: List[float]) -> Tuple[float, float]:
+    closest_pair = (numbers[0], numbers[1])
+    min_diff = abs(numbers[1] - numbers[0])
+    for i in range(len(numbers)):
+        for j in range(i + 1, len(numbers)):
+            if abs(numbers[j] - numbers[i]) < min_diff:
+                min_diff = abs(numbers[j] - numbers[i])
+                closest_pair = (min(numbers[i], numbers[j]), max(numbers[i], numbers[j]))
+    return closest_pair
+Retrieved Documents:  ['from typing import List\n\ndef rescale_to_unit(var_0: List[float]) -> List[float]:\n    var_1 = min(var_0)\n    var_2 = max(var_0)\n    return [(x - var_1) / (var_2 - var_1) for var_3 in var_0]']
+Generated code:  from typing import List
+
+def rescale_to_unit(numbers: List[float]) -> List[float]:
+    min_num = min(numbers)
+    max_num = max(numbers)
+    return [(num - min_num) / (max_num - min_num) for num in numbers]
+Generated code:  from typing import List
+
+def rescale_to_unit(numbers: List[float]) -> List[float]:
+    min_num = min(numbers)
+    max_num = max(numbers)
+    return [(num - min_num) / (max_num - min_num) for num in numbers]
+Generated code:  from typing import List
+
+def rescale_to_unit(numbers: List[float]) -> List[float]:
+    """ Given list of numbers (of at least two elements), apply a linear transform to that list,
+    such that the smallest number will become 0 and the largest will become 1
+    >>> rescale_to_unit([1.0, 2.0, 3.0, 4.0, 5.0])
+    [0.0, 0.25, 0.5, 0.75, 1.0]
+    """
+    min_num = min(numbers)
+    max_num = max(numbers)
+    return [(num - min_num) / (max_num - min_num) for num in numbers]
+Retrieved Documents:  ['from typing import List, Any\n\ndef filter_integers(var_0: List[Any]) -> List[int]:\n    return [x for var_1 in var_0 if isinstance(var_1, int)]']
+Generated code:  from typing import List, Any
+
+def filter_integers(values: List[Any]) -> List[int]:
+    return [x for x in values if isinstance(x, int)]
+Generated code:  from typing import List, Any
+
+def filter_integers(values: List[Any]) -> List[int]:
+    return [x for x in values if isinstance(x, int)]
+Generated code:  from typing import List, Any
+
+def filter_integers(values: List[Any]) -> List[int]:
+    return [x for x in values if isinstance(x, int)]
+Retrieved Documents:  ['def strlen(var_0: str) -> int:\n    return len(var_0)']
+Generated code:  def strlen(string: str) -> int:
+    return len(string)
+Generated code:  def strlen(string: str) -> int:
+    return len(string)
+Generated code:  def strlen(string: str) -> int:
+    return len(string)
+Retrieved Documents:  ['def largest_divisor(var_0: int) -> int:\n    for var_1 in reversed(range(var_0)):\n        if var_0 % var_1 == 0:\n            return var_1']
+Generated code:  def largest_divisor(n: int) -> int:
+    for i in range(n-1, 0, -1):
+        if n % i == 0:
+            return i
+Generated code:  def largest_divisor(n: int) -> int:
+    for i in range(n - 1, 0, -1):
+        if n % i == 0:
+            return i
+Generated code:  def largest_divisor(n: int) -> int:
+    for i in reversed(range(n)):
+        if n % i == 0:
+            return i
+Retrieved Documents:  ['from typing import List\n\ndef factorize(var_0: int) -> List[int]:\n    import math\n    var_1 = []\n    var_2 = 2\n    while var_2 <= int(math.sqrt(var_0) + 1):\n        if var_0 % var_2 == 0:\n            var_1.append(var_2)\n            var_0 //= var_2\n        else:\n            var_2 += 1\n    if var_0 > 1:\n        var_1.append(var_0)\n    return var_1']
+Generated code:  from typing import List
+
+def factorize(n: int) -> List[int]:
+    factors = []
+    divisor = 2
+    while divisor * divisor <= n:
+        while n % divisor == 0:
+            factors.append(divisor)
+            n //= divisor
+        divisor += 1
+    if n > 1:
+        factors.append(n)
+    return factors
+Generated code:  from typing import List
+
+def factorize(n: int) -> List[int]:
+    factors = []
+    divisor = 2
+    while divisor * divisor <= n:
+        while n % divisor == 0:
+            factors.append(divisor)
+            n //= divisor
+        divisor += 1
+    if n > 1:
+        factors.append(n)
+    return factors
+Generated code:  from typing import List
+
+def factorize(n: int) -> List[int]:
+    factors = []
+    divisor = 2
+    while divisor * divisor <= n:
+        while n % divisor == 0:
+            factors.append(divisor)
+            n //= divisor
+        divisor += 1
+    if n > 1:
+        factors.append(n)
+    return factors
+Retrieved Documents:  ['from typing import List\n\ndef remove_duplicates(var_0: List[int]) -> List[int]:\n    import collections\n    var_1 = collections.Counter(var_0)\n    return [n for var_2 in var_0 if var_1[var_2] <= 1]']
+Generated code:  from typing import List
+
+def remove_duplicates(numbers: List[int]) -> List[int]:
+    seen = set()
+    result = []
+    for num in numbers:
+        if num not in seen:
+            seen.add(num)
+            result.append(num)
+    return result
+Generated code:  from typing import List
+
+def remove_duplicates(numbers: List[int]) -> List[int]:
+    seen = set()
+    result = []
+    for num in numbers:
+        if num not in seen:
+            seen.add(num)
+            result.append(num)
+    return result
+Generated code:  def remove_duplicates(numbers: List[int]) -> List[int]:
+    seen = set()
+    result = []
+    for num in numbers:
+        if num not in seen:
+            seen.add(num)
+            result.append(num)
+    return result
+Retrieved Documents:  ['def flip_case(var_0: str) -> str:\n    return var_0.swapcase()']
+Generated code:  def flip_case(string: str) -> str:
+    return string.swapcase()
+Generated code:  def flip_case(string: str) -> str:
+    return ''.join(c.lower() if c.isupper() else c.upper() for c in string)
+Generated code:  def flip_case(string: str) -> str:
+    return ''.join(c.lower() if c.isupper() else c.upper() for c in string)
+Retrieved Documents:  ["from typing import List\n\ndef concatenate(var_0: List[str]) -> str:\n    return ''.join(var_0)"]
+Generated code:  from typing import List
+
+def concatenate(strings: List[str]) -> str:
+    return ''.join(strings)
+Generated code:  from typing import List
+
+def concatenate(strings: List[str]) -> str:
+    return ''.join(strings)
+Generated code:  from typing import List
+
+def concatenate(strings: List[str]) -> str:
+    return ''.join(strings)
+Retrieved Documents:  ['from typing import List\n\ndef filter_by_prefix(var_0: List[str], var_1: str) -> List[str]:\n    return [x for var_2 in var_0 if var_2.startswith(var_1)]']
+Generated code:  from typing import List
+
+def filter_by_prefix(strings: List[str], prefix: str) -> List[str]:
+    return [s for s in strings if s.startswith(prefix)]
+Generated code:  from typing import List
+
+def filter_by_prefix(strings: List[str], prefix: str) -> List[str]:
+    return [x for x in strings if x.startswith(prefix)]
+Generated code:  from typing import List
+
+def filter_by_prefix(strings: List[str], prefix: str) -> List[str]:
+    return [x for x in strings if x.startswith(prefix)]
+Retrieved Documents:  ['def get_positive(var_0: list):\n    return [e for var_1 in var_0 if var_1 > 0]']
+Generated code:  def get_positive(l: list):
+    return [num for num in l if num > 0]
+Generated code:  def get_positive(l: list):
+    return [e for e in l if e > 0]
+Generated code:  def get_positive(l: list):
+    return [e for e in l if e > 0]
+Retrieved Documents:  ['def is_multiply_prime(var_0):\n\n    def is_prime(var_1):\n        for var_2 in range(2, var_1):\n            if var_1 % var_2 == 0:\n                return False\n        return True\n    for var_3 in range(2, 101):\n        if not is_prime(var_3):\n            continue\n        for var_2 in range(2, 101):\n            if not is_prime(var_2):\n                continue\n            for var_4 in range(2, 101):\n                if not is_prime(var_4):\n                    continue\n                if var_3 * var_2 * var_4 == var_0:\n                    return True\n    return False']
+Generated code:  def is_prime(n):
+    if n <= 1:
+        return False
+    if n <= 3:
+        return True
+    if n % 2 == 0 or n % 3 == 0:
+        return False
+    i = 5
+    while i * i <= n:
+        if n % i == 0 or n % (i + 2) == 0:
+            return False
+        i += 6
+    return True
+Generated code:  def is_prime(n):
+    if n < 2:
+        return False
+    for i in range(2, int(n**0.5) + 1):
+        if n % i == 0:
+            return False
+    return True
+Generated code:  def is_prime(n):
+    if n <= 1:
+        return False
+    if n <= 3:
+        return True
+    if n % 2 == 0 or n % 3 == 0:
+        return False
+    i = 5
+    while i * i <= n:
+        if n % i == 0 or n % (i + 2) == 0:
+            return False
+        i += 6
+    return True
+Retrieved Documents:  ['import math\n\ndef poly(var_0: list, var_1: float):\n    return sum([coeff * math.pow(var_1, i) for var_2, var_3 in enumerate(var_0)])\n\ndef find_zero(var_0: list):\n    var_4, var_5 = (-1.0, 1.0)\n    while poly(var_0, var_4) * poly(var_0, var_5) > 0:\n        var_4 *= 2.0\n        var_5 *= 2.0\n    while var_5 - var_4 > 1e-10:\n        var_6 = (var_4 + var_5) / 2.0\n        if poly(var_0, var_6) * poly(var_0, var_4) > 0:\n            var_4 = var_6\n        else:\n            var_5 = var_6\n    return var_4']
+Generated code:  import math
+
+def poly(xs: list, x: float):
+    return sum([coeff * math.pow(x, i) for i, coeff in enumerate(xs)])
+
+def find_zero(xs: list):
+    left, right = -1.0, 1.0
+    while poly(xs, left) * poly(xs, right) > 0:
+        left *= 2.0
+        right *= 2.0
+    while right - left > 1e-10:
+        mid = (left + right) / 2.0
+        if poly(xs, mid) * poly(xs, left) > 0:
+            left = mid
+        else:
+            right = mid
+    return left
+Generated code:  import math
+
+def poly(xs: list, x: float):
+    return sum([coeff * math.pow(x, i) for i, coeff in enumerate(xs)])
+
+def find_zero(xs: list):
+    var_4, var_5 = (-1.0, 1.0)
+    while poly(xs, var_4) * poly(xs, var_5) > 0:
+        var_4 *= 2.0
+        var_5 *= 2.0
+    while var_5 - var_4 > 1e-10:
+        var_6 = (var_4 + var_5) / 2.0
+        if poly(xs, var_6) * poly(xs, var_4) > 0:
+            var_4 = var_6
+        else:
+            var_5 = var_6
+    return var_4
+Generated code:  def find_zero(xs: list):
+    var_4, var_5 = (-1.0, 1.0)
+    while poly(xs, var_4) * poly(xs, var_5) > 0:
+        var_4 *= 2.0
+        var_5 *= 2.0
+    while var_5 - var_4 > 1e-10:
+        var_6 = (var_4 + var_5) / 2.0
+        if poly(xs, var_6) * poly(xs, var_4) > 0:
+            var_4 = var_6
+        else:
+            var_5 = var_6
+    return var_4
+Retrieved Documents:  ['def sort_third(var_0: list):\n    var_0 = list(var_0)\n    var_0[::3] = sorted(var_0[::3])\n    return var_0']
+Generated code:  def sort_third(l: list):
+    l = list(l)
+    l[::3] = sorted(l[::3])
+    return l
+Generated code:  def sort_third(l: list):
+    l_copy = l.copy()
+    l_copy[::3] = sorted(l[::3])
+    return l_copy
+Generated code:  def sort_third(var_0: list):
+    var_0 = list(var_0)
+    var_0[::3] = sorted(var_0[::3])
+    return var_0
+Retrieved Documents:  ['def unique(var_0: list):\n    return sorted(list(set(var_0)))']
+Generated code:  def unique(l: list):
+    return sorted(set(l))
+Generated code:  def unique(var_0: list):
+    return sorted(list(set(var_0)))
+Generated code:  def unique(l: list):
+    """Return sorted unique elements in a list
+    >>> unique([5, 3, 5, 2, 3, 3, 9, 0, 123])
+    [0, 2, 3, 5, 9, 123]
+    """
+    return sorted(list(set(l)))
+Retrieved Documents:  ['def max_element(var_0: list):\n    var_1 = var_0[0]\n    for var_2 in var_0:\n        if var_2 > var_1:\n            var_1 = var_2\n    return var_1']
+Generated code:  def max_element(l: list):
+    return max(l)
+Generated code:  def max_element(l: list):
+    """Return maximum element in the list.
+    >>> max_element([1, 2, 3])
+    3
+    >>> max_element([5, 3, -5, 2, -3, 3, 9, 0, 123, 1, -10])
+    123
+    """
+    return max(l)
+Generated code:  def max_element(var_0: list):
+    var_1 = var_0[0]
+    for var_2 in var_0:
+        if var_2 > var_1:
+            var_1 = var_2
+    return var_1
+Retrieved Documents:  ["def fizz_buzz(var_0: int):\n    var_1 = []\n    for var_2 in range(var_0):\n        if var_2 % 11 == 0 or var_2 % 13 == 0:\n            var_1.append(var_2)\n    var_3 = ''.join(list(map(str, var_1)))\n    var_4 = 0\n    for var_5 in var_3:\n        var_4 += var_5 == '7'\n    return var_4"]
+Generated code:  def fizz_buzz(n: int) -> int:
+    return sum(str(i).count('7') for i in range(n) if i % 11 == 0 or i % 13 == 0)
+Generated code:  def fizz_buzz(n: int) -> int:
+    return sum(str(i).count('7') for i in range(n) if i % 11 == 0 or i % 13 == 0)
+Generated code:  def fizz_buzz(n: int) -> int:
+    count = 0
+    for i in range(n):
+        if i % 11 == 0 or i % 13 == 0:
+            count += str(i).count('7')
+    return count
+Retrieved Documents:  ['def sort_even(var_0: list):\n    var_1 = var_0[::2]\n    var_2 = var_0[1::2]\n    var_1.sort()\n    var_3 = []\n    for var_4, var_5 in zip(var_1, var_2):\n        var_3.extend([var_4, var_5])\n    if len(var_1) > len(var_2):\n        var_3.append(var_1[-1])\n    return var_3']
+Generated code:  def sort_even(l: list):
+    """This function takes a list l and returns a list l' such that
+    l' is identical to l in the odd indicies, while its values at the even indicies are equal
+    to the values of the even indicies of l, but sorted.
+    >>> sort_even([1, 2, 3])
+    [1, 2, 3]
+    >>> sort_even([5, 6, 3, 4])
+    [3, 6, 5, 4]
+    """
+    # Extract even-indexed elements and sort them
+    even_elements = sorted(l[::2])
+    
+    # Create a new list to store the result
+    result = []
+    
+    # Iterate over the original list
+    for i in range(len(l)):
+        # If the index is even, pop the first element from the sorted list
+        if i % 2 == 0:
+            result.append(even_elements.pop(0))
+        # If the index is odd, keep the original element
+        else:
+            result.append(l[i])
+    
+    return result
+Generated code:  def sort_even(l: list):
+    even_indices = [l[i] for i in range(0, len(l), 2)]
+    even_indices.sort()
+    result = []
+    even_index = 0
+    for i in range(len(l)):
+        if i % 2 == 0:
+            result.append(even_indices[even_index])
+            even_index += 1
+        else:
+            result.append(l[i])
+    return result
+Generated code:  def sort_even(l: list):
+    even_indices = [l[i] for i in range(0, len(l), 2)]
+    even_indices.sort()
+    result = [even_indices[i//2] if i % 2 == 0 else l[i] for i in range(len(l))]
+    return result
+Retrieved Documents:  ["def encode_cyclic(var_0: str):\n    var_1 = [var_0[3 * i:min(3 * i + 3, len(var_0))] for var_2 in range((len(var_0) + 2) // 3)]\n    var_1 = [group[1:] + group[0] if len(group) == 3 else group for var_3 in var_1]\n    return ''.join(var_1)\n\ndef decode_cyclic(var_0: str):\n    return encode_cyclic(encode_cyclic(var_0))"]
+Generated code:  def decode_cyclic(s: str):
+    """
+    takes as input string encoded with encode_cyclic function. Returns decoded string.
+    """
+    # split string to groups. Each of length 3.
+    groups = [s[(3 * i):min((3 * i + 3), len(s))] for i in range((len(s) + 2) // 3)]
+    # cycle elements in each group. Unless group has fewer elements than 3.
+    groups = [(group[-1] + group[:-1]) if len(group) == 3 else group for group in groups]
+    return "".join(groups)
+Generated code:  def decode_cyclic(s: str):
+    """
+    takes as input string encoded with encode_cyclic function. Returns decoded string.
+    """
+    # split string to groups. Each of length 3.
+    groups = [s[(3 * i):min((3 * i + 3), len(s))] for i in range((len(s) + 2) // 3)]
+    # cycle elements in each group. Unless group has fewer elements than 3.
+    groups = [(group[-1] + group[:-1]) if len(group) == 3 else group for group in groups]
+    return "".join(groups)
+Generated code:  def decode_cyclic(s: str):
+    """
+    takes as input string encoded with encode_cyclic function. Returns decoded string.
+    """
+    # split string to groups. Each of length 3.
+    groups = [s[(3 * i):min((3 * i + 3), len(s))] for i in range((len(s) + 2) // 3)]
+    # cycle elements in each group. Unless group has fewer elements than 3.
+    groups = [(group[-1] + group[:-1]) if len(group) == 3 else group for group in groups]
+    return "".join(groups)
+Retrieved Documents:  ['def prime_fib(var_0: int):\n    import math\n\n    def is_prime(var_1):\n        if var_1 < 2:\n            return False\n        for var_2 in range(2, min(int(math.sqrt(var_1)) + 1, var_1 - 1)):\n            if var_1 % var_2 == 0:\n                return False\n        return True\n    var_3 = [0, 1]\n    while True:\n        var_3.append(var_3[-1] + var_3[-2])\n        if is_prime(var_3[-1]):\n            var_0 -= 1\n        if var_0 == 0:\n            return var_3[-1]']
+Generated code:  def prime_fib(n: int) -> int:
+    def is_prime(num: int) -> bool:
+        if num < 2:
+            return False
+        for i in range(2, int(num ** 0.5) + 1):
+            if num % i == 0:
+                return False
+        return True
+
+    fib_sequence = [0, 1]
+    while len(fib_sequence) < n:
+        fib_sequence.append(fib_sequence[-1] + fib_sequence[-2])
+        if is_prime(fib_sequence[-1]):
+            n -= 1
+    return fib_sequence[-1]
+Generated code:  def prime_fib(n: int) -> int:
+    def is_prime(num):
+        if num < 2:
+            return False
+        for i in range(2, int(num**0.5) + 1):
+            if num % i == 0:
+                return False
+        return True
+
+    fib_numbers = [0, 1]
+    while len(fib_numbers) < n:
+        fib_numbers.append(fib_numbers[-1] + fib_numbers[-2])
+        if is_prime(fib_numbers[-1]):
+            n -= 1
+    return fib_numbers[-1]
+Generated code:  def prime_fib(n: int):
+    def is_prime(num):
+        if num < 2:
+            return False
+        for i in range(2, int(num**0.5) + 1):
+            if num % i == 0:
+                return False
+        return True
+
+    fib_sequence = [0, 1]
+    prime_fibs = []
+
+    while len(prime_fibs) < n:
+        next_fib = fib_sequence[-1] + fib_sequence[-2]
+        fib_sequence.append(next_fib)
+
+        if is_prime(next_fib):
+            prime_fibs.append(next_fib)
+
+    return prime_fibs[-1]
+Retrieved Documents:  ['def triples_sum_to_zero(var_0: list):\n    for var_1 in range(len(var_0)):\n        for var_2 in range(var_1 + 1, len(var_0)):\n            for var_3 in range(var_2 + 1, len(var_0)):\n                if var_0[var_1] + var_0[var_2] + var_0[var_3] == 0:\n                    return True\n    return False']
+Generated code:  def triples_sum_to_zero(l: list):
+    l.sort()
+    for i in range(len(l) - 2):
+        left, right = i + 1, len(l) - 1
+        while left < right:
+            total = l[i] + l[left] + l[right]
+            if total == 0:
+                return True
+            elif total < 0:
+                left += 1
+            else:
+                right -= 1
+    return False
+Generated code:  def triples_sum_to_zero(l: list):
+    l.sort()
+    for i in range(len(l) - 2):
+        left, right = i + 1, len(l) - 1
+        while left < right:
+            total = l[i] + l[left] + l[right]
+            if total == 0:
+                return True
+            elif total < 0:
+                left += 1
+            else:
+                right -= 1
+    return False
+Generated code:  def triples_sum_to_zero(l: list):
+    for i in range(len(l)):
+        for j in range(i + 1, len(l)):
+            for k in range(j + 1, len(l)):
+                if l[i] + l[j] + l[k] == 0:
+                    return True
+    return False
+Retrieved Documents:  ['def car_race_collision(var_0: int):\n    return var_0 ** 2']
+Generated code:  def car_race_collision(n: int) -> int:
+    """
+    Imagine a road that's a perfectly straight infinitely long line.
+    n cars are driving left to right;  simultaneously, a different set of n cars
+    are driving right to left.   The two sets of cars start out being very far from
+    each other.  All cars move in the same speed.  Two cars are said to collide
+    when a car that's moving left to right hits a car that's moving right to left.
+    However, the cars are infinitely sturdy and strong; as a result, they continue moving
+    in their trajectory as if they did not collide.
+
+    This function outputs the number of such collisions.
+    """
+    return n ** 2
+Generated code:  def car_race_collision(n: int):
+    return n * (n - 1) // 2
+Generated code:  def car_race_collision(n: int) -> int:
+    return n * n
+Retrieved Documents:  ['def incr_list(var_0: list):\n    return [e + 1 for var_1 in var_0]']
+Generated code:  def incr_list(l: list):
+    return [x + 1 for x in l]
+Generated code:  def incr_list(l: list):
+    return [e + 1 for e in l]
+Generated code:  def incr_list(var_0: list):
+    return [e + 1 for e in var_0]
+Retrieved Documents:  ['def get_Pairs_Count(var_0, var_1, sum):\n    count = 0\n    for var_2 in range(0, var_1):\n        for var_3 in range(var_2 + 1, var_1):\n            if var_0[var_2] + var_0[var_3] == sum:\n                count += 1\n    return count']
+Generated code:  def pairs_sum_to_zero(l):
+    seen = set()
+    for num in l:
+        if -num in seen:
+            return True
+        seen.add(num)
+    return False
+Generated code:  def pairs_sum_to_zero(l):
+    seen = set()
+    for num in l:
+        if -num in seen:
+            return True
+        seen.add(num)
+    return False
+Generated code:  def pairs_sum_to_zero(l):
+    seen = set()
+    for num in l:
+        if -num in seen:
+            return True
+        seen.add(num)
+    return False
+Retrieved Documents:  ["def change_base(var_0: int, var_1: int):\n    var_2 = ''\n    while var_0 > 0:\n        var_2 = str(var_0 % var_1) + var_2\n        var_0 //= var_1\n    return var_2"]
+Generated code:  def change_base(x: int, base: int) -> str:
+    if base < 2 or base > 9:
+        raise ValueError("Base must be between 2 and 9")
+    
+    result = ""
+    while x > 0:
+        result = str(x % base) + result
+        x //= base
+    return result
+Generated code:  def change_base(x: int, base: int) -> str:
+    if base < 2 or base > 9:
+        raise ValueError("Base must be between 2 and 9")
+    result = ""
+    while x > 0:
+        result = str(x % base) + result
+        x //= base
+    return result
+Generated code:  def change_base(var_0: int, var_1: int):
+    var_2 = ''
+    while var_0 > 0:
+        var_2 = str(var_0 % var_1) + var_2
+        var_0 //= var_1
+    return var_2
+Retrieved Documents:  ['def triangle_area(var_0, var_1):\n    return var_0 * var_1 / 2.0']
+Generated code:  def triangle_area(a, h):
+    return 0.5 * a * h
+Generated code:  def triangle_area(a, h):
+    return a * h / 2.0
+Generated code:  def triangle_area(a, h):
+    return 0.5 * a * h
+Retrieved Documents:  ['def fibonacci(var_0):\n    if var_0 == 1 or var_0 == 2:\n        return 1\n    else:\n        return fibonacci(var_0 - 1) + fibonacci(var_0 - 2)']
+Generated code:  def fib4(n: int) -> int:
+    if n == 0 or n == 1 or n == 3:
+        return 0
+    elif n == 2:
+        return 2
+    else:
+        a, b, c, d = 0, 0, 2, 0
+        for _ in range(4, n + 1):
+            a, b, c, d = b, c, d, a + b + c + d
+        return d
+Generated code:  def fib4(n: int) -> int:
+    if n < 4:
+        return [0, 0, 2, 0][n]
+    fib4_sequence = [0, 0, 2, 0]
+    for i in range(4, n + 1):
+        fib4_sequence.append(sum(fib4_sequence[-4:]))
+        fib4_sequence.pop(0)
+    return fib4_sequence[-1]
+Generated code:  def fib4(n: int):
+    if n < 4:
+        return [0, 0, 2, 0][n]
+    fib4_values = [0, 0, 2, 0]
+    for _ in range(4, n + 1):
+        fib4_values.append(sum(fib4_values[-4:]))
+        fib4_values.pop(0)
+    return fib4_values[-1]
+Retrieved Documents:  ['def median(var_0: list):\n    var_0 = sorted(var_0)\n    if len(var_0) % 2 == 1:\n        return var_0[len(var_0) // 2]\n    else:\n        return (var_0[len(var_0) // 2 - 1] + var_0[len(var_0) // 2]) / 2.0']
+Generated code:  def median(l: list):
+    l = sorted(l)
+    if len(l) % 2 == 1:
+        return l[len(l) // 2]
+    else:
+        return (l[len(l) // 2 - 1] + l[len(l) // 2]) / 2.0
+Warning: AST normalization failed - unindent does not match any outer indentation level (<unknown>, line 5)
+Generated code:  def median(l: list):
+    l.sort()
+    n = len(l)
+    if n % 2 == 1:
+        return l[n // 2]
+    else:
+        return (l[n // 2 - 1] + l[n // 2]) / 2.0
+Generated code:  def median(l: list):
+    l = sorted(l)
+    if len(l) % 2 == 1:
+        return l[len(l) // 2]
+    else:
+        return (l[len(l) // 2 - 1] + l[len(l) // 2]) / 2.0
+Retrieved Documents:  ['def is_palindrome(var_0: str):\n    for var_1 in range(len(var_0)):\n        if var_0[var_1] != var_0[len(var_0) - 1 - var_1]:\n            return False\n    return True']
+Generated code:  def is_palindrome(text: str) -> bool:
+    return text == text[::-1]
+Generated code:  def is_palindrome(text: str) -> bool:
+    return text == text[::-1]
+Generated code:  def is_palindrome(text: str) -> bool:
+    return text == text[::-1]
+Retrieved Documents:  ['def nCr_mod_p(var_0, var_1, var_2):\n    if var_1 > var_0 - var_1:\n        var_1 = var_0 - var_1\n    var_3 = [0 for var_4 in range(var_1 + 1)]\n    var_3[0] = 1\n    for var_4 in range(1, var_0 + 1):\n        for var_5 in range(min(var_4, var_1), 0, -1):\n            var_3[var_5] = (var_3[var_5] + var_3[var_5 - 1]) % var_2\n    return var_3[var_1]']
+Generated code:  def modp(n: int, p: int) -> int:
+    result = 1
+    base = 2
+    while n > 0:
+        if n % 2 == 1:
+            result = (result * base) % p
+        base = (base * base) % p
+        n = n // 2
+    return result
+Generated code:  def modp(n: int, p: int) -> int:
+    result = 1
+    for _ in range(n):
+        result = (2 * result) % p
+    return result
+Generated code:  def modp(n: int, p: int):
+    """Return 2^n modulo p (be aware of numerics).
+    >>> modp(3, 5)
+    3
+    >>> modp(1101, 101)
+    2
+    >>> modp(0, 101)
+    1
+    >>> modp(3, 11)
+    8
+    >>> modp(100, 101)
+    1
+    """
+    result = 1
+    for _ in range(n):
+        result = (2 * result) % p
+    return result
+Retrieved Documents:  ["def encode_shift(var_0: str):\n    return ''.join([chr((ord(ch) + 5 - ord('a')) % 26 + ord('a')) for var_1 in var_0])\n\ndef decode_shift(var_0: str):\n    return ''.join([chr((ord(var_1) - 5 - ord('a')) % 26 + ord('a')) for var_1 in var_0])"]
+Generated code:  def encode_shift(s: str):
+    """
+    returns encoded string by shifting every character by 5 in the alphabet.
+    """
+    return "".join([chr(((ord(ch) + 5 - ord("a")) % 26) + ord("a")) for ch in s])
+
+def decode_shift(s: str):
+    """
+    takes as input string encoded with encode_shift function. Returns decoded string.
+    """
+    return "".join([chr(((ord(ch) - 5 - ord("a")) % 26) + ord("a")) for ch in s])
+Generated code:  def decode_shift(s: str):
+    """
+    takes as input string encoded with encode_shift function. Returns decoded string.
+    """
+    return "".join([chr(((ord(ch) - 5 - ord("a")) % 26) + ord("a")) for ch in s])
+Generated code:  def decode_shift(s: str):
+    """
+    takes as input string encoded with encode_shift function. Returns decoded string.
+    """
+    return "".join([chr(((ord(ch) - 5 - ord("a")) % 26) + ord("a")) for ch in s])
+Warning: AST normalization failed - invalid syntax (<unknown>, line 2)
+Retrieved Documents:  ['\nFIX = \n\ndef vowels_count(s):\n    \n\n    vowels = "aeiouAEIOU"\n    n_vowels = sum(c in vowels for c in s)\n    if s[-1] == \'y\' or s[-1] == \'Y\':\n        n_vowels += 1\n    return n_vowels\n']
+Generated code:  def remove_vowels(text):
+    vowels = "aeiouAEIOU"
+    return ''.join(c for c in text if c not in vowels)
+Generated code:  def remove_vowels(text):
+    vowels = "aeiouAEIOU"
+    return ''.join([c for c in text if c not in vowels])
+Generated code:  def remove_vowels(text):
+    vowels = "aeiouAEIOU"
+    return ''.join([c for c in text if c not in vowels])
+Retrieved Documents:  ['def below_threshold(var_0: list, var_1: int):\n    for var_2 in var_0:\n        if var_2 >= var_1:\n            return False\n    return True']
+Generated code:  def below_threshold(l: list, t: int) -> bool:
+    return all(x < t for x in l)
+Generated code:  def below_threshold(l: list, t: int) -> bool:
+    return all(x < t for x in l)
+Generated code:  def below_threshold(l: list, t: int) -> bool:
+    return all(x < t for x in l)
+Retrieved Documents:  ['def add(var_0: int, var_1: int):\n    return var_0 + var_1']
+Generated code:  def add(x: int, y: int) -> int:
+    return x + y
+Generated code:  def add(x: int, y: int) -> int:
+    return x + y
+Generated code:  def add(x: int, y: int) -> int:
+    return x + y
+Retrieved Documents:  ['def unique_Characters(str):\n    for var_0 in range(len(str)):\n        for var_1 in range(var_0 + 1, len(str)):\n            if str[var_0] == str[var_1]:\n                return False\n    return True']
+Generated code:  def same_chars(s0: str, s1: str) -> bool:
+    return set(s0) == set(s1)
+Generated code:  def same_chars(s0: str, s1: str) -> bool:
+    return sorted(s0) == sorted(s1)
+Generated code:  def same_chars(s0: str, s1: str) -> bool:
+    return set(s0) == set(s1)
+Retrieved Documents:  ['def fibonacci(var_0):\n    if var_0 == 1 or var_0 == 2:\n        return 1\n    else:\n        return fibonacci(var_0 - 1) + fibonacci(var_0 - 2)']
+Generated code:  def fib(n: int) -> int:
+    a, b = 0, 1
+    for _ in range(n):
+        a, b = b, a + b
+    return a
+Generated code:  def fib(n: int) -> int:
+    a, b = 0, 1
+    for _ in range(n):
+        a, b = b, a + b
+    return a
+Generated code:  def fib(n: int) -> int:
+    a, b = 0, 1
+    for _ in range(n):
+        a, b = b, a + b
+    return a
+Retrieved Documents:  ["def match_parens(var_0):\n\n    def check(var_1):\n        var_2 = 0\n        for var_3 in var_1:\n            if var_3 == '(':\n                var_2 = var_2 + 1\n            else:\n                var_2 = var_2 - 1\n            if var_2 < 0:\n                return False\n        return True if var_2 == 0 else False\n    var_4 = var_0[0] + var_0[1]\n    var_5 = var_0[1] + var_0[0]\n    return 'Yes' if check(var_4) or check(var_5) else 'No'"]
+Generated code:  def correct_bracketing(brackets: str) -> bool:
+    balance = 0
+    for bracket in brackets:
+        if bracket == '<':
+            balance += 1
+        elif bracket == '>':
+            balance -= 1
+        if balance < 0:
+            return False
+    return balance == 0
+Generated code:  def correct_bracketing(brackets: str) -> bool:
+    balance = 0
+    for bracket in brackets:
+        if bracket == '<':
+            balance += 1
+        elif bracket == '>':
+            balance -= 1
+        if balance < 0:
+            return False
+    return balance == 0
+Generated code:  def correct_bracketing(brackets: str) -> bool:
+    balance = 0
+    for bracket in brackets:
+        if bracket == '<':
+            balance += 1
+        elif bracket == '>':
+            balance -= 1
+        if balance < 0:
+            return False
+    return balance == 0
+Retrieved Documents:  ['def monotonic(var_0: list):\n    if var_0 == sorted(var_0) or var_0 == sorted(var_0, reverse=True):\n        return True\n    return False']
+Generated code:  def monotonic(l: list):
+    return all(l[i] <= l[i + 1] for i in range(len(l) - 1)) or all(l[i] >= l[i + 1] for i in range(len(l) - 1))
+Generated code:  def monotonic(l: list):
+    """Return True is list elements are monotonically increasing or decreasing.
+    >>> monotonic([1, 2, 4, 20])
+    True
+    >>> monotonic([1, 20, 4, 10])
+    False
+    >>> monotonic([4, 1, 0, -10])
+    True
+    """
+    return all((l[i] <= l[i + 1] for i in range(len(l) - 1))) or all((l[i] >= l[i + 1] for i in range(len(l) - 1)))
+Generated code:  def monotonic(var_0: list):
+    return all((var_0[i] <= var_0[i + 1] for i in range(len(var_0) - 1))) or all((var_0[i] >= var_0[i + 1] for i in range(len(var_0) - 1)))
+Retrieved Documents:  ['def common(var_0: list, var_1: list):\n    var_2 = set()\n    for var_3 in var_0:\n        for var_4 in var_1:\n            if var_3 == var_4:\n                var_2.add(var_3)\n    return sorted(list(var_2))']
+Generated code:  def common(l1: list, l2: list):
+    return sorted(set(l1) & set(l2))
+Generated code:  def common(l1: list, l2: list):
+    return sorted(set(l1) & set(l2))
+Generated code:  def common(l1: list, l2: list):
+    return sorted(set(l1) & set(l2))
+Retrieved Documents:  ['def largest_prime_factor(var_0: int):\n\n    def is_prime(var_1):\n        if var_1 < 2:\n            return False\n        for var_2 in range(2, var_1 - 1):\n            if var_1 % var_2 == 0:\n                return False\n        return True\n    var_3 = 1\n    for var_4 in range(2, var_0 + 1):\n        if var_0 % var_4 == 0 and is_prime(var_4):\n            var_3 = max(var_3, var_4)\n    return var_3']
+Generated code:  def largest_prime_factor(n: int) -> int:
+    """Return the largest prime factor of n. Assume n > 1 and is not a prime.
+    >>> largest_prime_factor(13195)
+    29
+    >>> largest_prime_factor(2048)
+    2
+    """
+    def is_prime(num):
+        if num < 2:
+            return False
+        for i in range(2, int(num**0.5) + 1):
+            if num % i == 0:
+                return False
+        return True
+
+    largest_factor = 1
+    for i in range(2, n + 1):
+        if n % i == 0 and is_prime(i):
+            largest_factor = max(largest_factor, i)
+    return largest_factor
+Generated code:  def largest_prime_factor(n: int) -> int:
+    """Return the largest prime factor of n. Assume n > 1 and is not a prime.
+    >>> largest_prime_factor(13195)
+    29
+    >>> largest_prime_factor(2048)
+    2
+    """
+    def is_prime(num):
+        if num < 2:
+            return False
+        for i in range(2, int(num**0.5) + 1):
+            if num % i == 0:
+                return False
+        return True
+
+    largest_factor = 1
+    for i in range(2, n + 1):
+        if n % i == 0 and is_prime(i):
+            largest_factor = max(largest_factor, i)
+    return largest_factor
+Generated code:  def largest_prime_factor(n: int):
+    """Return the largest prime factor of n. Assume n > 1 and is not a prime.
+    >>> largest_prime_factor(13195)
+    29
+    >>> largest_prime_factor(2048)
+    2
+    """
+    def is_prime(num):
+        if num < 2:
+            return False
+        for i in range(2, int(num**0.5) + 1):
+            if num % i == 0:
+                return False
+        return True
+
+    largest_factor = 1
+    for i in range(2, n + 1):
+        if n % i == 0 and is_prime(i):
+            largest_factor = max(largest_factor, i)
+    return largest_factor
+Retrieved Documents:  ['def sum_to_n(var_0: int):\n    return sum(range(var_0 + 1))']
+Generated code:  def sum_to_n(n: int) -> int:
+    return n * (n + 1) // 2
+Generated code:  def sum_to_n(n: int):
+    return n * (n + 1) // 2
+Generated code:  def sum_to_n(n: int):
+    return n * (n + 1) // 2
+Retrieved Documents:  ["def match_parens(var_0):\n\n    def check(var_1):\n        var_2 = 0\n        for var_3 in var_1:\n            if var_3 == '(':\n                var_2 = var_2 + 1\n            else:\n                var_2 = var_2 - 1\n            if var_2 < 0:\n                return False\n        return True if var_2 == 0 else False\n    var_4 = var_0[0] + var_0[1]\n    var_5 = var_0[1] + var_0[0]\n    return 'Yes' if check(var_4) or check(var_5) else 'No'"]
+Generated code:  def correct_bracketing(brackets: str) -> bool:
+    balance = 0
+    for bracket in brackets:
+        if bracket == '(':
+            balance += 1
+        elif bracket == ')':
+            balance -= 1
+        if balance < 0:
+            return False
+    return balance == 0
+Generated code:  def correct_bracketing(brackets: str) -> bool:
+    stack = []
+    for bracket in brackets:
+        if bracket == '(':
+            stack.append(bracket)
+        elif bracket == ')':
+            if not stack or stack[-1]!= '(':
+                return False
+            stack.pop()
+    return not stack
+Generated code:  def correct_bracketing(brackets: str) -> bool:
+    balance = 0
+    for bracket in brackets:
+        if bracket == '(':
+            balance += 1
+        elif bracket == ')':
+            balance -= 1
+        if balance < 0:
+            return False
+    return balance == 0
+Retrieved Documents:  ['def derivative(var_0: list):\n    return [i * x for var_1, var_2 in enumerate(var_0)][1:]']
+Generated code:  def derivative(xs: list):
+    return [i * x for i, x in enumerate(xs)][1:]
+Generated code:  def derivative(xs: list):
+    return [i * x for i, x in enumerate(xs)][1:]
+Generated code:  def derivative(xs: list):
+    return [i * x for i, x in enumerate(xs)][1:]
+Retrieved Documents:  ['def fibfib(var_0: int):\n    if var_0 == 0:\n        return 0\n    if var_0 == 1:\n        return 0\n    if var_0 == 2:\n        return 1\n    return fibfib(var_0 - 1) + fibfib(var_0 - 2) + fibfib(var_0 - 3)']
+Generated code:  def fibfib(n: int) -> int:
+    if n == 0 or n == 1:
+        return 0
+    elif n == 2:
+        return 1
+    else:
+        a, b, c = 0, 0, 1
+        for _ in range(3, n + 1):
+            a, b, c = b, c, a + b + c
+        return c
+Generated code:  def fibfib(n: int) -> int:
+    if n == 0:
+        return 0
+    elif n == 1:
+        return 0
+    elif n == 2:
+        return 1
+    else:
+        a, b, c = 0, 0, 1
+        for _ in range(3, n + 1):
+            a, b, c = b, c, a + b + c
+        return c
+Generated code:  def fibfib(n: int) -> int:
+    if n == 0:
+        return 0
+    elif n == 1:
+        return 0
+    elif n == 2:
+        return 1
+    else:
+        a, b, c = 0, 0, 1
+        for _ in range(3, n + 1):
+            a, b, c = b, c, a + b + c
+        return c
+Retrieved Documents:  ['\nFIX = \n\ndef vowels_count(s):\n    \n\n    vowels = "aeiouAEIOU"\n    n_vowels = sum(c in vowels for c in s)\n    if s[-1] == \'y\' or s[-1] == \'Y\':\n        n_vowels += 1\n    return n_vowels\n']
+Generated code:  def vowels_count(s):
+    """Write a function vowels_count which takes a string representing
+    a word as input and returns the number of vowels in the string.
+    Vowels in this case are 'a', 'e', 'i', 'o', 'u'. Here, 'y' is also a
+    vowel, but only when it is at the end of the given word.
+
+    Example:
+    >>> vowels_count("abcde")
+    2
+    >>> vowels_count("ACEDY")
+    3
+    """
+
+    vowels = "aeiouAEIOU"
+    n_vowels = sum(c in vowels for c in s)
+    if s[-1] == 'y' or s[-1] == 'Y':
+        n_vowels += 1
+    return n_vowels
+Generated code:  def vowels_count(s):
+    vowels = "aeiouAEIOU"
+    n_vowels = sum(c in vowels for c in s)
+    if s[-1] == 'y' or s[-1] == 'Y':
+        n_vowels += 1
+    return n_vowels
+Generated code:  def vowels_count(s):
+    vowels = "aeiouAEIOU"
+    n_vowels = sum(c in vowels for c in s)
+    if s[-1] == 'y' or s[-1] == 'Y':
+        n_vowels += 1
+    return n_vowels
+Retrieved Documents:  ["def encode_shift(var_0: str):\n    return ''.join([chr((ord(ch) + 5 - ord('a')) % 26 + ord('a')) for var_1 in var_0])\n\ndef decode_shift(var_0: str):\n    return ''.join([chr((ord(var_1) - 5 - ord('a')) % 26 + ord('a')) for var_1 in var_0])"]
+Generated code:  def circular_shift(x: int, shift: int) -> str:
+    x_str = str(x)
+    shift %= len(x_str)  # Handle shift greater than number of digits
+    return x_str[-shift:] + x_str[:-shift]
+Generated code:  def circular_shift(x, shift):
+    x_str = str(x)
+    shift %= len(x_str)  # Ensure shift is within the length of the number
+    if shift == 0:
+        return x_str  # No shift needed
+    elif shift > len(x_str):
+        return x_str[::-1]  # Reverse the string if shift is greater than the length
+    else:
+        return x_str[-shift:] + x_str[:-shift]  # Perform the circular shift
+Generated code:  def circular_shift(x, shift):
+    x = str(x)
+    shift %= len(x)
+    return x[-shift:] + x[:-shift]
+Retrieved Documents:  ['def sum_digits_single(var_0):\n    var_1 = 0\n    while var_0:\n        var_1 += var_0 % 10\n        var_0 //= 10\n    return var_1\n\ndef closest(var_0):\n    var_1 = 0\n    while var_1 * 10 + 9 <= var_0:\n        var_1 = var_1 * 10 + 9\n    return var_1\n\ndef sum_digits_twoparts(var_2):\n    var_3 = closest(var_2)\n    return sum_digits_single(var_3) + sum_digits_single(var_2 - var_3)']
+Generated code:  def digitSum(s):
+    return sum(ord(c) for c in s if c.isupper())
+Generated code:  def digitSum(s):
+    return sum(ord(c) for c in s if c.isupper())
+Generated code:  def digitSum(s):
+    return sum(ord(c) for c in s if c.isupper())
+Retrieved Documents:  ["def fruit_distribution(var_0, var_1):\n    var_2 = list()\n    for var_3 in var_0.split(' '):\n        if var_3.isdigit():\n            var_2.append(int(var_3))\n    return var_1 - sum(var_2)"]
+Generated code:  def fruit_distribution(s, n):
+    numbers = [int(num) for num in s.split() if num.isdigit()]
+    return n - sum(numbers)
+Generated code:  def fruit_distribution(s, n):
+    numbers = [int(num) for num in s.split() if num.isdigit()]
+    return n - sum(numbers)
+Generated code:  import re
+
+def fruit_distribution(s, n):
+    numbers = map(int, re.findall(r'\d+', s))
+    return n - sum(numbers)
+Retrieved Documents:  ["def __init__(self, value, list_num, index):\r\n        self.value = value\r\n        self.list_num = list_num\r\n        self.index = index\r\n    def __lt__(self, other):\r\n        return self.value < other.value\r\ndef find_minimum_range(list):\r\n    high = float('-inf')\r\n    p = (0, float('inf'))\r\n    pq = []\r\n    for i in range(len(list)):\r\n        heappush(pq, Node(list[i][0], i, 0))\r\n        high = max(high, list[i][0])\r\n    while True:\r\n        top = heappop(pq)\r\n        low = top.value\r\n        i = top.list_num\r\n        j = top.index\r\n        if high - low < p[1] - p[0]:\r\n            p = (low, high)\r\n        if j == len(list[i]) - 1:\r\n            return p\r\n        heappush(pq, Node(list[i][j + 1], i, j + 1))\r\n        high = max(high, list[i][j + 1])"]
+Generated code:  def pluck(arr):
+    if not arr:
+        return []
+    even_nodes = [(val, idx) for idx, val in enumerate(arr) if val % 2 == 0]
+    if not even_nodes:
+        return []
+    return list(min(even_nodes, key=lambda x: (x[0], x[1])))
+Generated code:  def pluck(arr):
+    if not arr:
+        return []
+    evens = [(val, idx) for idx, val in enumerate(arr) if val % 2 == 0]
+    if not evens:
+        return []
+    return list(min(evens, key=lambda x: (x[0], x[1])))
+Generated code:  def pluck(arr):
+    if not arr:
+        return []
+    evens = [(val, idx) for idx, val in enumerate(arr) if val % 2 == 0]
+    if not evens:
+        return []
+    return list(min(evens, key=lambda x: (x[0], x[1])))
+Retrieved Documents:  ['def largest_smallest_integers(var_0):\n    var_1 = list(filter(lambda x: x < 0, var_0))\n    var_2 = list(filter(lambda x: x > 0, var_0))\n    return (max(var_1) if var_1 else None, min(var_2) if var_2 else None)']
+Generated code:  def search(lst):
+    freq = {}
+    for num in lst:
+        if num in freq:
+            freq[num] += 1
+        else:
+            freq[num] = 1
+    
+    max_val = -1
+    for num, count in freq.items():
+        if num > 0 and count >= num and num > max_val:
+            max_val = num
+    
+    return max_val
+Generated code:  def search(lst):
+    freq = {}
+    for num in lst:
+        if num in freq:
+            freq[num] += 1
+        else:
+            freq[num] = 1
+    for num in sorted(freq, reverse=True):
+        if freq[num] >= num:
+            return num
+    return -1
+Generated code:  def search(lst):
+    freq = {}
+    for num in lst:
+        if num in freq:
+            freq[num] += 1
+        else:
+            freq[num] = 1
+    max_num = -1
+    for num, count in freq.items():
+        if num <= count and num > max_num:
+            max_num = num
+    return max_num
+Retrieved Documents:  ['def strange_sort_list(var_0):\n    var_1, var_2 = ([], True)\n    while var_0:\n        var_1.append(min(var_0) if var_2 else max(var_0))\n        var_0.remove(var_1[-1])\n        var_2 = not var_2\n    return var_1']
+Generated code:  def strange_sort_list(lst):
+    sorted_lst = sorted(lst)
+    result = []
+    while sorted_lst:
+        result.append(sorted_lst.pop(0))
+        if sorted_lst:
+            result.append(sorted_lst.pop(-1))
+    return result
+Generated code:  def strange_sort_list(lst):
+    result = []
+    while lst:
+        result.append(min(lst))
+        lst.remove(min(lst))
+        if lst:
+            result.append(max(lst))
+            lst.remove(max(lst))
+    return result
+Generated code:  def strange_sort_list(lst):
+    sorted_lst = sorted(lst)
+    result = []
+    while sorted_lst:
+        result.append(sorted_lst.pop(0))
+        if sorted_lst:
+            result.append(sorted_lst.pop())
+    return result
+Retrieved Documents:  ['def triangle_area(var_0, var_1):\n    return var_0 * var_1 / 2.0']
+Generated code:  import math
+
+def triangle_area(a, b, c):
+    if a + b > c and a + c > b and b + c > a:
+        s = (a + b + c) / 2
+        area = math.sqrt(s * (s - a) * (s - b) * (s - c))
+        return round(area, 2)
+    else:
+        return -1
+Generated code:  def triangle_area(a, b, c):
+    if a + b <= c or a + c <= b or b + c <= a:
+        return -1
+    s = (a + b + c) / 2
+    area = (s * (s - a) * (s - b) * (s - c)) ** 0.5
+    return round(area, 2)
+Generated code:  def triangle_area(a, b, c):
+    if a + b <= c or a + c <= b or b + c <= a:
+        return -1
+    s = (a + b + c) / 2
+    area = (s * (s - a) * (s - b) * (s - c)) ** 0.5
+    return round(area, 2)
+Retrieved Documents:  ['def will_it_fly(var_0, var_1):\n    if sum(var_0) > var_1:\n        return False\n    var_2, var_3 = (0, len(var_0) - 1)\n    while var_2 < var_3:\n        if var_0[var_2] != var_0[var_3]:\n            return False\n        var_2 += 1\n        var_3 -= 1\n    return True']
+Generated code:  def will_it_fly(q, w):
+    if sum(q) > w:
+        return False
+    return q == q[::-1]
+Generated code:  def will_it_fly(q, w):
+    if sum(q) > w:
+        return False
+    return q == q[::-1]
+Generated code:  def will_it_fly(q, w):
+    return sum(q) <= w and q == q[::-1]
+Retrieved Documents:  ['def next_smallest_palindrome(var_0):\n    var_1 = str(var_0)\n    for var_2 in range(var_0 + 1, sys.maxsize):\n        if str(var_2) == str(var_2)[::-1]:\n            return var_2']
+Generated code:  def smallest_change(arr):
+    changes = 0
+    for i in range(len(arr) // 2):
+        if arr[i]!= arr[-i - 1]:
+            changes += 1
+    return changes
+Generated code:  def smallest_change(arr):
+    changes = 0
+    for i in range(len(arr) // 2):
+        if arr[i]!= arr[-i - 1]:
+            changes += 1
+    return changes
+Generated code:  def smallest_change(arr):
+    changes = 0
+    for i in range(len(arr) // 2):
+        if arr[i]!= arr[-i - 1]:
+            changes += 1
+    return changes
+Retrieved Documents:  ['def total_match(var_0, var_1):\n    var_2 = 0\n    for var_3 in var_0:\n        var_2 += len(var_3)\n    var_4 = 0\n    for var_3 in var_1:\n        var_4 += len(var_3)\n    if var_2 <= var_4:\n        return var_0\n    else:\n        return var_1']
+Generated code:  def total_match(lst1, lst2):
+    total_chars_lst1 = sum(len(s) for s in lst1)
+    total_chars_lst2 = sum(len(s) for s in lst2)
+    
+    if total_chars_lst1 <= total_chars_lst2:
+        return lst1
+    else:
+        return lst2
+Generated code:  def total_match(lst1, lst2):
+    total1 = sum(len(s) for s in lst1)
+    total2 = sum(len(s) for s in lst2)
+    return lst1 if total1 <= total2 else lst2
+Generated code:  def total_match(lst1, lst2):
+    total1 = sum(len(s) for s in lst1)
+    total2 = sum(len(s) for s in lst2)
+    return lst1 if total1 <= total2 else lst2
+Retrieved Documents:  ['def is_multiply_prime(var_0):\n\n    def is_prime(var_1):\n        for var_2 in range(2, var_1):\n            if var_1 % var_2 == 0:\n                return False\n        return True\n    for var_3 in range(2, 101):\n        if not is_prime(var_3):\n            continue\n        for var_2 in range(2, 101):\n            if not is_prime(var_2):\n                continue\n            for var_4 in range(2, 101):\n                if not is_prime(var_4):\n                    continue\n                if var_3 * var_2 * var_4 == var_0:\n                    return True\n    return False']
+Generated code:  def is_multiply_prime(a):
+    def is_prime(n):
+        if n < 2:
+            return False
+        for i in range(2, int(n**0.5) + 1):
+            if n % i == 0:
+                return False
+        return True
+
+    for i in range(2, 101):
+        if not is_prime(i):
+            continue
+        for j in range(i, 101):  # Start from i to avoid duplicate checks
+            if not is_prime(j):
+                continue
+            for k in range(j, 101):  # Start from j to avoid duplicate checks
+                if not is_prime(k):
+                    continue
+                if i * j * k == a:
+                    return True
+    return False
+Generated code:  def is_multiply_prime(a):
+    def is_prime(n):
+        if n < 2:
+            return False
+        for i in range(2, int(n**0.5) + 1):
+            if n % i == 0:
+                return False
+        return True
+
+    for i in range(2, 101):
+        if not is_prime(i):
+            continue
+        for j in range(i, 101):
+            if not is_prime(j):
+                continue
+            for k in range(j, 101):
+                if not is_prime(k):
+                    continue
+                if i * j * k == a:
+                    return True
+    return False
+Generated code:  def is_multiply_prime(a):
+    def is_prime(n):
+        if n < 2:
+            return False
+        for i in range(2, int(n**0.5) + 1):
+            if n % i == 0:
+                return False
+        return True
+
+    for i in range(2, 101):
+        if not is_prime(i):
+            continue
+        for j in range(i, 101):
+            if not is_prime(j):
+                continue
+            for k in range(j, 101):
+                if not is_prime(k):
+                    continue
+                if i * j * k == a:
+                    return True
+    return False
+Retrieved Documents:  ['def is_simple_power(var_0, var_1):\n    if var_1 == 1:\n        return var_0 == 1\n    var_2 = 1\n    while var_2 < var_0:\n        var_2 = var_2 * var_1\n    return var_2 == var_0']
+Generated code:  def is_simple_power(x, n):
+    if n == 1:
+        return x == 1
+    power = 1
+    while power < x:
+        power *= n
+    return power == x
+Generated code:  def is_simple_power(x, n):
+    if n == 1:
+        return x == 1
+    power = 1
+    while power < x:
+        power *= n
+    return power == x
+Generated code:  def is_simple_power(x, n):
+    if n == 1:
+        return x == 1
+    power = 1
+    while power < x:
+        power *= n
+    return power == x
+Retrieved Documents:  ['def iscube(var_0):\n    var_0 = abs(var_0)\n    return int(round(var_0 ** (1.0 / 3))) ** 3 == var_0']
+Generated code:  def iscube(a):
+    return round(a ** (1/3)) ** 3 == a
+Generated code:  def iscube(a):
+    return round(a ** (1/3)) ** 3 == a
+Generated code:  def iscube(a):
+    return round(a ** (1.0 / 3)) ** 3 == a
+Retrieved Documents:  ['def hexagonal_num(var_0):\n    return var_0 * (2 * var_0 - 1)']
+Generated code:  def hex_key(num):
+    prime_hex_digits = {'2', '3', '5', '7', 'B', 'D'}
+    return sum(1 for digit in num if digit in prime_hex_digits)
+Generated code:  def hex_key(num):
+    prime_hex_digits = {'2', '3', '5', '7', 'B', 'D'}
+    return sum(1 for digit in num if digit in prime_hex_digits)
+Generated code:  def hex_key(num):
+    prime_hex_digits = {'2', '3', '5', '7', 'B', 'D'}
+    return sum(1 for digit in num if digit in prime_hex_digits)
+Retrieved Documents:  ["def decimal_to_binary(var_0):\n    return 'db' + bin(var_0)[2:] + 'db'"]
+Generated code:  def decimal_to_binary(decimal):
+    return 'db' + bin(decimal)[2:] + 'db'
+Generated code:  def decimal_to_binary(decimal):
+    return 'db' + bin(decimal)[2:] + 'db'
+Generated code:  def decimal_to_binary(decimal):
+    return 'db' + bin(decimal)[2:] + 'db'
+Retrieved Documents:  ['def is_happy(var_0):\n    if len(var_0) < 3:\n        return False\n    for var_1 in range(len(var_0) - 2):\n        if var_0[var_1] == var_0[var_1 + 1] or var_0[var_1 + 1] == var_0[var_1 + 2] or var_0[var_1] == var_0[var_1 + 2]:\n            return False\n    return True']
+Generated code:  def is_happy(s):
+    if len(s) < 3:
+        return False
+    for i in range(len(s) - 2):
+        if len(set(s[i:i+3])) < 3:
+            return False
+    return True
+Generated code:  def is_happy(s):
+    if len(s) < 3:
+        return False
+    for i in range(len(s) - 2):
+        if s[i] == s[i + 1] or s[i + 1] == s[i + 2] or s[i] == s[i + 2]:
+            return False
+    return True
+Generated code:  def is_happy(s):
+    if len(s) < 3:
+        return False
+    for i in range(len(s) - 2):
+        if s[i] == s[i + 1] or s[i + 1] == s[i + 2] or s[i] == s[i + 2]:
+            return False
+    return True
+Retrieved Documents:  ["def numerical_letter_grade(var_0):\n    var_1 = []\n    for var_2 in var_0:\n        if var_2 == 4.0:\n            var_1.append('A+')\n        elif var_2 > 3.7:\n            var_1.append('A')\n        elif var_2 > 3.3:\n            var_1.append('A-')\n        elif var_2 > 3.0:\n            var_1.append('B+')\n        elif var_2 > 2.7:\n            var_1.append('B')\n        elif var_2 > 2.3:\n            var_1.append('B-')\n        elif var_2 > 2.0:\n            var_1.append('C+')\n        elif var_2 > 1.7:\n            var_1.append('C')\n        elif var_2 > 1.3:\n            var_1.append('C-')\n        elif var_2 > 1.0:\n            var_1.append('D+')\n        elif var_2 > 0.7:\n            var_1.append('D')\n        elif var_2 > 0.0:\n            var_1.append('D-')\n        else:\n            var_1.append('E')\n    return var_1"]
+Generated code:  def numerical_letter_grade(grades):
+    letter_grades = []
+    for gpa in grades:
+        if gpa == 4.0:
+            letter_grades.append('A+')
+        elif gpa > 3.7:
+            letter_grades.append('A')
+        elif gpa > 3.3:
+            letter_grades.append('A-')
+        elif gpa > 3.0:
+            letter_grades.append('B+')
+        elif gpa > 2.7:
+            letter_grades.append('B')
+        elif gpa > 2.3:
+            letter_grades.append('B-')
+        elif gpa > 2.0:
+            letter_grades.append('C+')
+        elif gpa > 1.7:
+            letter_grades.append('C')
+        elif gpa > 1.3:
+            letter_grades.append('C-')
+        elif gpa > 1.0:
+            letter_grades.append('D+')
+        elif gpa > 0.7:
+            letter_grades.append('D')
+        elif gpa > 0.0:
+            letter_grades.append('D-')
+        else:
+            letter_grades.append('E')
+    return letter_grades
+Generated code:  def numerical_letter_grade(grades):
+    letter_grades = []
+    for gpa in grades:
+        if gpa == 4.0:
+            letter_grades.append('A+')
+        elif gpa > 3.7:
+            letter_grades.append('A')
+        elif gpa > 3.3:
+            letter_grades.append('A-')
+        elif gpa > 3.0:
+            letter_grades.append('B+')
+        elif gpa > 2.7:
+            letter_grades.append('B')
+        elif gpa > 2.3:
+            letter_grades.append('B-')
+        elif gpa > 2.0:
+            letter_grades.append('C+')
+        elif gpa > 1.7:
+            letter_grades.append('C')
+        elif gpa > 1.3:
+            letter_grades.append('C-')
+        elif gpa > 1.0:
+            letter_grades.append('D+')
+        elif gpa > 0.7:
+            letter_grades.append('D')
+        elif gpa > 0.0:
+            letter_grades.append('D-')
+        else:
+            letter_grades.append('E')
+    return letter_grades
+Generated code:  def numerical_letter_grade(grades):
+    var_1 = []
+    for var_2 in grades:
+        if var_2 == 4.0:
+            var_1.append('A+')
+        elif var_2 > 3.7:
+            var_1.append('A')
+        elif var_2 > 3.3:
+            var_1.append('A-')
+        elif var_2 > 3.0:
+            var_1.append('B+')
+        elif var_2 > 2.7:
+            var_1.append('B')
+        elif var_2 > 2.3:
+            var_1.append('B-')
+        elif var_2 > 2.0:
+            var_1.append('C+')
+        elif var_2 > 1.7:
+            var_1.append('C')
+        elif var_2 > 1.3:
+            var_1.append('C-')
+        elif var_2 > 1.0:
+            var_1.append('D+')
+        elif var_2 > 0.7:
+            var_1.append('D')
+        elif var_2 > 0.0:
+            var_1.append('D-')
+        else:
+            var_1.append('E')
+    return var_1
+Retrieved Documents:  ['def prime_length(var_0):\n    var_1 = len(var_0)\n    if var_1 == 0 or var_1 == 1:\n        return False\n    for var_2 in range(2, var_1):\n        if var_1 % var_2 == 0:\n            return False\n    return True']
+Generated code:  def prime_length(string):
+    length = len(string)
+    if length < 2:
+        return False
+    for i in range(2, int(length ** 0.5) + 1):
+        if length % i == 0:
+            return False
+    return True
+Generated code:  def prime_length(string):
+    length = len(string)
+    if length < 2:
+        return False
+    for i in range(2, int(length ** 0.5) + 1):
+        if length % i == 0:
+            return False
+    return True
+Generated code:  def prime_length(string):
+    length = len(string)
+    if length < 2:
+        return False
+    for i in range(2, int(length ** 0.5) + 1):
+        if length % i == 0:
+            return False
+    return True
+Retrieved Documents:  ['def starts_one_ends(var_0):\n    if var_0 == 1:\n        return 1\n    return 18 * 10 ** (var_0 - 2)']
+Generated code:  def starts_one_ends(n):
+    if n == 1:
+        return 1
+    return 18 * 10 ** (n - 2)
+Generated code:  def starts_one_ends(n):
+    if n == 1:
+        return 1
+    return 18 * 10 ** (n - 2)
+Generated code:  def starts_one_ends(n):
+    if n == 1:
+        return 1
+    return 18 * 10 ** (n - 2)
+Retrieved Documents:  ['def solve(var_0):\n    return bin(sum((int(i) for var_1 in str(var_0))))[2:]']
+Generated code:  def solve(N):
+    return bin(sum(int(digit) for digit in str(N)))[2:]
+Generated code:  def solve(N):
+    return bin(sum(int(digit) for digit in str(N)))[2:]
+Generated code:  def solve(N):
+    return bin(sum(int(digit) for digit in str(N)))[2:]
+Retrieved Documents:  ['def sum_even_odd(var_0):\n    var_1 = next((el for var_2 in var_0 if var_2 % 2 == 0), -1)\n    var_3 = next((var_2 for var_2 in var_0 if var_2 % 2 != 0), -1)\n    return var_1 + var_3']
+Generated code:  def add(lst):
+    return sum(x for i, x in enumerate(lst) if i % 2!= 0 and x % 2 == 0)
+Generated code:  def add(lst):
+    return sum(lst[i] for i in range(1, len(lst), 2) if lst[i] % 2 == 0)
+Generated code:  def add(lst):
+    return sum(x for i, x in enumerate(lst) if i % 2!= 0 and x % 2 == 0)
+Retrieved Documents:  ["def anti_shuffle(var_0):\n    return ' '.join([''.join(sorted(list(i))) for var_1 in var_0.split(' ')])"]
+Generated code:  def anti_shuffle(s):
+    return''.join([''.join(sorted(list(i))) for i in s.split(' ')])
+Generated code:  def anti_shuffle(s):
+    return''.join([''.join(sorted(list(word))) for word in s.split(' ')])
+Generated code:  def anti_shuffle(s):
+    return''.join([''.join(sorted(list(i))) for i in s.split(' ')])
+Retrieved Documents:  ['def get_row(var_0, var_1):\n    var_2 = [(i, j) for var_3 in range(len(var_0)) for var_4 in range(len(var_0[var_3])) if var_0[var_3][var_4] == var_1]\n    return sorted(sorted(var_2, key=lambda x: var_1[1], reverse=True), key=lambda x: var_1[0])']
+Generated code:  def get_row(lst, x):
+    return sorted([(i, j) for i, row in enumerate(lst) for j, val in enumerate(row) if val == x], key=lambda x: (-x[0], x[1]))
+Generated code:  def get_row(lst, x):
+    return sorted([(i, j) for i, row in enumerate(lst) for j, val in enumerate(row) if val == x], key=lambda x: (x[0], -x[1]))
+Generated code:  def get_row(lst, x):
+    return sorted(sorted([(i, j) for i, row in enumerate(lst) for j, val in enumerate(row) if val == x], key=lambda x: x[1], reverse=True), key=lambda x: x[0])
+Retrieved Documents:  ['def sort_array(var_0):\n    return [] if len(var_0) == 0 else sorted(var_0, reverse=(var_0[0] + var_0[-1]) % 2 == 0)']
+Generated code:  def sort_array(array):
+    if not array:
+        return []
+    else:
+        return sorted(array, reverse=(array[0] + array[-1]) % 2 == 0)
+Generated code:  def sort_array(array):
+    if not array:
+        return []
+    
+    sorted_array = sorted(array)
+    if (array[0] + array[-1]) % 2 == 0:
+        sorted_array.reverse()
+    
+    return sorted_array
+Generated code:  def sort_array(array):
+    if not array:
+        return []
+    
+    sorted_array = sorted(array)
+    if (array[0] + array[-1]) % 2 == 0:
+        sorted_array.reverse()
+    
+    return sorted_array
+Retrieved Documents:  ["def encrypt(var_0):\n    var_1 = 'abcdefghijklmnopqrstuvwxyz'\n    var_2 = ''\n    for var_3 in var_0:\n        if var_3 in var_1:\n            var_2 += var_1[(var_1.index(var_3) + 2 * 2) % 26]\n        else:\n            var_2 += var_3\n    return var_2"]
+Generated code:  def encrypt(s):
+    """Create a function encrypt that takes a string as an argument and
+    returns a string encrypted with the alphabet being rotated. 
+    The alphabet should be rotated in a manner such that the letters 
+    shift down by two multiplied to two places.
+    For example:
+    encrypt('hi') returns 'lm'
+    encrypt('asdfghjkl') returns 'ewhjklnop'
+    encrypt('gf') returns 'kj'
+    encrypt('et') returns 'ix'
+    """
+    alphabet = 'abcdefghijklmnopqrstuvwxyz'
+    encrypted_text = ''
+    for char in s:
+        if char in alphabet:
+            encrypted_text += alphabet[(alphabet.index(char) + 4) % 26]
+        else:
+            encrypted_text += char
+    return encrypted_text
+Generated code:  def encrypt(s):
+    var_1 = 'abcdefghijklmnopqrstuvwxyz'
+    var_2 = ''
+    for var_3 in s:
+        if var_3 in var_1:
+            var_2 += var_1[(var_1.index(var_3) + 2 * 2) % 26]
+        else:
+            var_2 += var_3
+    return var_2
+Generated code:  def encrypt(s):
+    var_1 = 'abcdefghijklmnopqrstuvwxyz'
+    var_2 = ''
+    for var_3 in s:
+        if var_3 in var_1:
+            var_2 += var_1[(var_1.index(var_3) + 2 * 2) % 26]
+        else:
+            var_2 += var_3
+    return var_2
+Retrieved Documents:  ['def smallest_num(var_0):\n    return min(var_0)']
+Generated code:  def next_smallest(lst):
+    if len(lst) < 2:
+        return None
+    lst.sort()
+    return lst[1]
+Generated code:  def next_smallest(lst):
+    if len(lst) < 2:
+        return None
+    lst = list(set(lst))
+    lst.sort()
+    return lst[1]
+Generated code:  def next_smallest(lst):
+    if len(lst) < 2:
+        return None
+    lst = list(set(lst))
+    lst.sort()
+    return lst[1]
+Retrieved Documents:  ["def is_bored(var_0):\n    import re\n    var_1 = re.split('[.?!]\\\\s*', var_0)\n    return sum((sentence[0:2] == 'I ' for var_2 in var_1))"]
+Generated code:  def is_bored(S):
+    """
+    You'll be given a string of words, and your task is to count the number
+    of boredoms. A boredom is a sentence that starts with the word "I".
+    Sentences are delimited by '.', '?' or '!'.
+   
+    For example:
+    >>> is_bored("Hello world")
+    0
+    >>> is_bored("The sky is blue. The sun is shining. I love this weather")
+    1
+    """
+    sentences = S.split('.')
+    boredoms = 0
+    for sentence in sentences:
+        if sentence.strip().startswith('I '):
+            boredoms += 1
+    return boredoms
+Generated code:  def is_bored(S):
+    """
+    You'll be given a string of words, and your task is to count the number
+    of boredoms. A boredom is a sentence that starts with the word "I".
+    Sentences are delimited by '.', '?' or '!'.
+   
+    For example:
+    >>> is_bored("Hello world")
+    0
+    >>> is_bored("The sky is blue. The sun is shining. I love this weather")
+    1
+    """
+    sentences = re.split('[.?!]\\s*', S)
+    return sum(sentence.startswith('I ') for sentence in sentences)
+Generated code:  import re
+
+def is_bored(var_0):
+    var_1 = re.split('[.?!]\\s*', var_0)
+    return sum((sentence[0:2] == 'I'for sentence in var_1))
+Retrieved Documents:  ['def is_Sum_Of_Powers_Of_Two(var_0):\n    if var_0 % 2 == 1:\n        return False\n    else:\n        return True']
+Generated code:  def any_int(x, y, z):
+    return isinstance(x, int) and isinstance(y, int) and isinstance(z, int) and (x == y + z or y == x + z or z == x + y)
+Generated code:  def any_int(var_0, var_1, var_2):
+    if isinstance(var_0, int) and isinstance(var_1, int) and isinstance(var_2, int):
+        if var_0 + var_1 == var_2 or var_0 + var_2 == var_1 or var_1 + var_2 == var_0:
+            return True
+        return False
+    return False
+Generated code:  def any_int(var_0, var_1, var_2):
+    if isinstance(var_0, int) and isinstance(var_1, int) and isinstance(var_2, int):
+        if var_0 + var_1 == var_2 or var_0 + var_2 == var_1 or var_1 + var_2 == var_0:
+            return True
+        return False
+    return False
+Retrieved Documents:  ["def encode(var_0):\n    var_1 = 'aeiouAEIOU'\n    var_2 = dict([(i, chr(ord(i) + 2)) for var_3 in var_1])\n    var_0 = var_0.swapcase()\n    return ''.join([var_2[var_3] if var_3 in var_1 else var_3 for var_3 in var_0])"]
+Generated code:  def encode(message):
+    vowels = 'aeiou'
+    encoded_message = ''
+    for char in message:
+        if char.isalpha():
+            if char.lower() in vowels:
+                # Find the next vowel in the alphabet
+                next_vowel = vowels[(vowels.index(char.lower()) + 2) % len(vowels)]
+                # Swap the case and replace the vowel
+                encoded_message += next_vowel.swapcase()
+            else:
+                # Swap the case for consonants
+                encoded_message += char.swapcase()
+        else:
+            # Keep non-alphabetic characters unchanged
+            encoded_message += char
+    return encoded_message
+Generated code:  def encode(message):
+    vowels = 'aeiouAEIOU'
+    shifted_vowels = {v: chr((ord(v) - 65 + 2) % 26 + 65) if v.isupper() else chr((ord(v) - 97 + 2) % 26 + 97) for v in vowels}
+    return ''.join(shifted_vowels.get(c, c.swapcase()) for c in message)
+Generated code:  def encode(message):
+    vowels = 'aeiouAEIOU'
+    shifted_vowels = {v: chr((ord(v) - ord('a') + 2) % 26 + ord('a')) for v in vowels}
+    shifted_vowels.update({v.upper(): shifted_vowels[v.lower()].upper() for v in vowels})
+    
+    return ''.join(shifted_vowels.get(c, c.swapcase()) for c in message)
+Retrieved Documents:  ['def skjkasdkd(var_0):\n\n    def isPrime(var_1):\n        for var_2 in range(2, int(var_1 ** 0.5) + 1):\n            if var_1 % var_2 == 0:\n                return False\n        return True\n    var_3 = 0\n    var_2 = 0\n    while var_2 < len(var_0):\n        if var_0[var_2] > var_3 and isPrime(var_0[var_2]):\n            var_3 = var_0[var_2]\n        var_2 += 1\n    var_4 = sum((int(digit) for var_5 in str(var_3)))\n    return var_4']
+Generated code:  def skjkasdkd(lst):
+    def is_prime(n):
+        if n <= 1:
+            return False
+        for i in range(2, int(n**0.5) + 1):
+            if n % i == 0:
+                return False
+        return True
+
+    max_prime = 0
+    for num in lst:
+        if num > max_prime and is_prime(num):
+            max_prime = num
+
+    return sum(int(digit) for digit in str(max_prime))
+Generated code:  def skjkasdkd(lst):
+    def is_prime(n):
+        if n < 2:
+            return False
+        for i in range(2, int(n**0.5) + 1):
+            if n % i == 0:
+                return False
+        return True
+
+    max_prime = 0
+    for num in lst:
+        if num > max_prime and is_prime(num):
+            max_prime = num
+
+    return sum(int(digit) for digit in str(max_prime))
+Generated code:  def skjkasdkd(lst):
+    def is_prime(n):
+        if n < 2:
+            return False
+        for i in range(2, int(n**0.5) + 1):
+            if n % i == 0:
+                return False
+        return True
+
+    max_prime = 0
+    for num in lst:
+        if num > max_prime and is_prime(num):
+            max_prime = num
+
+    return sum(int(digit) for digit in str(max_prime))
+Retrieved Documents:  ["def check_dict_case(dict):\n    if len(dict.keys()) == 0:\n        return False\n    else:\n        var_0 = 'start'\n        for var_1 in dict.keys():\n            if isinstance(var_1, str) == False:\n                var_0 = 'mixed'\n                break\n            if var_0 == 'start':\n                if var_1.isupper():\n                    var_0 = 'upper'\n                elif var_1.islower():\n                    var_0 = 'lower'\n                else:\n                    break\n            elif var_0 == 'upper' and (not var_1.isupper()) or (var_0 == 'lower' and (not var_1.islower())):\n                var_0 = 'mixed'\n                break\n            else:\n                break\n        return var_0 == 'upper' or var_0 == 'lower'"]
+Generated code:  def check_dict_case(dictionary):
+    if not dictionary:
+        return False
+    
+    lower_case = upper_case = None
+    for key in dictionary.keys():
+        if not isinstance(key, str):
+            return False
+        if lower_case is None and upper_case is None:
+            lower_case = key.islower()
+            upper_case = key.isupper()
+        else:
+            if lower_case and not key.islower():
+                return False
+            if upper_case and not key.isupper():
+                return False
+    return True
+Generated code:  def check_dict_case(dictionary):
+    if not dictionary:
+        return False
+    
+    lower_case = upper_case = None
+    
+    for key in dictionary:
+        if not isinstance(key, str):
+            return False
+        
+        if lower_case is None and upper_case is None:
+            lower_case = key.islower()
+            upper_case = key.isupper()
+        else:
+            if not (lower_case ^ key.islower()):
+                return False
+            if not (upper_case ^ key.isupper()):
+                return False
+            
+    return True
+Generated code:  def check_dict_case(dictionary):
+    if not dictionary:
+        return False
+    
+    lower_case = upper_case = None
+    for key in dictionary.keys():
+        if not isinstance(key, str):
+            return False
+        if lower_case is None and upper_case is None:
+            lower_case = key.islower()
+            upper_case = key.isupper()
+        else:
+            if lower_case and not key.islower():
+                return False
+            if upper_case and not key.isupper():
+                return False
+    return True
+Retrieved Documents:  ['def count_Primes_nums(var_0):\n    var_1 = 0\n    for var_2 in range(var_0):\n        if var_2 <= 1:\n            continue\n        for var_3 in range(2, var_2):\n            if var_2 % var_3 == 0:\n                break\n        else:\n            var_1 += 1\n    return var_1']
+Generated code:  def count_up_to(n):
+    def is_prime(num):
+        if num < 2:
+            return False
+        for i in range(2, int(num**0.5) + 1):
+            if num % i == 0:
+                return False
+        return True
+
+    primes = []
+    for i in range(n):
+        if is_prime(i):
+            primes.append(i)
+    return primes
+Generated code:  def count_up_to(n):
+    primes = []
+    for num in range(2, n):
+        if all(num % i!= 0 for i in range(2, int(num**0.5) + 1)):
+            primes.append(num)
+    return primes
+Generated code:  def count_up_to(n):
+    primes = []
+    for num in range(2, n):
+        if all(num % i!= 0 for i in range(2, int(num ** 0.5) + 1)):
+            primes.append(num)
+    return primes
+Retrieved Documents:  ['def multiply_elements(var_0):\n    var_1 = tuple((i * j for var_2, var_3 in zip(var_0, var_0[1:])))\n    return var_1']
+Generated code:  def multiply(a, b):
+    return (abs(a) % 10) * (abs(b) % 10)
+Generated code:  def multiply(a, b):
+    return abs(a % 10) * abs(b % 10)
+Generated code:  def multiply(a, b):
+    return abs(a % 10) * abs(b % 10)
+Retrieved Documents:  ['\nFIX = \n\ndef vowels_count(s):\n    \n\n    vowels = "aeiouAEIOU"\n    n_vowels = sum(c in vowels for c in s)\n    if s[-1] == \'y\' or s[-1] == \'Y\':\n        n_vowels += 1\n    return n_vowels\n']
+Generated code:  def count_upper(s):
+    """
+    Given a string s, count the number of uppercase vowels in even indices.
+    
+    For example:
+    count_upper('aBCdEf') returns 1
+    count_upper('abcdefg') returns 0
+    count_upper('dBBE') returns 0
+    """
+    vowels = "AEIOU"
+    count = 0
+    for i in range(0, len(s), 2):
+        if s[i] in vowels:
+            count += 1
+    return count
+Generated code:  def count_upper(s):
+    count = 0
+    for i in range(0, len(s), 2):
+        if s[i] in 'AEIOU':
+            count += 1
+    return count
+Generated code:  def count_upper(s):
+    """
+    Given a string s, count the number of uppercase vowels in even indices.
+    
+    For example:
+    count_upper('aBCdEf') returns 1
+    count_upper('abcdefg') returns 0
+    count_upper('dBBE') returns 0
+    """
+    count = 0
+    vowels = "AEIOU"
+    for i in range(0, len(s), 2):
+        if s[i] in vowels:
+            count += 1
+    return count
+Retrieved Documents:  ["def closest_integer(var_0):\n    from math import floor, ceil\n    if var_0.count('.') == 1:\n        while var_0[-1] == '0':\n            var_0 = var_0[:-1]\n    var_1 = float(var_0)\n    if var_0[-2:] == '.5':\n        if var_1 > 0:\n            var_2 = ceil(var_1)\n        else:\n            var_2 = floor(var_1)\n    elif len(var_0) > 0:\n        var_2 = int(round(var_1))\n    else:\n        var_2 = 0\n    return var_2"]
+Generated code:  def closest_integer(value):
+    '''
+    Create a function that takes a value (string) representing a number
+    and returns the closest integer to it. If the number is equidistant
+    from two integers, round it away from zero.
+
+    Examples
+    >>> closest_integer("10")
+    10
+    >>> closest_integer("15.3")
+    15
+
+    Note:
+    Rounding away from zero means that if the given number is equidistant
+    from two integers, the one you should return is the one that is the
+    farthest from zero. For example closest_integer("14.5") should
+    return 15 and closest_integer("-14.5") should return -15.
+    '''
+
+    # Convert the string to a float
+    num = float(value)
+
+    # Check if the number is equidistant from two integers
+    if abs(num - round(num)) == 0.5:
+        # Round away from zero
+        return int(num + (1 if num > 0 else -1))
+    else:
+        # Return the closest integer
+        return round(num)
+Generated code:  def closest_integer(value):
+    value = float(value)
+    if value.is_integer():
+        return int(value)
+    elif abs(value - round(value)) == 0.5:
+        return int(value + (1 if value > 0 else -1))
+    else:
+        return round(value)
+Generated code:  def closest_integer(value):
+    value = float(value)
+    if value.is_integer():
+        return int(value)
+    elif value > 0 and value - int(value) >= 0.5:
+        return int(value) + 1
+    elif value < 0 and value - int(value) <= -0.5:
+        return int(value) - 1
+    else:
+        return int(value)
+Retrieved Documents:  ['def make_a_pile(var_0):\n    return [var_0 + 2 * i for var_1 in range(var_0)]']
+Generated code:  def make_a_pile(n):
+    stones = [n]
+    for i in range(1, n):
+        stones.append(stones[-1] + 2)
+    return stones
+Generated code:  def make_a_pile(n):
+    stones = [n]
+    for i in range(1, n):
+        stones.append(stones[-1] + 2 * (i % 2))
+    return stones
+Generated code:  def make_a_pile(n):
+    stones = [n]
+    for i in range(1, n):
+        stones.append(stones[-1] + 2 * (i % 2))
+    return stones
+Retrieved Documents:  ["def words_in_sentence(var_0):\n    var_1 = []\n    for var_2 in var_0.split():\n        var_3 = 0\n        if len(var_2) == 1:\n            var_3 = 1\n        for var_4 in range(2, len(var_2)):\n            if len(var_2) % var_4 == 0:\n                var_3 = 1\n        if var_3 == 0 or len(var_2) == 2:\n            var_1.append(var_2)\n    return ' '.join(var_1)"]
+Generated code:  def words_string(s):
+    return s.replace(',', '').split()
+Generated code:  def words_string(s):
+    return s.replace(',','').split()
+Generated code:  def words_string(s):
+    return s.split()
+Retrieved Documents:  ['def filter_evennumbers(var_0):\n    var_1 = list(filter(lambda x: x % 2 == 0, var_0))\n    return var_1']
+Generated code:  def choose_num(x, y):
+    if x > y:
+        return -1
+    else:
+        for num in range(y, x-1, -1):
+            if num % 2 == 0:
+                return num
+        return -1
+Generated code:  def choose_num(x, y):
+    if x > y:
+        return -1
+    for num in range(y, x-1, -1):
+        if num % 2 == 0:
+            return num
+    return -1
+Generated code:  def choose_num(x, y):
+    if x > y:
+        return -1
+    for num in range(y, x - 1, -1):
+        if num % 2 == 0:
+            return num
+    return -1
+Retrieved Documents:  ['def sd_calc(var_0):\n    var_1 = len(var_0)\n    if var_1 <= 1:\n        return 0.0\n    var_2, var_3 = (avg_calc(var_0), 0.0)\n    for var_4 in var_0:\n        var_3 += (float(var_4) - var_2) ** 2\n    var_3 = math.sqrt(var_3 / float(var_1 - 1))\n    return var_3\n\ndef avg_calc(var_5):\n    var_1, var_2 = (len(var_5), 0.0)\n    if var_1 <= 1:\n        return var_5[0]\n    for var_4 in var_5:\n        var_2 = var_2 + float(var_4)\n    var_2 = var_2 / float(var_1)\n    return var_2']
+Generated code:  def rounded_avg(n, m):
+    if n > m:
+        return -1
+    avg = (n + m) / 2
+    return bin(round(avg))
+Generated code:  def rounded_avg(n, m):
+    if n > m:
+        return -1
+    avg = (n + m) / 2
+    return bin(round(avg))
+Generated code:  def rounded_avg(n, m):
+    if n > m:
+        return -1
+    avg = (n + m) / 2
+    return bin(round(avg))
+Retrieved Documents:  ['def unique_digits(var_0):\n    var_1 = []\n    for var_2 in var_0:\n        if all((int(c) % 2 == 1 for var_3 in str(var_2))):\n            var_1.append(var_2)\n    return sorted(var_1)']
+Generated code:  def unique_digits(x):
+    return sorted([n for n in x if all(int(digit) % 2!= 0 for digit in str(n))])
+Generated code:  def unique_digits(x):
+    return sorted([i for i in x if all(int(j) % 2!= 0 for j in str(i))])
+Generated code:  def unique_digits(x):
+    var_1 = []
+    for var_2 in x:
+        if all((int(c) % 2 == 1 for var_3 in str(var_2))):
+            var_1.append(var_2)
+    return sorted(var_1)
+Retrieved Documents:  ['def sort_array(var_0):\n    return [] if len(var_0) == 0 else sorted(var_0, reverse=(var_0[0] + var_0[-1]) % 2 == 0)']
+Generated code:  def by_length(arr):
+    # Filter out numbers not between 1 and 9
+    filtered_arr = [num for num in arr if 1 <= num <= 9]
+    
+    # Sort the filtered array
+    sorted_arr = sorted(filtered_arr)
+    
+    # Reverse the sorted array
+    reversed_arr = sorted_arr[::-1]
+    
+    # Map numbers to their corresponding names
+    name_mapping = {1: "One", 2: "Two", 3: "Three", 4: "Four", 5: "Five", 6: "Six", 7: "Seven", 8: "Eight", 9: "Nine"}
+    named_arr = [name_mapping[num] for num in reversed_arr]
+    
+    return named_arr
+Generated code:  def by_length(arr):
+    """
+    Given an array of integers, sort the integers that are between 1 and 9 inclusive,
+    reverse the resulting array, and then replace each digit by its corresponding name from
+    "One", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine".
+
+    For example:
+      arr = [2, 1, 1, 4, 5, 8, 2, 3]   
+            -> sort arr -> [1, 1, 2, 2, 3, 4, 5, 8] 
+            -> reverse arr -> [8, 5, 4, 3, 2, 2, 1, 1]
+      return ["Eight", "Five", "Four", "Three", "Two", "Two", "One", "One"]
+    
+      If the array is empty, return an empty array:
+      arr = []
+      return []
+    
+      If the array has any strange number ignore it:
+      arr = [1, -1, 55] 
+            -> sort arr -> [-1, 1, 55]
+            -> reverse arr -> [55, 1, -1]
+      return = ['One']
+    """
+    var_1 = {1: 'One', 2: 'Two', 3: 'Three', 4: 'Four', 5: 'Five', 6: 'Six', 7: 'Seven', 8: 'Eight', 9: 'Nine'}
+    var_2 = sorted([x for x in arr if 1 <= x <= 9], reverse=True)
+    var_3 = []
+    for var_4 in var_2:
+        try:
+            var_3.append(var_1[var_4])
+        except:
+            pass
+    return var_3
+Generated code:  def by_length(arr):
+    var_1 = {1: 'One', 2: 'Two', 3: 'Three', 4: 'Four', 5: 'Five', 6: 'Six', 7: 'Seven', 8: 'Eight', 9: 'Nine'}
+    var_2 = sorted([i for i in arr if 1 <= i <= 9], reverse=True)
+    var_3 = []
+    for var_4 in var_2:
+        try:
+            var_3.append(var_1[var_4])
+        except:
+            pass
+    return var_3
+Retrieved Documents:  ['from typing import List\n\ndef factorize(var_0: int) -> List[int]:\n    import math\n    var_1 = []\n    var_2 = 2\n    while var_2 <= int(math.sqrt(var_0) + 1):\n        if var_0 % var_2 == 0:\n            var_1.append(var_2)\n            var_0 //= var_2\n        else:\n            var_2 += 1\n    if var_0 > 1:\n        var_1.append(var_0)\n    return var_1']
+Generated code:  def f(n: int) -> List[int]:
+    def factorial(n: int) -> int:
+        if n == 0:
+            return 1
+        else:
+            return n * factorial(n - 1)
+
+    def sum_to_n(n: int) -> int:
+        return n * (n + 1) // 2
+
+    result = []
+    for i in range(1, n + 1):
+        if i % 2 == 0:
+            result.append(factorial(i))
+        else:
+            result.append(sum_to_n(i))
+    return result
+Generated code:  def f(n):
+    result = []
+    for i in range(1, n + 1):
+        if i % 2 == 0:
+            result.append(factorial(i))
+        else:
+            result.append(sum_of_square(i))
+    return result
+
+def factorial(n):
+    if n == 0:
+        return 1
+    else:
+        return n * factorial(n - 1)
+
+def sum_of_square(n):
+    return sum(i**2 for i in range(1, n + 1))
+Generated code:  def f(n):
+    result = []
+    for i in range(1, n + 1):
+        if i % 2 == 0:
+            result.append(factorial(i))
+        else:
+            result.append(sum_of_square(i))
+    return result
+Retrieved Documents:  ['def is_palindrome(var_0):\n    var_1 = 1\n    while var_0 / var_1 >= 10:\n        var_1 *= 10\n    while var_0 != 0:\n        var_2 = var_0 // var_1\n        var_3 = var_0 % 10\n        if var_2 != var_3:\n            return False\n        var_0 = var_0 % var_1 // 10\n        var_1 = var_1 // 100\n    return True\n\ndef largest_palindrome(var_4, var_0):\n    var_4.sort()\n    for var_5 in range(var_0 - 1, -1, -1):\n        if is_palindrome(var_4[var_5]):\n            return var_4[var_5]\n    return -1']
+Generated code:  def even_odd_palindrome(n):
+    even_count = 0
+    odd_count = 0
+    for i in range(1, n+1):
+        if str(i) == str(i)[::-1]:
+            if i % 2 == 0:
+                even_count += 1
+            else:
+                odd_count += 1
+    return (even_count, odd_count)
+Generated code:  def even_odd_palindrome(n):
+    even_count = 0
+    odd_count = 0
+    for num in range(1, n + 1):
+        if str(num) == str(num)[::-1]:
+            if num % 2 == 0:
+                even_count += 1
+            else:
+                odd_count += 1
+    return (even_count, odd_count)
+Generated code:  def even_odd_palindrome(n):
+    even_count = 0
+    odd_count = 0
+    for i in range(1, n + 1):
+        if str(i) == str(i)[::-1]:
+            if i % 2 == 0:
+                even_count += 1
+            else:
+                odd_count += 1
+    return (even_count, odd_count)
+Retrieved Documents:  ['def count_Digit(var_0):\n    count = 0\n    while var_0 != 0:\n        var_0 //= 10\n        count += 1\n    return count']
+Generated code:  def count_nums(arr):
+    count = 0
+    for num in arr:
+        if num > 0:
+            count += 1
+        else:
+            digits_sum = sum(int(digit) for digit in str(abs(num)))
+            if digits_sum > 0:
+                count += 1
+    return count
+Generated code:  def count_nums(arr):
+    def sum_of_digits(num):
+        if num < 0:
+            num = -num
+        return sum(int(digit) for digit in str(num))
+    
+    return len([num for num in arr if sum_of_digits(num) > 0])
+Generated code:  def count_nums(arr):
+    def sum_of_digits(num):
+        if num < 0:
+            num = -num
+        return sum(int(digit) for digit in str(num))
+
+    return sum(1 for num in arr if sum_of_digits(num) > 0)
+Retrieved Documents:  ['def sort_array(var_0):\n    return [] if len(var_0) == 0 else sorted(var_0, reverse=(var_0[0] + var_0[-1]) % 2 == 0)']
+Generated code:  def move_one_ball(arr):
+    if not arr:
+        return True
+    
+    n = len(arr)
+    for i in range(n):
+        if arr == sorted(arr):
+            return True
+        arr.insert(0, arr.pop())
+    return False
+Generated code:  def move_one_ball(arr):
+    if not arr:
+        return True
+    sorted_arr = sorted(arr)
+    for i in range(len(arr)):
+        if arr[i:] + arr[:i] == sorted_arr:
+            return True
+    return False
+Generated code:  def move_one_ball(arr):
+    if not arr:
+        return True
+    sorted_arr = sorted(arr)
+    for i in range(len(arr)):
+        if arr[i:] + arr[:i] == sorted_arr:
+            return True
+    return False
+Retrieved Documents:  ['def swap_numbers(var_0, var_1):\n    var_2 = var_0\n    var_0 = var_1\n    var_1 = var_2\n    return (var_0, var_1)']
+Generated code:  def exchange(lst1, lst2):
+    odd_in_lst1 = sum(1 for x in lst1 if x % 2!= 0)
+    even_in_lst2 = sum(1 for x in lst2 if x % 2 == 0)
+    return "YES" if odd_in_lst1 <= even_in_lst2 else "NO"
+Generated code:  def exchange(lst1, lst2):
+    odd_count = sum(1 for num in lst1 if num % 2!= 0)
+    even_count = sum(1 for num in lst2 if num % 2 == 0)
+    return "YES" if even_count >= odd_count else "NO"
+Generated code:  def exchange(lst1, lst2):
+    odd_count_lst1 = sum(1 for num in lst1 if num % 2!= 0)
+    even_count_lst2 = sum(1 for num in lst2 if num % 2 == 0)
+    return 'YES' if even_count_lst2 >= odd_count_lst1 else 'NO'
+Retrieved Documents:  ["def histogram(var_0):\n    var_1 = {}\n    var_2 = var_0.split(' ')\n    var_3 = 0\n    for var_4 in var_2:\n        if var_2.count(var_4) > var_3 and var_4 != '':\n            var_3 = var_2.count(var_4)\n    if var_3 > 0:\n        for var_4 in var_2:\n            if var_2.count(var_4) == var_3:\n                var_1[var_4] = var_3\n    return var_1"]
+Generated code:  def histogram(test):
+    """Given a string representing a space separated lowercase letters, return a dictionary
+    of the letter with the most repetition and containing the corresponding count.
+    If several letters have the same occurrence, return all of them.
+    
+    Example:
+    histogram('a b c') == {'a': 1, 'b': 1, 'c': 1}
+    histogram('a b b a') == {'a': 2, 'b': 2}
+    histogram('a b c a b') == {'a': 2, 'b': 2}
+    histogram('b b b b a') == {'b': 4}
+    histogram('') == {}
+
+    """
+    if not test:
+        return {}
+    
+    words = test.split()
+    letter_counts = {}
+    
+    for word in words:
+        for letter in word:
+            if letter in letter_counts:
+                letter_counts[letter] += 1
+            else:
+                letter_counts[letter] = 1
+    
+    max_count = max(letter_counts.values())
+    return {letter: count for letter, count in letter_counts.items() if count == max_count}
+Generated code:  def histogram(test):
+    """Given a string representing a space separated lowercase letters, return a dictionary
+    of the letter with the most repetition and containing the corresponding count.
+    If several letters have the same occurrence, return all of them.
+    
+    Example:
+    histogram('a b c') == {'a': 1, 'b': 1, 'c': 1}
+    histogram('a b b a') == {'a': 2, 'b': 2}
+    histogram('a b c a b') == {'a': 2, 'b': 2}
+    histogram('b b b b a') == {'b': 4}
+    histogram('') == {}
+
+    """
+    if not test:
+        return {}
+    
+    words = test.split()
+    counts = {}
+    for word in words:
+        if word in counts:
+            counts[word] += 1
+        else:
+            counts[word] = 1
+    max_count = max(counts.values())
+    return {word: count for word, count in counts.items() if count == max_count}
+Generated code:  def histogram(test):
+    count = {}
+    for char in test.split():
+        if char in count:
+            count[char] += 1
+        else:
+            count[char] = 1
+    max_count = max(count.values())
+    return {char: count for char, count in count.items() if count == max_count}
+Retrieved Documents:  ["def palindrome_lambda(var_0):\n    var_1 = list(filter(lambda x: x == ''.join(reversed(x)), var_0))\n    return var_1"]
+Generated code:  def reverse_delete(s, c):
+    s = s.translate(str.maketrans('', '', c))
+    return s, s == s[::-1]
+Generated code:  def reverse_delete(s, c):
+    s = ''.join([char for char in s if char not in c])
+    return (s, s == s[::-1])
+Generated code:  def reverse_delete(s, c):
+    s = ''.join([char for char in s if char not in c])
+    return (s, s == s[::-1])
+Retrieved Documents:  ['def number_of_substrings(str):\n    var_0 = len(str)\n    return int(var_0 * (var_0 + 1) / 2)']
+Generated code:  def odd_count(lst):
+    result = []
+    for s in lst:
+        odd_count = sum(1 for char in s if int(char) % 2 == 1)
+        result.append(f"the number of odd elements {odd_count}n the str{odd_count}ng {odd_count} of the {odd_count}nput.")
+    return result
+Generated code:  def odd_count(lst):
+    return ["the number of odd elements {}n the str{}ng {} of the {}nput.".format(sum(int(c) % 2 for c in s), sum(int(c) % 2 for c in s), sum(int(c) % 2 for c in s), sum(int(c) % 2 for c in s)) for s in lst]
+Generated code:  def odd_count(lst):
+    return ["the number of odd elements {}n the str{}ng {} of the {}nput.".format(sum(int(c) % 2 for c in s), sum(int(c) % 2 for c in s), sum(int(c) % 2 for c in s), sum(int(c) % 2 for c in s)) for s in lst]
+Retrieved Documents:  ['def find_Min_Sum(var_0):\n    sum = 0\n    var_1 = 2\n    while var_1 * var_1 <= var_0:\n        while var_0 % var_1 == 0:\n            sum += var_1\n            var_0 /= var_1\n        var_1 += 1\n    sum += var_0\n    return sum']
+Generated code:  def minSubArraySum(nums):
+    min_sum = float('inf')
+    current_sum = 0
+    for num in nums:
+        current_sum = min(num, current_sum + num)
+        min_sum = min(min_sum, current_sum)
+    return min_sum
+Generated code:  def minSubArraySum(nums):
+    min_sum = float('inf')
+    current_sum = 0
+    for num in nums:
+        current_sum += num
+        if current_sum < min_sum:
+            min_sum = current_sum
+        if current_sum > 0:
+            current_sum = 0
+    return min_sum
+Generated code:  def minSubArraySum(nums):
+    min_sum = float('inf')
+    current_sum = 0
+    for num in nums:
+        current_sum += num
+        if current_sum < min_sum:
+            min_sum = current_sum
+        if current_sum > 0:
+            current_sum = 0
+    return min_sum
+Retrieved Documents:  ['def max_sum_rectangular_grid(var_0, var_1):\n    var_2 = max(var_0[0][0], var_0[1][0])\n    var_3 = 0\n    for var_4 in range(1, var_1):\n        var_5 = max(var_3, var_2)\n        var_2 = var_3 + max(var_0[0][var_4], var_0[1][var_4])\n        var_3 = var_5\n    return max(var_3, var_2)']
+Generated code:  def max_fill(grid, capacity):
+    import math
+    max_depth = 0
+    for row in grid:
+        depth = sum(row)
+        max_depth = max(max_depth, depth)
+    return math.ceil(max_depth / capacity)
+Generated code:  def max_fill(grid, capacity):
+    return sum([math.ceil(sum(row) / capacity) for row in grid])
+Generated code:  def max_fill(grid, capacity):
+    return sum([math.ceil(sum(arr) / capacity) for arr in grid])
+Retrieved Documents:  ["def sort_array(var_0):\n    return sorted(sorted(var_0), key=lambda x: bin(x)[2:].count('1'))"]
+Generated code:  def sort_array(arr):
+    return sorted(arr, key=lambda x: (bin(x).count('1'), x))
+Generated code:  def sort_array(arr):
+    return sorted(arr, key=lambda x: (bin(x).count('1'), x))
+Generated code:  def sort_array(arr):
+    return sorted(arr, key=lambda x: (bin(x).count('1'), x))
+Retrieved Documents:  ["def n_common_words(var_0, var_1):\n    var_2 = re.findall('\\\\w+', var_0)\n    var_3 = Counter(var_2).most_common(var_1)\n    return list(var_3)"]
+Generated code:  import re
+from collections import Counter
+
+def select_words(s, n):
+    words = re.findall(r'\b\w+\b', s)
+    consonants = 'bcdfghjklmnpqrstvwxyzBCDFGHJKLMNPQRSTVWXYZ'
+    result = []
+    
+    for word in words:
+        if sum(1 for char in word if char in consonants) == n:
+            result.append(word)
+    
+    return result
+Generated code:  def select_words(s, n):
+    vowels = 'aeiouAEIOU'
+    words = s.split()
+    result = []
+    
+    for word in words:
+        consonant_count = sum(1 for char in word if char not in vowels)
+        if consonant_count == n:
+            result.append(word)
+    
+    return result
+Generated code:  def select_words(s, n):
+    vowels = set('aeiouAEIOU')
+    words = s.split()
+    result = []
+    for word in words:
+        consonant_count = sum(1 for char in word if char not in vowels)
+        if consonant_count == n:
+            result.append(word)
+    return result
+Retrieved Documents:  ['\nFIX = \n\ndef vowels_count(s):\n    \n\n    vowels = "aeiouAEIOU"\n    n_vowels = sum(c in vowels for c in s)\n    if s[-1] == \'y\' or s[-1] == \'Y\':\n        n_vowels += 1\n    return n_vowels\n']
+Generated code:  def get_closest_vowel(word):
+    vowels = "aeiouAEIOU"
+    for i in range(len(word) - 2, 0, -1):
+        if word[i] in vowels and word[i-1] not in vowels and word[i+1] not in vowels:
+            return word[i]
+    return ""
+Generated code:  def get_closest_vowel(word):
+    vowels = "aeiouAEIOU"
+    for i in range(len(word) - 2, 0, -1):
+        if word[i] in vowels and word[i-1] not in vowels and word[i+1] not in vowels:
+            return word[i]
+    return ""
+Generated code:  def get_closest_vowel(word):
+    vowels = "aeiouAEIOU"
+    for i in range(len(word) - 2, 0, -1):
+        if word[i] in vowels and word[i+1] not in vowels and word[i-1] not in vowels:
+            return word[i]
+    return ""
+Retrieved Documents:  ["def match_parens(var_0):\n\n    def check(var_1):\n        var_2 = 0\n        for var_3 in var_1:\n            if var_3 == '(':\n                var_2 = var_2 + 1\n            else:\n                var_2 = var_2 - 1\n            if var_2 < 0:\n                return False\n        return True if var_2 == 0 else False\n    var_4 = var_0[0] + var_0[1]\n    var_5 = var_0[1] + var_0[0]\n    return 'Yes' if check(var_4) or check(var_5) else 'No'"]
+Generated code:  def match_parens(lst):
+    def is_balanced(s):
+        balance = 0
+        for char in s:
+            if char == '(':
+                balance += 1
+            elif char == ')':
+                balance -= 1
+            if balance < 0:
+                return False
+        return balance == 0
+
+    first_combination = lst[0] + lst[1]
+    second_combination = lst[1] + lst[0]
+
+    return 'Yes' if is_balanced(first_combination) or is_balanced(second_combination) else 'No'
+Generated code:  def match_parens(lst):
+    def is_balanced(s):
+        balance = 0
+        for char in s:
+            if char == '(':
+                balance += 1
+            elif char == ')':
+                balance -= 1
+            if balance < 0:
+                return False
+        return balance == 0
+
+    combined = lst[0] + lst[1]
+    if is_balanced(combined):
+        return 'Yes'
+    else:
+        combined = lst[1] + lst[0]
+        if is_balanced(combined):
+            return 'Yes'
+        else:
+            return 'No'
+Generated code:  def match_parens(lst):
+    def is_balanced(s):
+        balance = 0
+        for char in s:
+            if char == '(':
+                balance += 1
+            elif char == ')':
+                balance -= 1
+            if balance < 0:
+                return False
+        return balance == 0
+
+    return 'Yes' if is_balanced(lst[0] + lst[1]) or is_balanced(lst[1] + lst[0]) else 'No'
+Retrieved Documents:  ['def find_Max_Num(var_0, var_1):\n    var_0.sort(reverse=True)\n    var_2 = var_0[0]\n    for var_3 in range(1, var_1):\n        var_2 = var_2 * 10 + var_0[var_3]\n    return var_2']
+Generated code:  def maximum(arr, k):
+    arr.sort(reverse=True)
+    return arr[:k]
+Generated code:  def maximum(arr, k):
+    arr.sort(reverse=True)
+    return arr[:k]
+Generated code:  def maximum(arr, k):
+    arr.sort(reverse=True)
+    return arr[:k]
+Retrieved Documents:  ['def sum_even_odd(var_0):\n    var_1 = next((el for var_2 in var_0 if var_2 % 2 == 0), -1)\n    var_3 = next((var_2 for var_2 in var_0 if var_2 % 2 != 0), -1)\n    return var_1 + var_3']
+Generated code:  def solution(lst):
+    return sum(x for i, x in enumerate(lst) if i % 2 == 0 and x % 2!= 0)
+Generated code:  def solution(lst):
+    return sum(x for i, x in enumerate(lst) if i % 2 == 0 and x % 2!= 0)
+Generated code:  def solution(lst):
+    return sum(x for i, x in enumerate(lst) if i % 2 == 0 and x % 2!= 0)
+Retrieved Documents:  ['def sum_elements(var_0):\n    var_1 = sum(list(var_0))\n    return var_1']
+Generated code:  def add_elements(arr, k):
+    return sum(x for x in arr[:k] if 0 < x < 100)
+Generated code:  def add_elements(arr, k):
+    return sum(x for x in arr[:k] if 0 < x < 100)
+Generated code:  def add_elements(arr, k):
+    return sum(x for x in arr[:k] if 0 < x < 100)
+Retrieved Documents:  ['def get_odd_collatz(var_0):\n    if var_0 % 2 == 0:\n        var_1 = []\n    else:\n        var_1 = [var_0]\n    while var_0 > 1:\n        if var_0 % 2 == 0:\n            var_0 = var_0 / 2\n        else:\n            var_0 = var_0 * 3 + 1\n        if var_0 % 2 == 1:\n            var_1.append(int(var_0))\n    return sorted(var_1)']
+Generated code:  def get_odd_collatz(n):
+    odd_numbers = []
+    while n!= 1:
+        if n % 2 == 1:
+            odd_numbers.append(n)
+        n = 3 * n + 1 if n % 2 else n // 2
+    odd_numbers.append(1)  # Adding 1 as it's always the last odd number in the sequence
+    return sorted(odd_numbers)
+Generated code:  def get_odd_collatz(n):
+    odd_numbers = []
+    while n!= 1:
+        if n % 2 == 1:
+            odd_numbers.append(n)
+        n = 3 * n + 1 if n % 2 else n // 2
+    odd_numbers.append(1)  # Add 1 to the list as per the problem statement
+    return sorted(odd_numbers)
+Generated code:  def get_odd_collatz(n):
+    odd_numbers = []
+    while n!= 1:
+        if n % 2 == 1:
+            odd_numbers.append(n)
+        n = 3 * n + 1 if n % 2 else n // 2
+    odd_numbers.append(1)  # Add 1 to the list as it's always the last number in the sequence
+    return sorted(odd_numbers)
+Retrieved Documents:  ['def check_date(var_0, var_1, var_2):\n    try:\n        var_0, var_1, var_2 = map(int, (var_0, var_1, var_2))\n        datetime.date(var_2, var_0, var_1)\n        return True\n    except ValueError:\n        return False']
+Generated code:  from datetime import datetime
+
+def valid_date(date):
+    try:
+        month, day, year = map(int, date.split('-'))
+        datetime(year, month, day)
+        return True
+    except ValueError:
+        return False
+Generated code:  from datetime import datetime
+
+def valid_date(date):
+    try:
+        datetime.strptime(date, '%m-%d-%Y')
+        return True
+    except ValueError:
+        return False
+Generated code:  from datetime import datetime
+
+def valid_date(date):
+    try:
+        datetime.strptime(date, '%m-%d-%Y')
+        return True
+    except ValueError:
+        return False
+Retrieved Documents:  ["def split_words(var_0):\n    if ' ' in var_0:\n        return var_0.split()\n    elif ',' in var_0:\n        return var_0.replace(',', ' ').split()\n    else:\n        return len([i for var_1 in var_0 if var_1.islower() and ord(var_1) % 2 == 0])"]
+Generated code:  def split_words(txt):
+    if'' in txt:
+        return txt.split()
+    elif ',' in txt:
+        return txt.replace(',','').split()
+    else:
+        return len([char for char in txt if char.islower() and ord(char) % 2 == 0])
+Generated code:  def split_words(txt):
+    if'' in txt:
+        return txt.split()
+    elif ',' in txt:
+        return txt.replace(',','').split()
+    else:
+        return len([i for i in txt if i.islower() and ord(i) % 2 == 1])
+Generated code:  def split_words(txt):
+    if'' in txt:
+        return txt.split()
+    elif ',' in txt:
+        return txt.replace(',','').split()
+    else:
+        return len([i for i in txt if i.islower() and ord(i) % 2 == 0])
+Retrieved Documents:  ["from typing import List\n\ndef sort_numbers(var_0: str) -> str:\n    var_1 = {'zero': 0, 'one': 1, 'two': 2, 'three': 3, 'four': 4, 'five': 5, 'six': 6, 'seven': 7, 'eight': 8, 'nine': 9}\n    return ' '.join(sorted([x for var_2 in var_0.split(' ') if var_2], key=lambda x: var_1[var_2]))"]
+Generated code:  def is_sorted(lst):
+    if len(lst) == 1:
+        return True
+    for i in range(1, len(lst)):
+        if lst[i] < lst[i-1]:
+            return False
+    return True
+Generated code:  def is_sorted(lst):
+    if len(lst) <= 1:
+        return True
+    for i in range(1, len(lst)):
+        if lst[i] < lst[i - 1]:
+            return False
+    return True
+Generated code:  def is_sorted(lst):
+    if len(lst) <= 1:
+        return True
+    for i in range(1, len(lst)):
+        if lst[i] < lst[i-1]:
+            return False
+    return True
+Retrieved Documents:  ["def intersection(var_0, var_1):\n\n    def is_prime(var_2):\n        if var_2 == 1 or var_2 == 0:\n            return False\n        if var_2 == 2:\n            return True\n        for var_3 in range(2, var_2):\n            if var_2 % var_3 == 0:\n                return False\n        return True\n    var_4 = max(var_0[0], var_1[0])\n    var_5 = min(var_0[1], var_1[1])\n    var_6 = var_5 - var_4\n    if var_6 > 0 and is_prime(var_6):\n        return 'YES'\n    return 'NO'"]
+Generated code:  def intersection(interval1, interval2):
+    def is_prime(n):
+        if n < 2:
+            return False
+        for i in range(2, int(n**0.5) + 1):
+            if n % i == 0:
+                return False
+        return True
+
+    start = max(interval1[0], interval2[0])
+    end = min(interval1[1], interval2[1])
+    length = end - start
+
+    if length > 0 and is_prime(length):
+        return "YES"
+    else:
+        return "NO"
+Generated code:  def intersection(interval1, interval2):
+    start = max(interval1[0], interval2[0])
+    end = min(interval1[1], interval2[1])
+    if start > end:
+        return "NO"
+    length = end - start + 1
+    if length == 1:
+        return "NO"
+    for i in range(2, int(length ** 0.5) + 1):
+        if length % i == 0:
+            return "NO"
+    return "YES"
+Generated code:  def intersection(interval1, interval2):
+    start = max(interval1[0], interval2[0])
+    end = min(interval1[1], interval2[1])
+    length = end - start
+    if length > 0 and is_prime(length):
+        return "YES"
+    return "NO"
+
+def is_prime(n):
+    if n < 2:
+        return False
+    for i in range(2, int(n**0.5) + 1):
+        if n % i == 0:
+            return False
+    return True
+Retrieved Documents:  ['from typing import List, Tuple\n\ndef sum_product(var_0: List[int]) -> Tuple[int, int]:\n    var_1 = 0\n    var_2 = 1\n    for var_3 in var_0:\n        var_1 += var_3\n        var_2 *= var_3\n    return (var_1, var_2)']
+Generated code:  def prod_signs(arr):
+    if not arr:
+        return None
+    product_of_signs = 1
+    sum_of_magnitudes = 0
+    for num in arr:
+        sum_of_magnitudes += abs(num)
+        if num < 0:
+            product_of_signs *= -1
+        elif num == 0:
+            product_of_signs = 0
+            break
+    return sum_of_magnitudes * product_of_signs
+Generated code:  def prod_signs(arr):
+    if not arr:
+        return None
+    sign_product = (-1) ** sum(1 for num in arr if num < 0)
+    magnitude_sum = sum(abs(num) for num in arr)
+    return sign_product * magnitude_sum
+Generated code:  def prod_signs(arr):
+    if not arr:
+        return None
+    sign_product = (-1) ** sum(1 for num in arr if num < 0)
+    magnitude_sum = sum(abs(num) for num in arr)
+    return sign_product * magnitude_sum
+Retrieved Documents:  ['def min_sum_path(var_0):\n    var_1 = [None] * len(var_0)\n    var_2 = len(var_0) - 1\n    for var_3 in range(len(var_0[var_2])):\n        var_1[var_3] = var_0[var_2][var_3]\n    for var_3 in range(len(var_0) - 2, -1, -1):\n        for var_4 in range(len(var_0[var_3])):\n            var_1[var_4] = var_0[var_3][var_4] + min(var_1[var_4], var_1[var_4 + 1])\n    return var_1[0]']
+Generated code:  def minPath(grid, k):
+    N = len(grid)
+    dp = [[[float('inf')] * N for _ in range(N)] for _ in range(k + 1)]
+    for i in range(N):
+        for j in range(N):
+            dp[1][i][j] = grid[i][j]
+    for l in range(2, k + 1):
+        for i in range(N):
+            for j in range(N):
+                for x, y in [(i - 1, j), (i + 1, j), (i, j - 1), (i, j + 1)]:
+                    if 0 <= x < N and 0 <= y < N:
+                        dp[l][i][j] = min(dp[l][i][j], dp[l - 1][x][y] + grid[i][j])
+    min_val = min(min(row) for row in dp[k])
+    for i in range(N):
+        for j in range(N):
+            if dp[k][i][j] == min_val:
+                return [grid[i][j]] + minPath(grid[:i] + grid[i+1:], k - 1)
+Generated code:  def minPath(grid, k):
+    N = len(grid)
+    dp = [[float('inf')] * N for _ in range(N)]
+    for i in range(N):
+        for j in range(N):
+            dp[i][j] = grid[i][j]
+    for _ in range(k - 1):
+        for i in range(N):
+            for j in range(N):
+                for di, dj in [(0, 1), (0, -1), (1, 0), (-1, 0)]:
+                    ni, nj = i + di, j + dj
+                    if 0 <= ni < N and 0 <= nj < N:
+                        dp[i][j] = min(dp[i][j], dp[ni][nj])
+    return [min(dp[i][j] for j in range(N)) for i in range(N)]
+Generated code:  from heapq import heappush, heappop
+from operator import itemgetter
+
+def minPath(grid, k):
+    N = len(grid)
+    visited = [[False] * N for _ in range(N)]
+    heap = [(grid[0][0], 0, 0)]
+    visited[0][0] = True
+    path = []
+    
+    while heap:
+        value, x, y = heappop(heap)
+        path.append(value)
+        if len(path) == k:
+            return path
+        for dx, dy in [(0, 1), (1, 0), (0, -1), (-1, 0)]:
+            nx, ny = x + dx, y + dy
+            if 0 <= nx < N and 0 <= ny < N and not visited[nx][ny]:
+                visited[nx][ny] = True
+                heappush(heap, (grid[nx][ny], nx, ny))
+Retrieved Documents:  ['def fibonacci(var_0):\n    if var_0 == 1 or var_0 == 2:\n        return 1\n    else:\n        return fibonacci(var_0 - 1) + fibonacci(var_0 - 2)']
+Generated code:  def tri(n):
+    if n == 0:
+        return [3]
+    elif n == 1:
+        return [3, 1]
+    elif n == 2:
+        return [3, 1, 2]
+    else:
+        sequence = [3, 1, 2]
+        for i in range(3, n + 1):
+            if i % 2 == 0:
+                sequence.append(1 + i / 2)
+            else:
+                sequence.append(sequence[i - 1] + sequence[i - 2] + sequence[i + 1])
+        return sequence
+Generated code:  def tri(n):
+    if n == 0:
+        return [1]
+    sequence = [1, 3]
+    for i in range(2, n + 1):
+        if i % 2 == 0:
+            sequence.append(i / 2 + 1)
+        else:
+            sequence.append(sequence[i - 1] + sequence[i - 2] + (i + 3) / 2)
+    return sequence
+Generated code:  def tri(n):
+    if n == 0:
+        return [1]
+    trib = [1, 3]
+    for i in range(2, n + 1):
+        if i % 2 == 0:
+            trib.append(i / 2 + 1)
+        else:
+            trib.append(trib[i - 1] + trib[i - 2] + (i + 3) / 2)
+    return trib
+Retrieved Documents:  ['def first_Digit(var_0):\n    while var_0 >= 10:\n        var_0 = var_0 / 10\n    return int(var_0)']
+Generated code:  def digits(n):
+    product = 1
+    has_odd = False
+    while n > 0:
+        digit = n % 10
+        if digit % 2 == 1:
+            product *= digit
+            has_odd = True
+        n //= 10
+    return product if has_odd else 0
+Generated code:  def digits(n):
+    product = 1
+    has_odd = False
+    for digit in str(n):
+        if int(digit) % 2 == 1:
+            product *= int(digit)
+            has_odd = True
+    return product if has_odd else 0
+Generated code:  def digits(n):
+    product = 1
+    has_odd = False
+    for digit in str(n):
+        if int(digit) % 2 == 1:
+            product *= int(digit)
+            has_odd = True
+    return product if has_odd else 0
+Retrieved Documents:  ["def is_nested(var_0):\n    var_1 = []\n    var_2 = []\n    for var_3 in range(len(var_0)):\n        if var_0[var_3] == '[':\n            var_1.append(var_3)\n        else:\n            var_2.append(var_3)\n    var_2.reverse()\n    var_4 = 0\n    var_3 = 0\n    var_5 = len(var_2)\n    for var_6 in var_1:\n        if var_3 < var_5 and var_6 < var_2[var_3]:\n            var_4 += 1\n            var_3 += 1\n    return var_4 >= 2"]
+Generated code:  def is_nested(string):
+    stack = []
+    for char in string:
+        if char == '[':
+            stack.append(char)
+        elif char == ']' and stack:
+            stack.pop()
+    return len(stack) > 0
+Generated code:  def is_nested(string):
+    stack = []
+    for char in string:
+        if char == '[':
+            stack.append(char)
+        elif char == ']' and stack:
+            stack.pop()
+        else:
+            return False
+    return len(stack) > 0
+Generated code:  def is_nested(string):
+    stack = []
+    for char in string:
+        if char == '[':
+            stack.append(char)
+        elif char == ']' and stack:
+            stack.pop()
+        else:
+            return False
+    return len(stack) > 0
+Retrieved Documents:  ['def square_Sum(var_0):\n    return int(var_0 * (4 * var_0 * var_0 - 1) / 3)']
+Generated code:  def sum_squares(lst):
+    return sum(int(x**2) for x in lst)
+Generated code:  def sum_squares(lst):
+    return sum(int(x**2) for x in lst)
+Generated code:  def sum_squares(lst):
+    return sum(int(abs(num) + 0.5) ** 2 for num in lst)
+Retrieved Documents:  ['def check_String(str):\n    var_0 = False\n    var_1 = False\n    for var_2 in str:\n        if var_2.isalpha():\n            var_0 = True\n        if var_2.isdigit():\n            var_1 = True\n    return var_0 and var_1']
+Generated code:  def check_if_last_char_is_a_letter(txt):
+    if not txt or not txt[-1].isalpha():
+        return False
+    return txt[-2].isspace() if len(txt) > 1 else True
+Generated code:  def check_if_last_char_is_a_letter(txt):
+    if not txt or not txt[-1].isalpha():
+        return False
+    return txt[-2].isspace() if len(txt) > 1 else True
+Generated code:  def check_if_last_char_is_a_letter(txt):
+    if not txt or txt[-1].isspace():
+        return False
+    return txt[-1].isalpha()
+Retrieved Documents:  ['def sort_array(var_0):\n    return [] if len(var_0) == 0 else sorted(var_0, reverse=(var_0[0] + var_0[-1]) % 2 == 0)']
+Generated code:  def can_arrange(arr):
+    for i in range(len(arr) - 1, 0, -1):
+        if arr[i] < arr[i - 1]:
+            return i
+    return -1
+Generated code:  def can_arrange(arr):
+    for i in range(len(arr) - 1, 0, -1):
+        if arr[i] < arr[i - 1]:
+            return i - 1
+    return -1
+Generated code:  def can_arrange(arr):
+    for i in range(len(arr) - 1, 0, -1):
+        if arr[i] < arr[i - 1]:
+            return i - 1
+    return -1
+Retrieved Documents:  ['def largest_smallest_integers(var_0):\n    var_1 = list(filter(lambda x: x < 0, var_0))\n    var_2 = list(filter(lambda x: x > 0, var_0))\n    return (max(var_1) if var_1 else None, min(var_2) if var_2 else None)']
+Generated code:  def largest_smallest_integers(lst):
+    negatives = [x for x in lst if x < 0]
+    positives = [x for x in lst if x > 0]
+    return (max(negatives) if negatives else None, min(positives) if positives else None)
+Generated code:  def largest_smallest_integers(lst):
+    negatives = [x for x in lst if x < 0]
+    positives = [x for x in lst if x > 0]
+    return (max(negatives) if negatives else None, min(positives) if positives else None)
+Generated code:  def largest_smallest_integers(lst):
+    negatives = [x for x in lst if x < 0]
+    positives = [x for x in lst if x > 0]
+    return (max(negatives) if negatives else None, min(positives) if positives else None)
+Retrieved Documents:  ['def compare(var_0, var_1):\n    return [abs(x - y) for var_2, var_3 in zip(var_0, var_1)]']
+Generated code:  def compare_one(a, b):
+    # Convert a and b to floats if they are strings, replacing, with.
+    a = float(a.replace(',', '.')) if isinstance(a, str) else a
+    b = float(b.replace(',', '.')) if isinstance(b, str) else b
+
+    # Compare the floats and return the larger one in its original type
+    if a > b:
+        return a
+    elif b > a:
+        return b
+    else:
+        return None
+Generated code:  def compare_one(var_0, var_1):
+    if isinstance(var_0, str):
+        var_0 = float(var_0.replace(',', '.'))
+    if isinstance(var_1, str):
+        var_1 = float(var_1.replace(',', '.'))
+    if var_0 == var_1:
+        return None
+    return var_0 if var_0 > var_1 else var_1
+Generated code:  def compare_one(var_0, var_1):
+    if isinstance(var_0, str):
+        var_0 = float(var_0.replace(',', '.'))
+    if isinstance(var_1, str):
+        var_1 = float(var_1.replace(',', '.'))
+    if var_0 == var_1:
+        return None
+    return var_0 if var_0 > var_1 else var_1
+Retrieved Documents:  ['def even_Power_Sum(var_0):\n    sum = 0\n    for var_1 in range(1, var_0 + 1):\n        var_2 = 2 * var_1\n        sum = sum + var_2 * var_2 * var_2 * var_2 * var_2\n    return sum']
+Generated code:  def is_equal_to_sum_even(n):
+    return n % 2 == 0 and n >= 8
+Generated code:  def is_equal_to_sum_even(n):
+    return n % 2 == 0 and n >= 8
+Generated code:  def is_equal_to_sum_even(n):
+    return n % 2 == 0 and n >= 8
+Retrieved Documents:  ['def first_Factorial_Divisible_Number(var_0):\n    var_1 = 1\n    var_2 = 1\n    for var_1 in range(1, var_0):\n        var_2 = var_2 * var_1\n        if var_2 % var_0 == 0:\n            break\n    return var_1']
+Generated code:  def special_factorial(n):
+    factorial = 1
+    for i in range(1, n + 1):
+        factorial *= i
+    return factorial
+Generated code:  def special_factorial(n):
+    result = 1
+    for i in range(1, n + 1):
+        result *= math.factorial(i)
+    return result
+Generated code:  def special_factorial(n):
+    result = 1
+    for i in range(1, n + 1):
+        factorial = 1
+        for j in range(1, i + 1):
+            factorial *= j
+        result *= factorial
+    return result
+Retrieved Documents:  ["def replace_spaces(var_0):\n    var_0 = var_0.replace(' ', '_')\n    return var_0\n    var_0 = var_0.replace('_', ' ')\n    return var_0"]
+Generated code:  def fix_spaces(text):
+    result = []
+    consecutive_spaces = 0
+    for char in text:
+        if char =='':
+            consecutive_spaces += 1
+        else:
+            if consecutive_spaces > 2:
+                result.append('-')
+            elif consecutive_spaces > 0:
+                result.extend(['_'] * consecutive_spaces)
+            result.append(char)
+            consecutive_spaces = 0
+    if consecutive_spaces > 2:
+        result.append('-')
+    elif consecutive_spaces > 0:
+        result.extend(['_'] * consecutive_spaces)
+    return ''.join(result)
+Generated code:  def fix_spaces(text):
+    result = ''
+    space_count = 0
+    for char in text:
+        if char =='':
+            space_count += 1
+        else:
+            if space_count > 2:
+                result += '-'
+            elif space_count > 0:
+                result += '_' * space_count
+            result += char
+            space_count = 0
+    if space_count > 2:
+        result += '-'
+    elif space_count > 0:
+        result += '_' * space_count
+    return result
+Generated code:  def fix_spaces(text):
+    return re.sub(' +', '-', re.sub(' +', '_', text))
+Retrieved Documents:  ["def file_name_check(var_0):\n    var_1 = ['txt', 'exe', 'dll']\n    var_2 = var_0.split(sep='.')\n    if len(var_2) != 2:\n        return 'No'\n    if not var_2[1] in var_1:\n        return 'No'\n    if len(var_2[0]) == 0:\n        return 'No'\n    if not var_2[0][0].isalpha():\n        return 'No'\n    var_3 = len([x for var_4 in var_2[0] if var_4.isdigit()])\n    if var_3 > 3:\n        return 'No'\n    return 'Yes'"]
+Generated code:  def file_name_check(file_name):
+    valid_extensions = ['txt', 'exe', 'dll']
+    parts = file_name.split('.')
+    
+    # Check if there is exactly one dot in the file name
+    if len(parts)!= 2:
+        return 'No'
+    
+    # Check if the extension is valid
+    if parts[1] not in valid_extensions:
+        return 'No'
+    
+    # Check if the name part is not empty and starts with a letter
+    if not parts[0] or not parts[0][0].isalpha():
+        return 'No'
+    
+    # Check if there are more than three digits in the name part
+    digit_count = sum(c.isdigit() for c in parts[0])
+    if digit_count > 3:
+        return 'No'
+    
+    return 'Yes'
+Generated code:  def file_name_check(file_name):
+    valid_extensions = ['txt', 'exe', 'dll']
+    parts = file_name.split('.')
+    
+    # Check if there is exactly one dot and the extension is valid
+    if len(parts)!= 2 or parts[1] not in valid_extensions:
+        return 'No'
+    
+    # Check if the name starts with a letter and contains no more than three digits
+    if not parts[0][0].isalpha() or sum(c.isdigit() for c in parts[0]) > 3:
+        return 'No'
+    
+    return 'Yes'
+Generated code:  def file_name_check(file_name):
+    valid_extensions = ['txt', 'exe', 'dll']
+    parts = file_name.split('.')
+    
+    # Check if there's exactly one dot in the file name
+    if len(parts)!= 2:
+        return 'No'
+    
+    # Check if the extension is valid
+    if parts[1] not in valid_extensions:
+        return 'No'
+    
+    # Check if the name starts with a letter
+    if not parts[0][0].isalpha():
+        return 'No'
+    
+    # Check if there are more than three digits in the name
+    digit_count = sum(c.isdigit() for c in parts[0])
+    if digit_count > 3:
+        return 'No'
+    
+    return 'Yes'
+Retrieved Documents:  ['def square_Sum(var_0):\n    return int(var_0 * (4 * var_0 * var_0 - 1) / 3)']
+Generated code:  def sum_squares(lst):
+    return sum(x**3 if i % 4 == 0 else x**2 for i, x in enumerate(lst))
+Generated code:  def sum_squares(lst):
+    total = 0
+    for i, num in enumerate(lst):
+        if i % 3 == 0:
+            total += num ** 2
+        elif i % 4 == 0:
+            total += num ** 3
+    return total
+Generated code:  def sum_squares(lst):
+    total = 0
+    for i in range(len(lst)):
+        if i % 3 == 0:
+            total += lst[i] ** 2
+        elif i % 4 == 0:
+            total += lst[i] ** 3
+    return total
+Retrieved Documents:  ["def words_in_sentence(var_0):\n    var_1 = []\n    for var_2 in var_0.split():\n        var_3 = 0\n        if len(var_2) == 1:\n            var_3 = 1\n        for var_4 in range(2, len(var_2)):\n            if len(var_2) % var_4 == 0:\n                var_3 = 1\n        if var_3 == 0 or len(var_2) == 2:\n            var_1.append(var_2)\n    return ' '.join(var_1)"]
+Generated code:  def words_in_sentence(sentence):
+    def is_prime(n):
+        if n < 2:
+            return False
+        for i in range(2, int(n**0.5) + 1):
+            if n % i == 0:
+                return False
+        return True
+
+    words = sentence.split()
+    prime_length_words = [word for word in words if is_prime(len(word))]
+    return''.join(prime_length_words)
+Generated code:  def words_in_sentence(sentence):
+    def is_prime(n):
+        if n < 2:
+            return False
+        for i in range(2, int(n**0.5) + 1):
+            if n % i == 0:
+                return False
+        return True
+
+    return''.join(word for word in sentence.split() if is_prime(len(word)))
+Generated code:  def words_in_sentence(sentence):
+    def is_prime(n):
+        if n < 2:
+            return False
+        for i in range(2, int(n**0.5) + 1):
+            if n % i == 0:
+                return False
+        return True
+
+    words = sentence.split()
+    prime_length_words = [word for word in words if is_prime(len(word))]
+    return''.join(prime_length_words)
+Retrieved Documents:  ['from typing import List\n\ndef factorize(var_0: int) -> List[int]:\n    import math\n    var_1 = []\n    var_2 = 2\n    while var_2 <= int(math.sqrt(var_0) + 1):\n        if var_0 % var_2 == 0:\n            var_1.append(var_2)\n            var_0 //= var_2\n        else:\n            var_2 += 1\n    if var_0 > 1:\n        var_1.append(var_0)\n    return var_1']
+Generated code:  def simplify(x, n):
+    x_numerator, x_denominator = map(int, x.split('/'))
+    n_numerator, n_denominator = map(int, n.split('/'))
+    
+    common_factors = set(factorize(x_numerator * n_denominator)) & set(factorize(x_denominator * n_numerator))
+    
+    x_numerator //= max(common_factors)
+    x_denominator //= max(common_factors)
+    
+    return x_numerator * n_numerator == x_denominator * n_denominator
+Generated code:  def simplify(x, n):
+    x_numerator, x_denominator = map(int, x.split('/'))
+    n_numerator, n_denominator = map(int, n.split('/'))
+    
+    # Calculate the product of the numerators and denominators
+    product_numerator = x_numerator * n_numerator
+    product_denominator = x_denominator * n_denominator
+    
+    # Check if the product is a whole number
+    if product_numerator % product_denominator == 0:
+        return True
+    else:
+        return False
+Generated code:  def simplify(var_0, var_1):
+    var_2, var_3 = var_0.split('/')
+    var_4, var_5 = var_1.split('/')
+    var_6 = int(var_2) * int(var_4)
+    var_7 = int(var_3) * int(var_5)
+    if var_6 / var_7 == int(var_6 / var_7):
+        return True
+    return False
+Retrieved Documents:  ['def order_by_points(var_0):\n\n    def digits_sum(var_1):\n        var_2 = 1\n        if var_1 < 0:\n            var_1, var_2 = (-1 * var_1, -1)\n        var_1 = [int(i) for var_3 in str(var_1)]\n        var_1[0] = var_1[0] * var_2\n        return sum(var_1)\n    return sorted(var_0, key=digits_sum)']
+Generated code:  def order_by_points(nums):
+    def sum_of_digits(n):
+        return sum(int(digit) for digit in str(abs(n)))
+    return sorted(nums, key=sum_of_digits)
+Generated code:  def order_by_points(nums):
+    return sorted(nums, key=lambda x: (sum(int(i) for i in str(abs(x))), nums.index(x)))
+Generated code:  def order_by_points(nums):
+    def digits_sum(n):
+        return sum(int(digit) for digit in str(abs(n)))
+    return sorted(nums, key=lambda x: (digits_sum(x), nums.index(x)))
+Retrieved Documents:  ['def filter_evennumbers(var_0):\n    var_1 = list(filter(lambda x: x % 2 == 0, var_0))\n    return var_1']
+Generated code:  def specialFilter(nums):
+    def is_odd(n):
+        return n % 2!= 0
+
+    def is_first_last_odd(n):
+        n = abs(n)
+        return is_odd(int(str(n)[0])) and is_odd(int(str(n)[-1]))
+
+    return len([n for n in nums if n > 10 and is_first_last_odd(n)])
+Generated code:  def specialFilter(nums):
+    count = 0
+    for num in nums:
+        if num > 10:
+            str_num = str(num)
+            if int(str_num[0]) % 2 == 1 and int(str_num[-1]) % 2 == 1:
+                count += 1
+    return count
+Generated code:  def specialFilter(nums):
+    count = 0
+    for num in nums:
+        if num > 10:
+            str_num = str(num)
+            if int(str_num[0]) % 2!= 0 and int(str_num[-1]) % 2!= 0:
+                count += 1
+    return count
+Retrieved Documents:  ['def get_max_triples(var_0):\n    var_1 = [i * i - i + 1 for var_2 in range(1, var_0 + 1)]\n    var_3 = []\n    for var_2 in range(var_0):\n        for var_4 in range(var_2 + 1, var_0):\n            for var_5 in range(var_4 + 1, var_0):\n                if (var_1[var_2] + var_1[var_4] + var_1[var_5]) % 3 == 0:\n                    var_3 += [(var_1[var_2], var_1[var_4], var_1[var_5])]\n    return len(var_3)']
+Generated code:  def get_max_triples(n):
+    a = [i * i - i + 1 for i in range(1, n + 1)]
+    count = 0
+    for i in range(n):
+        for j in range(i + 1, n):
+            for k in range(j + 1, n):
+                if (a[i] + a[j] + a[k]) % 3 == 0:
+                    count += 1
+    return count
+Generated code:  def get_max_triples(n):
+    a = [i * i - i + 1 for i in range(1, n + 1)]
+    count = 0
+    for i in range(n):
+        for j in range(i + 1, n):
+            for k in range(j + 1, n):
+                if (a[i] + a[j] + a[k]) % 3 == 0:
+                    count += 1
+    return count
+Generated code:  def get_max_triples(n):
+    a = [i * i - i + 1 for i in range(1, n + 1)]
+    count = 0
+    for i in range(n):
+        for j in range(i + 1, n):
+            for k in range(j + 1, n):
+                if (a[i] + a[j] + a[k]) % 3 == 0:
+                    count += 1
+    return count
+Retrieved Documents:  ["def bf(var_0, var_1):\n    var_2 = ('Mercury', 'Venus', 'Earth', 'Mars', 'Jupiter', 'Saturn', 'Uranus', 'Neptune')\n    if var_0 not in var_2 or var_1 not in var_2 or var_0 == var_1:\n        return ()\n    var_3 = var_2.index(var_0)\n    var_4 = var_2.index(var_1)\n    if var_3 < var_4:\n        return var_2[var_3 + 1:var_4]\n    else:\n        return var_2[var_4 + 1:var_3]"]
+Generated code:  def bf(planet1, planet2):
+    '''
+    There are eight planets in our solar system: the closerst to the Sun 
+    is Mercury, the next one is Venus, then Earth, Mars, Jupiter, Saturn, 
+    Uranus, Neptune.
+    Write a function that takes two planet names as strings planet1 and planet2. 
+    The function should return a tuple containing all planets whose orbits are 
+    located between the orbit of planet1 and the orbit of planet2, sorted by 
+    the proximity to the sun. 
+    The function should return an empty tuple if planet1 or planet2
+    are not correct planet names. 
+    Examples
+    bf("Jupiter", "Neptune") ==> ("Saturn", "Uranus")
+    bf("Earth", "Mercury") ==> ("Venus")
+    bf("Mercury", "Uranus") ==> ("Venus", "Earth", "Mars", "Jupiter", "Saturn")
+    '''
+
+    planets = ('Mercury', 'Venus', 'Earth', 'Mars', 'Jupiter', 'Saturn', 'Uranus', 'Neptune')
+    if planet1 not in planets or planet2 not in planets or planet1 == planet2:
+        return ()
+    
+    index1, index2 = planets.index(planet1), planets.index(planet2)
+    if index1 < index2:
+        return planets[index1 + 1:index2]
+    else:
+        return planets[index2 + 1:index1]
+Generated code:  def bf(planet1, planet2):
+    planets = ('Mercury', 'Venus', 'Earth', 'Mars', 'Jupiter', 'Saturn', 'Uranus', 'Neptune')
+    if planet1 not in planets or planet2 not in planets or planet1 == planet2:
+        return ()
+    index1, index2 = planets.index(planet1), planets.index(planet2)
+    if index1 < index2:
+        return planets[index1 + 1:index2]
+    else:
+        return planets[index2 + 1:index1]
+Generated code:  def bf(planet1, planet2):
+    planets = ('Mercury', 'Venus', 'Earth', 'Mars', 'Jupiter', 'Saturn', 'Uranus', 'Neptune')
+    if planet1 not in planets or planet2 not in planets or planet1 == planet2:
+        return ()
+    index1, index2 = planets.index(planet1), planets.index(planet2)
+    if index1 < index2:
+        return planets[index1 + 1:index2]
+    else:
+        return planets[index2 + 1:index1]
+Retrieved Documents:  ['def sorted_list_sum(var_0):\n    var_0.sort()\n    var_1 = []\n    for var_2 in var_0:\n        if len(var_2) % 2 == 0:\n            var_1.append(var_2)\n    return sorted(var_1, key=len)']
+Generated code:  def sorted_list_sum(lst):
+    # Remove strings with odd lengths
+    even_length_strings = [s for s in lst if len(s) % 2 == 0]
+    
+    # Sort the list by length, then alphabetically
+    even_length_strings.sort(key=lambda x: (len(x), x))
+    
+    return even_length_strings
+Generated code:  def sorted_list_sum(lst):
+    lst = [s for s in lst if len(s) % 2 == 0]
+    lst.sort()
+    return lst
+Generated code:  def sorted_list_sum(lst):
+    lst.sort(key=len)
+    lst.sort()
+    return [word for word in lst if len(word) % 2 == 0]
+Retrieved Documents:  ['def prime_num(var_0):\n    if var_0 >= 1:\n        for var_1 in range(2, var_0 // 2):\n            if var_0 % var_1 == 0:\n                return False\n            else:\n                return True\n    else:\n        return False']
+Generated code:  def x_or_y(n, x, y):
+    if n > 1:
+        for i in range(2, n):
+            if (n % i) == 0:
+                return y
+        else:
+            return x
+    else:
+        return y
+Generated code:  def x_or_y(n, x, y):
+    if n > 1:
+        for i in range(2, n):
+            if (n % i) == 0:
+                return y
+                break
+        else:
+            return x
+    else:
+        return y
+Generated code:  def is_prime(n):
+    if n < 2:
+        return False
+    for i in range(2, int(n**0.5) + 1):
+        if n % i == 0:
+            return False
+    return True
+
+def x_or_y(n, x, y):
+    return x if is_prime(n) else y
+Retrieved Documents:  ['def difference(var_0):\n    var_1 = var_0 * (var_0 + 1) // 2\n    var_2 = var_1 * (var_1 - 1)\n    return var_2']
+Generated code:  def double_the_difference(lst):
+    return sum(x**2 for x in lst if x > 0 and x % 2 == 1)
+Generated code:  def double_the_difference(lst):
+    return sum(i**2 for i in lst if i > 0 and i % 2!= 0)
+Generated code:  def double_the_difference(lst):
+    return sum(i**2 for i in lst if i > 0 and i % 2!= 0 and i == int(i))
+Retrieved Documents:  ["def check_greater(var_0, var_1):\n    var_0.sort()\n    if var_1 > var_0[-1]:\n        return 'Yes, the entered number is greater than those in the array'\n    else:\n        return 'No, entered number is less than those in the array'"]
+Generated code:  def compare(game, guess):
+    return [abs(a - b) for a, b in zip(game, guess)]
+Generated code:  def compare(game,guess):
+    return [abs(x - y) for x, y in zip(game, guess)]
+Generated code:  def compare(game,guess):
+    return [abs(x - y) for x, y in zip(game, guess)]
+Retrieved Documents:  ["def Strongest_Extension(var_0, var_1):\n    var_2 = var_1[0]\n    var_3 = len([x for var_4 in var_1[0] if var_4.isalpha() and var_4.isupper()]) - len([var_4 for var_4 in var_1[0] if var_4.isalpha() and var_4.islower()])\n    for var_5 in var_1:\n        var_6 = len([var_4 for var_4 in var_5 if var_4.isalpha() and var_4.isupper()]) - len([var_4 for var_4 in var_5 if var_4.isalpha() and var_4.islower()])\n        if var_6 > var_3:\n            var_2 = var_5\n            var_3 = var_6\n    var_7 = var_0 + '.' + var_2\n    return var_7"]
+Generated code:  def Strongest_Extension(class_name, extensions):
+    strongest_extension = extensions[0]
+    max_strength = sum(1 for c in strongest_extension if c.isupper()) - sum(1 for c in strongest_extension if c.islower())
+    for extension in extensions[1:]:
+        strength = sum(1 for c in extension if c.isupper()) - sum(1 for c in extension if c.islower())
+        if strength > max_strength:
+            strongest_extension = extension
+            max_strength = strength
+    return f"{class_name}.{strongest_extension}"
+Generated code:  def Strongest_Extension(class_name, extensions):
+    strongest_extension = extensions[0]
+    max_strength = len([c for c in strongest_extension if c.isupper()]) - len([c for c in strongest_extension if c.islower()])
+    
+    for extension in extensions[1:]:
+        strength = len([c for c in extension if c.isupper()]) - len([c for c in extension if c.islower()])
+        if strength > max_strength:
+            strongest_extension = extension
+            max_strength = strength
+    
+    return f"{class_name}.{strongest_extension}"
+Generated code:  def Strongest_Extension(class_name, extensions):
+    strongest_extension = extensions[0]
+    max_strength = len([c for c in strongest_extension if c.isupper()]) - len([c for c in strongest_extension if c.islower()])
+    for extension in extensions:
+        strength = len([c for c in extension if c.isupper()]) - len([c for c in extension if c.islower()])
+        if strength > max_strength:
+            strongest_extension = extension
+            max_strength = strength
+    return f"{class_name}.{strongest_extension}"
+Retrieved Documents:  ["def check_substring(var_0, var_1):\n    if var_1 in var_0:\n        var_2 = '\\\\A' + var_1\n        var_3 = re.search(var_2, var_0)\n        if var_3:\n            return 'string starts with the given substring'\n        else:\n            return 'string doesnt start with the given substring'\n    else:\n        return 'entered string isnt a substring'"]
+Generated code:  def cycpattern_check(a, b):
+    b_len = len(b)
+    b_rotated = b * 2
+    for i in range(b_len):
+        if b_rotated[i:i+b_len] in a:
+            return True
+    return False
+Generated code:  def cycpattern_check(a, b):
+    if len(b) > len(a):
+        return False
+    for i in range(len(b)):
+        if b[i:] + b[:i] in a:
+            return True
+    return False
+Generated code:  def cycpattern_check(a, b):
+    """You are given 2 words. You need to return True if the second word or any of its rotations is a substring in the first word
+    cycpattern_check("abcd","abd") => False
+    cycpattern_check("hello","ell") => True
+    cycpattern_check("whassup","psus") => False
+    cycpattern_check("abab","baa") => True
+    cycpattern_check("efef","eeff") => False
+    cycpattern_check("himenss","simen") => True
+
+    """
+    # Concatenate the first word with itself
+    double_a = a + a
+    
+    # Check if the second word is a substring of the concatenated first word
+    return b in double_a
+Retrieved Documents:  ['def even_odd_count(var_0):\n    var_1 = 0\n    var_2 = 0\n    for var_3 in str(abs(var_0)):\n        if int(var_3) % 2 == 0:\n            var_1 += 1\n        else:\n            var_2 += 1\n    return (var_1, var_2)']
+Generated code:  def even_odd_count(num):
+    even_count = 0
+    odd_count = 0
+    for digit in str(abs(num)):
+        if int(digit) % 2 == 0:
+            even_count += 1
+        else:
+            odd_count += 1
+    return (even_count, odd_count)
+Generated code:  def even_odd_count(num):
+    even_count = 0
+    odd_count = 0
+    for digit in str(abs(num)):
+        if int(digit) % 2 == 0:
+            even_count += 1
+        else:
+            odd_count += 1
+    return (even_count, odd_count)
+Generated code:  def even_odd_count(num):
+    even_count = 0
+    odd_count = 0
+    for digit in str(abs(num)):
+        if int(digit) % 2 == 0:
+            even_count += 1
+        else:
+            odd_count += 1
+    return (even_count, odd_count)
+Retrieved Documents:  ["def int_to_roman(var_0):\n    var_1 = [1000, 900, 500, 400, 100, 90, 50, 40, 10, 9, 5, 4, 1]\n    var_2 = ['M', 'CM', 'D', 'CD', 'C', 'XC', 'L', 'XL', 'X', 'IX', 'V', 'IV', 'I']\n    var_3 = ''\n    var_4 = 0\n    while var_0 > 0:\n        for var_5 in range(var_0 // var_1[var_4]):\n            var_3 += var_2[var_4]\n            var_0 -= var_1[var_4]\n        var_4 += 1\n    return var_3"]
+Generated code:  def int_to_mini_roman(number):
+    roman_numerals = {
+        1: 'i', 4: 'iv', 5: 'v', 9: 'ix', 10: 'x', 40: 'xl', 50: 'l', 90: 'xc', 100: 'c', 400: 'cd', 500: 'd', 900: 'cm', 1000:'m'
+    }
+    result = ''
+    for value in sorted(roman_numerals.keys(), reverse=True):
+        while number >= value:
+            result += roman_numerals[value]
+            number -= value
+    return result
+Generated code:  def int_to_mini_roman(number):
+    roman_numerals = {
+        1: 'i', 4: 'iv', 5: 'v', 9: 'ix', 10: 'x', 40: 'xl', 50: 'l', 90: 'xc', 100: 'c', 400: 'cd', 500: 'd', 900: 'cm', 1000:'m'
+    }
+    roman_string = ''
+    for value in sorted(roman_numerals.keys(), reverse=True):
+        while number >= value:
+            roman_string += roman_numerals[value]
+            number -= value
+    return roman_string
+Generated code:  def int_to_mini_roman(number):
+    var_1 = [1000, 900, 500, 400, 100, 90, 50, 40, 10, 9, 5, 4, 1]
+    var_2 = ['M', 'CM', 'D', 'CD', 'C', 'XC', 'L', 'XL', 'X', 'IX', 'V', 'IV', 'I']
+    var_3 = ''
+    var_4 = 0
+    while number > 0:
+        for var_5 in range(number // var_1[var_4]):
+            var_3 += var_2[var_4]
+            number -= var_1[var_4]
+        var_4 += 1
+    return var_3
+Retrieved Documents:  ["def check_Type_Of_Triangle(var_0, var_1, var_2):\n    var_3 = pow(var_0, 2)\n    var_4 = pow(var_1, 2)\n    var_5 = pow(var_2, 2)\n    if var_3 == var_3 + var_4 or var_4 == var_3 + var_5 or var_5 == var_3 + var_4:\n        return 'Right-angled Triangle'\n    elif var_3 > var_5 + var_4 or var_4 > var_3 + var_5 or var_5 > var_3 + var_4:\n        return 'Obtuse-angled Triangle'\n    else:\n        return 'Acute-angled Triangle'"]
+Generated code:  import math
+
+def right_angle_triangle(a, b, c):
+    sides = sorted([a, b, c])
+    return math.isclose(sides[0]**2 + sides[1]**2, sides[2]**2)
+Generated code:  def right_angle_triangle(a, b, c):
+    '''
+    Given the lengths of the three sides of a triangle. Return True if the three
+    sides form a right-angled triangle, False otherwise.
+    A right-angled triangle is a triangle in which one angle is right angle or 
+    90 degree.
+    Example:
+    right_angle_triangle(3, 4, 5) == True
+    right_angle_triangle(1, 2, 3) == False
+    '''
+    # Sort the sides of the triangle in ascending order
+    sides = sorted([a, b, c])
+    # Check if the square of the longest side is equal to the sum of squares of the other two sides
+    return sides[2]**2 == sides[0]**2 + sides[1]**2
+Generated code:  import math
+def right_angle_triangle(a, b, c):
+    sides = sorted([a, b, c])
+    return math.isclose(sides[0]**2 + sides[1]**2, sides[2]**2)
+Retrieved Documents:  ["def get_max_occuring_char(var_0):\n    var_1 = 256\n    var_2 = [0] * var_1\n    max = -1\n    var_3 = ''\n    for var_4 in var_0:\n        var_2[ord(var_4)] += 1\n    for var_4 in var_0:\n        if max < var_2[ord(var_4)]:\n            max = var_2[ord(var_4)]\n            var_3 = var_4\n    return var_3"]
+Generated code:  def find_max(words):
+    max_unique_chars = 0
+    max_word = ""
+    for word in words:
+        unique_chars = len(set(word))
+        if unique_chars > max_unique_chars or (unique_chars == max_unique_chars and word < max_word):
+            max_unique_chars = unique_chars
+            max_word = word
+    return max_word
+Generated code:  def find_max(words):
+    max_unique_chars = 0
+    max_word = ""
+    for word in words:
+        unique_chars = len(set(word))
+        if unique_chars > max_unique_chars or (unique_chars == max_unique_chars and word < max_word):
+            max_unique_chars = unique_chars
+            max_word = word
+    return max_word
+Generated code:  def find_max(words):
+    max_unique_chars = 0
+    max_word = ""
+    for word in words:
+        unique_chars = len(set(word))
+        if unique_chars > max_unique_chars or (unique_chars == max_unique_chars and word < max_word):
+            max_unique_chars = unique_chars
+            max_word = word
+    return max_word
+Retrieved Documents:  ['def eat(var_0, var_1, var_2):\n    if var_1 <= var_2:\n        return [var_0 + var_1, var_2 - var_1]\n    else:\n        return [var_0 + var_2, 0]']
+Generated code:  def eat(number, need, remaining):
+    eaten = min(need, remaining)
+    return [number + eaten, remaining - eaten]
+Generated code:  def eat(number, need, remaining):
+    if need <= remaining:
+        return [number + need, remaining - need]
+    else:
+        return [number + remaining, 0]
+Generated code:  def eat(number, need, remaining):
+    if need <= remaining:
+        return [number + need, remaining - need]
+    else:
+        return [number + remaining, 0]
+Retrieved Documents:  ['def min_Operations(var_0, var_1):\n    if var_0 > var_1:\n        swap(var_0, var_1)\n    var_1 = var_1 // math.gcd(var_0, var_1)\n    return var_1 - 1']
+Generated code:  def do_algebra(operators, operands):
+    result = operands[0]
+    for i in range(len(operators)):
+        if operators[i] == '+':
+            result += operands[i + 1]
+        elif operators[i] == '-':
+            result -= operands[i + 1]
+        elif operators[i] == '*':
+            result *= operands[i + 1]
+        elif operators[i] == '//':
+            result //= operands[i + 1]
+        elif operators[i] == '**':
+            result **= operands[i + 1]
+    return result
+Generated code:  def do_algebra(operator, operand):
+    result = operand[0]
+    for i in range(len(operator)):
+        if operator[i] == '+':
+            result += operand[i + 1]
+        elif operator[i] == '-':
+            result -= operand[i + 1]
+        elif operator[i] == '*':
+            result *= operand[i + 1]
+        elif operator[i] == '//':
+            result //= operand[i + 1]
+        elif operator[i] == '**':
+            result **= operand[i + 1]
+    return result
+Generated code:  def do_algebra(operator, operand):
+    result = operand[0]
+    for i in range(len(operator)):
+        if operator[i] == '+':
+            result += operand[i + 1]
+        elif operator[i] == '-':
+            result -= operand[i + 1]
+        elif operator[i] == '*':
+            result *= operand[i + 1]
+        elif operator[i] == '//':
+            result //= operand[i + 1]
+        elif operator[i] == '**':
+            result **= operand[i + 1]
+    return result
+Retrieved Documents:  ['def flip_case(var_0: str) -> str:\n    return var_0.swapcase()']
+Generated code:  def solve(s):
+    if not any(c.isalpha() for c in s):
+        return s[::-1]
+    return ''.join(c.swapcase() if c.isalpha() else c for c in s)
+Generated code:  def solve(s):
+    if not any(c.isalpha() for c in s):
+        return s[::-1]
+    return ''.join(c.swapcase() if c.isalpha() else c for c in s)
+Generated code:  def solve(s):
+    if any(c.isalpha() for c in s):
+        return ''.join(c.swapcase() if c.isalpha() else c for c in s)
+    else:
+        return s[::-1]
+Retrieved Documents:  ["def string_to_md5(var_0):\n    import hashlib\n    return hashlib.md5(var_0.encode('ascii')).hexdigest() if var_0 else None"]
+Generated code:  import hashlib
+
+def string_to_md5(text):
+    """
+    Given a string 'text', return its md5 hash equivalent string.
+    If 'text' is an empty string, return None.
+
+    >>> string_to_md5('Hello world') == '3e25960a79dbc69b674cd4ec67a72c62'
+    """
+    return hashlib.md5(text.encode('ascii')).hexdigest() if text else None
+Generated code:  import hashlib
+
+def string_to_md5(text):
+    return hashlib.md5(text.encode('ascii')).hexdigest() if text else None
+Generated code:  import hashlib
+
+def string_to_md5(text):
+    return hashlib.md5(text.encode('ascii')).hexdigest() if text else None
+Retrieved Documents:  ['def generate_integers(var_0, var_1):\n    var_2 = max(2, min(var_0, var_1))\n    var_3 = min(8, max(var_0, var_1))\n    return [i for var_4 in range(var_2, var_3 + 1) if var_4 % 2 == 0]']
+Generated code:  def generate_integers(a, b):
+    """
+    Given two positive integers a and b, return the even digits between a
+    and b, in ascending order.
+
+    For example:
+    generate_integers(2, 8) => [2, 4, 6, 8]
+    generate_integers(8, 2) => [2, 4, 6, 8]
+    generate_integers(10, 14) => []
+    """
+    # Ensure a is less than b for the range function
+    if a > b:
+        a, b = b, a
+    
+    # Generate and return the list of even numbers between a and b
+    return [i for i in range(a, b + 1) if i % 2 == 0]
+Generated code:  def generate_integers(a, b):
+    return sorted([i for i in range(min(a, b), max(a, b) + 1) if i % 2 == 0])
+Generated code:  def generate_integers(a, b):
+    return [i for i in range(min(a, b), max(a, b) + 1) if i % 2 == 0]

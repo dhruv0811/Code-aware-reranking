@@ -22,4 +22,18 @@ cd /home/gganeshl/Code-aware-reranking
 
 # python src/Generation.py --json_input /home/gganeshl/Code-aware-reranking/results/humaneval_best_saved/retrieved_docs/docs_openai_humaneval_Llama-3.1-8B-Instruct_GIST-large-Embedding-v0_variables_k5.json --k_values 1,5,10 --model_name meta-llama/Llama-3.1-8B-Instruct > var.txt
 # python src/Generation.py --json_input /home/gganeshl/Code-aware-reranking/results/humaneval_best_saved/retrieved_docs/docs_openai_humaneval_Llama-3.1-8B-Instruct_GIST-large-Embedding-v0_functions_k5.json --k_values 1,5,10 --model_name meta-llama/Llama-3.1-8B-Instruct > fun.txt
-python src/Generation.py --json_input /home/gganeshl/Code-aware-reranking/results/humaneval_best_saved/retrieved_docs/docs_openai_humaneval_Llama-3.1-8B-Instruct_GIST-large-Embedding-v0_both_k5.json --k_values 0,1,5,10 --model_name meta-llama/Llama-3.1-8B-Instruct > both.txt
+# python src/Generation.py --json_input /home/gganeshl/Code-aware-reranking/results/humaneval_best_saved/retrieved_docs/docs_openai_humaneval_Llama-3.1-8B-Instruct_GIST-large-Embedding-v0_both_k5.json --k_values 0,1,5,10 --model_name meta-llama/Llama-3.1-8B-Instruct > both.txt
+
+
+# python src/Generation.py --json_input /home/gganeshl/Code-aware-reranking/results/humaneval_best_saved/retrieved_docs/docs_openai_humaneval_Llama-3.1-8B-Instruct_GIST-large-Embedding-v0_none_k5.json --k_values 1,5,10 --model_name Qwen/Qwen2.5-Coder-7B-Instruct > none.txt
+# python src/Generation.py --json_input /home/gganeshl/Code-aware-reranking/results/humaneval_best_saved/retrieved_docs/docs_openai_humaneval_Llama-3.1-8B-Instruct_GIST-large-Embedding-v0_docstring_k5.json --k_values 1,5,10 --model_name Qwen/Qwen2.5-Coder-7B-Instruct > doc.txt
+# python src/Generation.py --json_input /home/gganeshl/Code-aware-reranking/results/humaneval_best_saved/retrieved_docs/docs_openai_humaneval_Llama-3.1-8B-Instruct_GIST-large-Embedding-v0_variables_k5.json --k_values 1,5,10 --model_name Qwen/Qwen2.5-Coder-7B-Instruct > var.txt
+# python src/Generation.py --json_input /home/gganeshl/Code-aware-reranking/results/humaneval_best_saved/retrieved_docs/docs_openai_humaneval_Llama-3.1-8B-Instruct_GIST-large-Embedding-v0_functions_k5.json --k_values 1,5,10 --model_name Qwen/Qwen2.5-Coder-7B-Instruct > fun.txt
+# python src/Generation.py --json_input /home/gganeshl/Code-aware-reranking/results/humaneval_best_saved/retrieved_docs/docs_openai_humaneval_Llama-3.1-8B-Instruct_GIST-large-Embedding-v0_both_k5.json --k_values 0,1,5,10 --model_name Qwen/Qwen2.5-Coder-7B-Instruct > both.txt
+
+## bigcode/starcoder2-7b
+python src/Generation.py --json_input /home/gganeshl/Code-aware-reranking/results/humaneval_best_saved/retrieved_docs/docs_openai_humaneval_Llama-3.1-8B-Instruct_GIST-large-Embedding-v0_none_k5.json --k_values 1,5,10 --model_name bigcode/starcoder2-7b > none.txt
+# python src/Generation.py --json_input /home/gganeshl/Code-aware-reranking/results/humaneval_best_saved/retrieved_docs/docs_openai_humaneval_Llama-3.1-8B-Instruct_GIST-large-Embedding-v0_docstring_k5.json --k_values 1,5,10 --model_name bigcode/starcoder2-7b > doc.txt
+# python src/Generation.py --json_input /home/gganeshl/Code-aware-reranking/results/humaneval_best_saved/retrieved_docs/docs_openai_humaneval_Llama-3.1-8B-Instruct_GIST-large-Embedding-v0_variables_k5.json --k_values 1,5,10 --model_name bigcode/starcoder2-7b > var.txt
+# python src/Generation.py --json_input /home/gganeshl/Code-aware-reranking/results/humaneval_best_saved/retrieved_docs/docs_openai_humaneval_Llama-3.1-8B-Instruct_GIST-large-Embedding-v0_functions_k5.json --k_values 1,5,10 --model_name bigcode/starcoder2-7b > fun.txt
+# python src/Generation.py --json_input /home/gganeshl/Code-aware-reranking/results/humaneval_best_saved/retrieved_docs/docs_openai_humaneval_Llama-3.1-8B-Instruct_GIST-large-Embedding-v0_both_k5.json --k_values 0,1,5,10 --model_name bigcode/starcoder2-7b > both.txt
