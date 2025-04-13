@@ -1,0 +1,1534 @@
+{
+  "experiment_id": "selective_normalization_20250412_201810",
+  "embedding_model": "avsolatorio/GIST-large-Embedding-v0",
+  "dataset": "openai_humaneval",
+  "num_queries": 164,
+  "average_ranks": {
+    "baseline": 1.0,
+    "docstring_normalized_gold": 1.0731707317073171,
+    "function_normalized_gold": 17.140243902439025
+  },
+  "median_ranks": {
+    "baseline": 1.0,
+    "docstring_normalized_gold": 1.0,
+    "function_normalized_gold": 4.0
+  },
+  "hit_rates": {
+    "baseline": {
+      "1": 1.0,
+      "5": 1.0,
+      "10": 1.0,
+      "25": 1.0,
+      "50": 1.0,
+      "100": 1.0
+    },
+    "docstring_normalized_gold": {
+      "1": 0.926829268292683,
+      "5": 1.0,
+      "10": 1.0,
+      "25": 1.0,
+      "50": 1.0,
+      "100": 1.0
+    },
+    "function_normalized_gold": {
+      "1": 0.2621951219512195,
+      "5": 0.5792682926829268,
+      "10": 0.6646341463414634,
+      "25": 0.8109756097560976,
+      "50": 0.8780487804878049,
+      "100": 0.9634146341463414
+    }
+  },
+  "rank_changes": {
+    "docstring_normalized_gold": {
+      "avg_change": -0.07317073170731707,
+      "worsened_percent": 7.317073170731707,
+      "improved_percent": 0.0,
+      "unchanged_percent": 92.6829268292683
+    },
+    "function_normalized_gold": {
+      "avg_change": -16.140243902439025,
+      "worsened_percent": 73.78048780487805,
+      "improved_percent": 0.0,
+      "unchanged_percent": 26.21951219512195
+    }
+  },
+  "per_query_details": [
+    {
+      "query_idx": 0,
+      "task_id": "HumanEval/0",
+      "base_rank": 1,
+      "docstring_rank": 1,
+      "function_rank": 2,
+      "docstring_change": 0,
+      "function_change": -1
+    },
+    {
+      "query_idx": 1,
+      "task_id": "HumanEval/1",
+      "base_rank": 1,
+      "docstring_rank": 2,
+      "function_rank": 5,
+      "docstring_change": -1,
+      "function_change": -4
+    },
+    {
+      "query_idx": 2,
+      "task_id": "HumanEval/2",
+      "base_rank": 1,
+      "docstring_rank": 1,
+      "function_rank": 1,
+      "docstring_change": 0,
+      "function_change": 0
+    },
+    {
+      "query_idx": 3,
+      "task_id": "HumanEval/3",
+      "base_rank": 1,
+      "docstring_rank": 1,
+      "function_rank": 1,
+      "docstring_change": 0,
+      "function_change": 0
+    },
+    {
+      "query_idx": 4,
+      "task_id": "HumanEval/4",
+      "base_rank": 1,
+      "docstring_rank": 1,
+      "function_rank": 2,
+      "docstring_change": 0,
+      "function_change": -1
+    },
+    {
+      "query_idx": 5,
+      "task_id": "HumanEval/5",
+      "base_rank": 1,
+      "docstring_rank": 1,
+      "function_rank": 2,
+      "docstring_change": 0,
+      "function_change": -1
+    },
+    {
+      "query_idx": 6,
+      "task_id": "HumanEval/6",
+      "base_rank": 1,
+      "docstring_rank": 1,
+      "function_rank": 2,
+      "docstring_change": 0,
+      "function_change": -1
+    },
+    {
+      "query_idx": 7,
+      "task_id": "HumanEval/7",
+      "base_rank": 1,
+      "docstring_rank": 1,
+      "function_rank": 2,
+      "docstring_change": 0,
+      "function_change": -1
+    },
+    {
+      "query_idx": 8,
+      "task_id": "HumanEval/8",
+      "base_rank": 1,
+      "docstring_rank": 1,
+      "function_rank": 1,
+      "docstring_change": 0,
+      "function_change": 0
+    },
+    {
+      "query_idx": 9,
+      "task_id": "HumanEval/9",
+      "base_rank": 1,
+      "docstring_rank": 1,
+      "function_rank": 2,
+      "docstring_change": 0,
+      "function_change": -1
+    },
+    {
+      "query_idx": 10,
+      "task_id": "HumanEval/10",
+      "base_rank": 1,
+      "docstring_rank": 1,
+      "function_rank": 2,
+      "docstring_change": 0,
+      "function_change": -1
+    },
+    {
+      "query_idx": 11,
+      "task_id": "HumanEval/11",
+      "base_rank": 1,
+      "docstring_rank": 1,
+      "function_rank": 1,
+      "docstring_change": 0,
+      "function_change": 0
+    },
+    {
+      "query_idx": 12,
+      "task_id": "HumanEval/12",
+      "base_rank": 1,
+      "docstring_rank": 1,
+      "function_rank": 1,
+      "docstring_change": 0,
+      "function_change": 0
+    },
+    {
+      "query_idx": 13,
+      "task_id": "HumanEval/13",
+      "base_rank": 1,
+      "docstring_rank": 1,
+      "function_rank": 12,
+      "docstring_change": 0,
+      "function_change": -11
+    },
+    {
+      "query_idx": 14,
+      "task_id": "HumanEval/14",
+      "base_rank": 1,
+      "docstring_rank": 1,
+      "function_rank": 8,
+      "docstring_change": 0,
+      "function_change": -7
+    },
+    {
+      "query_idx": 15,
+      "task_id": "HumanEval/15",
+      "base_rank": 1,
+      "docstring_rank": 1,
+      "function_rank": 1,
+      "docstring_change": 0,
+      "function_change": 0
+    },
+    {
+      "query_idx": 16,
+      "task_id": "HumanEval/16",
+      "base_rank": 1,
+      "docstring_rank": 1,
+      "function_rank": 68,
+      "docstring_change": 0,
+      "function_change": -67
+    },
+    {
+      "query_idx": 17,
+      "task_id": "HumanEval/17",
+      "base_rank": 1,
+      "docstring_rank": 1,
+      "function_rank": 1,
+      "docstring_change": 0,
+      "function_change": 0
+    },
+    {
+      "query_idx": 18,
+      "task_id": "HumanEval/18",
+      "base_rank": 1,
+      "docstring_rank": 1,
+      "function_rank": 3,
+      "docstring_change": 0,
+      "function_change": -2
+    },
+    {
+      "query_idx": 19,
+      "task_id": "HumanEval/19",
+      "base_rank": 1,
+      "docstring_rank": 1,
+      "function_rank": 2,
+      "docstring_change": 0,
+      "function_change": -1
+    },
+    {
+      "query_idx": 20,
+      "task_id": "HumanEval/20",
+      "base_rank": 1,
+      "docstring_rank": 1,
+      "function_rank": 1,
+      "docstring_change": 0,
+      "function_change": 0
+    },
+    {
+      "query_idx": 21,
+      "task_id": "HumanEval/21",
+      "base_rank": 1,
+      "docstring_rank": 1,
+      "function_rank": 2,
+      "docstring_change": 0,
+      "function_change": -1
+    },
+    {
+      "query_idx": 22,
+      "task_id": "HumanEval/22",
+      "base_rank": 1,
+      "docstring_rank": 1,
+      "function_rank": 1,
+      "docstring_change": 0,
+      "function_change": 0
+    },
+    {
+      "query_idx": 23,
+      "task_id": "HumanEval/23",
+      "base_rank": 1,
+      "docstring_rank": 1,
+      "function_rank": 2,
+      "docstring_change": 0,
+      "function_change": -1
+    },
+    {
+      "query_idx": 24,
+      "task_id": "HumanEval/24",
+      "base_rank": 1,
+      "docstring_rank": 1,
+      "function_rank": 101,
+      "docstring_change": 0,
+      "function_change": -100
+    },
+    {
+      "query_idx": 25,
+      "task_id": "HumanEval/25",
+      "base_rank": 1,
+      "docstring_rank": 1,
+      "function_rank": 97,
+      "docstring_change": 0,
+      "function_change": -96
+    },
+    {
+      "query_idx": 26,
+      "task_id": "HumanEval/26",
+      "base_rank": 1,
+      "docstring_rank": 1,
+      "function_rank": 50,
+      "docstring_change": 0,
+      "function_change": -49
+    },
+    {
+      "query_idx": 27,
+      "task_id": "HumanEval/27",
+      "base_rank": 1,
+      "docstring_rank": 1,
+      "function_rank": 3,
+      "docstring_change": 0,
+      "function_change": -2
+    },
+    {
+      "query_idx": 28,
+      "task_id": "HumanEval/28",
+      "base_rank": 1,
+      "docstring_rank": 1,
+      "function_rank": 3,
+      "docstring_change": 0,
+      "function_change": -2
+    },
+    {
+      "query_idx": 29,
+      "task_id": "HumanEval/29",
+      "base_rank": 1,
+      "docstring_rank": 1,
+      "function_rank": 3,
+      "docstring_change": 0,
+      "function_change": -2
+    },
+    {
+      "query_idx": 30,
+      "task_id": "HumanEval/30",
+      "base_rank": 1,
+      "docstring_rank": 1,
+      "function_rank": 6,
+      "docstring_change": 0,
+      "function_change": -5
+    },
+    {
+      "query_idx": 31,
+      "task_id": "HumanEval/31",
+      "base_rank": 1,
+      "docstring_rank": 1,
+      "function_rank": 45,
+      "docstring_change": 0,
+      "function_change": -44
+    },
+    {
+      "query_idx": 32,
+      "task_id": "HumanEval/32",
+      "base_rank": 1,
+      "docstring_rank": 1,
+      "function_rank": 1,
+      "docstring_change": 0,
+      "function_change": 0
+    },
+    {
+      "query_idx": 33,
+      "task_id": "HumanEval/33",
+      "base_rank": 1,
+      "docstring_rank": 1,
+      "function_rank": 2,
+      "docstring_change": 0,
+      "function_change": -1
+    },
+    {
+      "query_idx": 34,
+      "task_id": "HumanEval/34",
+      "base_rank": 1,
+      "docstring_rank": 1,
+      "function_rank": 3,
+      "docstring_change": 0,
+      "function_change": -2
+    },
+    {
+      "query_idx": 35,
+      "task_id": "HumanEval/35",
+      "base_rank": 1,
+      "docstring_rank": 1,
+      "function_rank": 30,
+      "docstring_change": 0,
+      "function_change": -29
+    },
+    {
+      "query_idx": 36,
+      "task_id": "HumanEval/36",
+      "base_rank": 1,
+      "docstring_rank": 1,
+      "function_rank": 21,
+      "docstring_change": 0,
+      "function_change": -20
+    },
+    {
+      "query_idx": 37,
+      "task_id": "HumanEval/37",
+      "base_rank": 1,
+      "docstring_rank": 1,
+      "function_rank": 4,
+      "docstring_change": 0,
+      "function_change": -3
+    },
+    {
+      "query_idx": 38,
+      "task_id": "HumanEval/38",
+      "base_rank": 1,
+      "docstring_rank": 1,
+      "function_rank": 1,
+      "docstring_change": 0,
+      "function_change": 0
+    },
+    {
+      "query_idx": 39,
+      "task_id": "HumanEval/39",
+      "base_rank": 1,
+      "docstring_rank": 1,
+      "function_rank": 12,
+      "docstring_change": 0,
+      "function_change": -11
+    },
+    {
+      "query_idx": 40,
+      "task_id": "HumanEval/40",
+      "base_rank": 1,
+      "docstring_rank": 1,
+      "function_rank": 6,
+      "docstring_change": 0,
+      "function_change": -5
+    },
+    {
+      "query_idx": 41,
+      "task_id": "HumanEval/41",
+      "base_rank": 1,
+      "docstring_rank": 1,
+      "function_rank": 101,
+      "docstring_change": 0,
+      "function_change": -100
+    },
+    {
+      "query_idx": 42,
+      "task_id": "HumanEval/42",
+      "base_rank": 1,
+      "docstring_rank": 1,
+      "function_rank": 2,
+      "docstring_change": 0,
+      "function_change": -1
+    },
+    {
+      "query_idx": 43,
+      "task_id": "HumanEval/43",
+      "base_rank": 1,
+      "docstring_rank": 1,
+      "function_rank": 5,
+      "docstring_change": 0,
+      "function_change": -4
+    },
+    {
+      "query_idx": 44,
+      "task_id": "HumanEval/44",
+      "base_rank": 1,
+      "docstring_rank": 1,
+      "function_rank": 1,
+      "docstring_change": 0,
+      "function_change": 0
+    },
+    {
+      "query_idx": 45,
+      "task_id": "HumanEval/45",
+      "base_rank": 1,
+      "docstring_rank": 1,
+      "function_rank": 34,
+      "docstring_change": 0,
+      "function_change": -33
+    },
+    {
+      "query_idx": 46,
+      "task_id": "HumanEval/46",
+      "base_rank": 1,
+      "docstring_rank": 2,
+      "function_rank": 14,
+      "docstring_change": -1,
+      "function_change": -13
+    },
+    {
+      "query_idx": 47,
+      "task_id": "HumanEval/47",
+      "base_rank": 1,
+      "docstring_rank": 1,
+      "function_rank": 9,
+      "docstring_change": 0,
+      "function_change": -8
+    },
+    {
+      "query_idx": 48,
+      "task_id": "HumanEval/48",
+      "base_rank": 1,
+      "docstring_rank": 1,
+      "function_rank": 16,
+      "docstring_change": 0,
+      "function_change": -15
+    },
+    {
+      "query_idx": 49,
+      "task_id": "HumanEval/49",
+      "base_rank": 1,
+      "docstring_rank": 1,
+      "function_rank": 6,
+      "docstring_change": 0,
+      "function_change": -5
+    },
+    {
+      "query_idx": 50,
+      "task_id": "HumanEval/50",
+      "base_rank": 1,
+      "docstring_rank": 1,
+      "function_rank": 5,
+      "docstring_change": 0,
+      "function_change": -4
+    },
+    {
+      "query_idx": 51,
+      "task_id": "HumanEval/51",
+      "base_rank": 1,
+      "docstring_rank": 1,
+      "function_rank": 24,
+      "docstring_change": 0,
+      "function_change": -23
+    },
+    {
+      "query_idx": 52,
+      "task_id": "HumanEval/52",
+      "base_rank": 1,
+      "docstring_rank": 1,
+      "function_rank": 1,
+      "docstring_change": 0,
+      "function_change": 0
+    },
+    {
+      "query_idx": 53,
+      "task_id": "HumanEval/53",
+      "base_rank": 1,
+      "docstring_rank": 1,
+      "function_rank": 2,
+      "docstring_change": 0,
+      "function_change": -1
+    },
+    {
+      "query_idx": 54,
+      "task_id": "HumanEval/54",
+      "base_rank": 1,
+      "docstring_rank": 1,
+      "function_rank": 57,
+      "docstring_change": 0,
+      "function_change": -56
+    },
+    {
+      "query_idx": 55,
+      "task_id": "HumanEval/55",
+      "base_rank": 1,
+      "docstring_rank": 1,
+      "function_rank": 4,
+      "docstring_change": 0,
+      "function_change": -3
+    },
+    {
+      "query_idx": 56,
+      "task_id": "HumanEval/56",
+      "base_rank": 1,
+      "docstring_rank": 2,
+      "function_rank": 5,
+      "docstring_change": -1,
+      "function_change": -4
+    },
+    {
+      "query_idx": 57,
+      "task_id": "HumanEval/57",
+      "base_rank": 1,
+      "docstring_rank": 1,
+      "function_rank": 3,
+      "docstring_change": 0,
+      "function_change": -2
+    },
+    {
+      "query_idx": 58,
+      "task_id": "HumanEval/58",
+      "base_rank": 1,
+      "docstring_rank": 1,
+      "function_rank": 7,
+      "docstring_change": 0,
+      "function_change": -6
+    },
+    {
+      "query_idx": 59,
+      "task_id": "HumanEval/59",
+      "base_rank": 1,
+      "docstring_rank": 1,
+      "function_rank": 7,
+      "docstring_change": 0,
+      "function_change": -6
+    },
+    {
+      "query_idx": 60,
+      "task_id": "HumanEval/60",
+      "base_rank": 1,
+      "docstring_rank": 1,
+      "function_rank": 1,
+      "docstring_change": 0,
+      "function_change": 0
+    },
+    {
+      "query_idx": 61,
+      "task_id": "HumanEval/61",
+      "base_rank": 1,
+      "docstring_rank": 2,
+      "function_rank": 5,
+      "docstring_change": -1,
+      "function_change": -4
+    },
+    {
+      "query_idx": 62,
+      "task_id": "HumanEval/62",
+      "base_rank": 1,
+      "docstring_rank": 1,
+      "function_rank": 2,
+      "docstring_change": 0,
+      "function_change": -1
+    },
+    {
+      "query_idx": 63,
+      "task_id": "HumanEval/63",
+      "base_rank": 1,
+      "docstring_rank": 2,
+      "function_rank": 3,
+      "docstring_change": -1,
+      "function_change": -2
+    },
+    {
+      "query_idx": 64,
+      "task_id": "HumanEval/64",
+      "base_rank": 1,
+      "docstring_rank": 2,
+      "function_rank": 3,
+      "docstring_change": -1,
+      "function_change": -2
+    },
+    {
+      "query_idx": 65,
+      "task_id": "HumanEval/65",
+      "base_rank": 1,
+      "docstring_rank": 1,
+      "function_rank": 1,
+      "docstring_change": 0,
+      "function_change": 0
+    },
+    {
+      "query_idx": 66,
+      "task_id": "HumanEval/66",
+      "base_rank": 1,
+      "docstring_rank": 1,
+      "function_rank": 5,
+      "docstring_change": 0,
+      "function_change": -4
+    },
+    {
+      "query_idx": 67,
+      "task_id": "HumanEval/67",
+      "base_rank": 1,
+      "docstring_rank": 1,
+      "function_rank": 2,
+      "docstring_change": 0,
+      "function_change": -1
+    },
+    {
+      "query_idx": 68,
+      "task_id": "HumanEval/68",
+      "base_rank": 1,
+      "docstring_rank": 1,
+      "function_rank": 3,
+      "docstring_change": 0,
+      "function_change": -2
+    },
+    {
+      "query_idx": 69,
+      "task_id": "HumanEval/69",
+      "base_rank": 1,
+      "docstring_rank": 1,
+      "function_rank": 12,
+      "docstring_change": 0,
+      "function_change": -11
+    },
+    {
+      "query_idx": 70,
+      "task_id": "HumanEval/70",
+      "base_rank": 1,
+      "docstring_rank": 1,
+      "function_rank": 98,
+      "docstring_change": 0,
+      "function_change": -97
+    },
+    {
+      "query_idx": 71,
+      "task_id": "HumanEval/71",
+      "base_rank": 1,
+      "docstring_rank": 1,
+      "function_rank": 2,
+      "docstring_change": 0,
+      "function_change": -1
+    },
+    {
+      "query_idx": 72,
+      "task_id": "HumanEval/72",
+      "base_rank": 1,
+      "docstring_rank": 1,
+      "function_rank": 1,
+      "docstring_change": 0,
+      "function_change": 0
+    },
+    {
+      "query_idx": 73,
+      "task_id": "HumanEval/73",
+      "base_rank": 1,
+      "docstring_rank": 1,
+      "function_rank": 97,
+      "docstring_change": 0,
+      "function_change": -96
+    },
+    {
+      "query_idx": 74,
+      "task_id": "HumanEval/74",
+      "base_rank": 1,
+      "docstring_rank": 1,
+      "function_rank": 3,
+      "docstring_change": 0,
+      "function_change": -2
+    },
+    {
+      "query_idx": 75,
+      "task_id": "HumanEval/75",
+      "base_rank": 1,
+      "docstring_rank": 1,
+      "function_rank": 2,
+      "docstring_change": 0,
+      "function_change": -1
+    },
+    {
+      "query_idx": 76,
+      "task_id": "HumanEval/76",
+      "base_rank": 1,
+      "docstring_rank": 1,
+      "function_rank": 1,
+      "docstring_change": 0,
+      "function_change": 0
+    },
+    {
+      "query_idx": 77,
+      "task_id": "HumanEval/77",
+      "base_rank": 1,
+      "docstring_rank": 1,
+      "function_rank": 101,
+      "docstring_change": 0,
+      "function_change": -100
+    },
+    {
+      "query_idx": 78,
+      "task_id": "HumanEval/78",
+      "base_rank": 1,
+      "docstring_rank": 1,
+      "function_rank": 3,
+      "docstring_change": 0,
+      "function_change": -2
+    },
+    {
+      "query_idx": 79,
+      "task_id": "HumanEval/79",
+      "base_rank": 1,
+      "docstring_rank": 1,
+      "function_rank": 4,
+      "docstring_change": 0,
+      "function_change": -3
+    },
+    {
+      "query_idx": 80,
+      "task_id": "HumanEval/80",
+      "base_rank": 1,
+      "docstring_rank": 1,
+      "function_rank": 60,
+      "docstring_change": 0,
+      "function_change": -59
+    },
+    {
+      "query_idx": 81,
+      "task_id": "HumanEval/81",
+      "base_rank": 1,
+      "docstring_rank": 1,
+      "function_rank": 1,
+      "docstring_change": 0,
+      "function_change": 0
+    },
+    {
+      "query_idx": 82,
+      "task_id": "HumanEval/82",
+      "base_rank": 1,
+      "docstring_rank": 1,
+      "function_rank": 12,
+      "docstring_change": 0,
+      "function_change": -11
+    },
+    {
+      "query_idx": 83,
+      "task_id": "HumanEval/83",
+      "base_rank": 1,
+      "docstring_rank": 1,
+      "function_rank": 16,
+      "docstring_change": 0,
+      "function_change": -15
+    },
+    {
+      "query_idx": 84,
+      "task_id": "HumanEval/84",
+      "base_rank": 1,
+      "docstring_rank": 1,
+      "function_rank": 11,
+      "docstring_change": 0,
+      "function_change": -10
+    },
+    {
+      "query_idx": 85,
+      "task_id": "HumanEval/85",
+      "base_rank": 1,
+      "docstring_rank": 2,
+      "function_rank": 92,
+      "docstring_change": -1,
+      "function_change": -91
+    },
+    {
+      "query_idx": 86,
+      "task_id": "HumanEval/86",
+      "base_rank": 1,
+      "docstring_rank": 1,
+      "function_rank": 79,
+      "docstring_change": 0,
+      "function_change": -78
+    },
+    {
+      "query_idx": 87,
+      "task_id": "HumanEval/87",
+      "base_rank": 1,
+      "docstring_rank": 1,
+      "function_rank": 1,
+      "docstring_change": 0,
+      "function_change": 0
+    },
+    {
+      "query_idx": 88,
+      "task_id": "HumanEval/88",
+      "base_rank": 1,
+      "docstring_rank": 2,
+      "function_rank": 15,
+      "docstring_change": -1,
+      "function_change": -14
+    },
+    {
+      "query_idx": 89,
+      "task_id": "HumanEval/89",
+      "base_rank": 1,
+      "docstring_rank": 1,
+      "function_rank": 5,
+      "docstring_change": 0,
+      "function_change": -4
+    },
+    {
+      "query_idx": 90,
+      "task_id": "HumanEval/90",
+      "base_rank": 1,
+      "docstring_rank": 1,
+      "function_rank": 11,
+      "docstring_change": 0,
+      "function_change": -10
+    },
+    {
+      "query_idx": 91,
+      "task_id": "HumanEval/91",
+      "base_rank": 1,
+      "docstring_rank": 1,
+      "function_rank": 6,
+      "docstring_change": 0,
+      "function_change": -5
+    },
+    {
+      "query_idx": 92,
+      "task_id": "HumanEval/92",
+      "base_rank": 1,
+      "docstring_rank": 1,
+      "function_rank": 1,
+      "docstring_change": 0,
+      "function_change": 0
+    },
+    {
+      "query_idx": 93,
+      "task_id": "HumanEval/93",
+      "base_rank": 1,
+      "docstring_rank": 1,
+      "function_rank": 1,
+      "docstring_change": 0,
+      "function_change": 0
+    },
+    {
+      "query_idx": 94,
+      "task_id": "HumanEval/94",
+      "base_rank": 1,
+      "docstring_rank": 1,
+      "function_rank": 4,
+      "docstring_change": 0,
+      "function_change": -3
+    },
+    {
+      "query_idx": 95,
+      "task_id": "HumanEval/95",
+      "base_rank": 1,
+      "docstring_rank": 1,
+      "function_rank": 2,
+      "docstring_change": 0,
+      "function_change": -1
+    },
+    {
+      "query_idx": 96,
+      "task_id": "HumanEval/96",
+      "base_rank": 1,
+      "docstring_rank": 1,
+      "function_rank": 5,
+      "docstring_change": 0,
+      "function_change": -4
+    },
+    {
+      "query_idx": 97,
+      "task_id": "HumanEval/97",
+      "base_rank": 1,
+      "docstring_rank": 1,
+      "function_rank": 22,
+      "docstring_change": 0,
+      "function_change": -21
+    },
+    {
+      "query_idx": 98,
+      "task_id": "HumanEval/98",
+      "base_rank": 1,
+      "docstring_rank": 1,
+      "function_rank": 17,
+      "docstring_change": 0,
+      "function_change": -16
+    },
+    {
+      "query_idx": 99,
+      "task_id": "HumanEval/99",
+      "base_rank": 1,
+      "docstring_rank": 1,
+      "function_rank": 2,
+      "docstring_change": 0,
+      "function_change": -1
+    },
+    {
+      "query_idx": 100,
+      "task_id": "HumanEval/100",
+      "base_rank": 1,
+      "docstring_rank": 1,
+      "function_rank": 101,
+      "docstring_change": 0,
+      "function_change": -100
+    },
+    {
+      "query_idx": 101,
+      "task_id": "HumanEval/101",
+      "base_rank": 1,
+      "docstring_rank": 1,
+      "function_rank": 26,
+      "docstring_change": 0,
+      "function_change": -25
+    },
+    {
+      "query_idx": 102,
+      "task_id": "HumanEval/102",
+      "base_rank": 1,
+      "docstring_rank": 1,
+      "function_rank": 24,
+      "docstring_change": 0,
+      "function_change": -23
+    },
+    {
+      "query_idx": 103,
+      "task_id": "HumanEval/103",
+      "base_rank": 1,
+      "docstring_rank": 1,
+      "function_rank": 2,
+      "docstring_change": 0,
+      "function_change": -1
+    },
+    {
+      "query_idx": 104,
+      "task_id": "HumanEval/104",
+      "base_rank": 1,
+      "docstring_rank": 1,
+      "function_rank": 1,
+      "docstring_change": 0,
+      "function_change": 0
+    },
+    {
+      "query_idx": 105,
+      "task_id": "HumanEval/105",
+      "base_rank": 1,
+      "docstring_rank": 1,
+      "function_rank": 4,
+      "docstring_change": 0,
+      "function_change": -3
+    },
+    {
+      "query_idx": 106,
+      "task_id": "HumanEval/106",
+      "base_rank": 1,
+      "docstring_rank": 2,
+      "function_rank": 57,
+      "docstring_change": -1,
+      "function_change": -56
+    },
+    {
+      "query_idx": 107,
+      "task_id": "HumanEval/107",
+      "base_rank": 1,
+      "docstring_rank": 1,
+      "function_rank": 1,
+      "docstring_change": 0,
+      "function_change": 0
+    },
+    {
+      "query_idx": 108,
+      "task_id": "HumanEval/108",
+      "base_rank": 1,
+      "docstring_rank": 1,
+      "function_rank": 3,
+      "docstring_change": 0,
+      "function_change": -2
+    },
+    {
+      "query_idx": 109,
+      "task_id": "HumanEval/109",
+      "base_rank": 1,
+      "docstring_rank": 1,
+      "function_rank": 10,
+      "docstring_change": 0,
+      "function_change": -9
+    },
+    {
+      "query_idx": 110,
+      "task_id": "HumanEval/110",
+      "base_rank": 1,
+      "docstring_rank": 1,
+      "function_rank": 2,
+      "docstring_change": 0,
+      "function_change": -1
+    },
+    {
+      "query_idx": 111,
+      "task_id": "HumanEval/111",
+      "base_rank": 1,
+      "docstring_rank": 1,
+      "function_rank": 101,
+      "docstring_change": 0,
+      "function_change": -100
+    },
+    {
+      "query_idx": 112,
+      "task_id": "HumanEval/112",
+      "base_rank": 1,
+      "docstring_rank": 1,
+      "function_rank": 10,
+      "docstring_change": 0,
+      "function_change": -9
+    },
+    {
+      "query_idx": 113,
+      "task_id": "HumanEval/113",
+      "base_rank": 1,
+      "docstring_rank": 1,
+      "function_rank": 1,
+      "docstring_change": 0,
+      "function_change": 0
+    },
+    {
+      "query_idx": 114,
+      "task_id": "HumanEval/114",
+      "base_rank": 1,
+      "docstring_rank": 1,
+      "function_rank": 3,
+      "docstring_change": 0,
+      "function_change": -2
+    },
+    {
+      "query_idx": 115,
+      "task_id": "HumanEval/115",
+      "base_rank": 1,
+      "docstring_rank": 1,
+      "function_rank": 1,
+      "docstring_change": 0,
+      "function_change": 0
+    },
+    {
+      "query_idx": 116,
+      "task_id": "HumanEval/116",
+      "base_rank": 1,
+      "docstring_rank": 2,
+      "function_rank": 9,
+      "docstring_change": -1,
+      "function_change": -8
+    },
+    {
+      "query_idx": 117,
+      "task_id": "HumanEval/117",
+      "base_rank": 1,
+      "docstring_rank": 1,
+      "function_rank": 1,
+      "docstring_change": 0,
+      "function_change": 0
+    },
+    {
+      "query_idx": 118,
+      "task_id": "HumanEval/118",
+      "base_rank": 1,
+      "docstring_rank": 1,
+      "function_rank": 1,
+      "docstring_change": 0,
+      "function_change": 0
+    },
+    {
+      "query_idx": 119,
+      "task_id": "HumanEval/119",
+      "base_rank": 1,
+      "docstring_rank": 1,
+      "function_rank": 21,
+      "docstring_change": 0,
+      "function_change": -20
+    },
+    {
+      "query_idx": 120,
+      "task_id": "HumanEval/120",
+      "base_rank": 1,
+      "docstring_rank": 1,
+      "function_rank": 33,
+      "docstring_change": 0,
+      "function_change": -32
+    },
+    {
+      "query_idx": 121,
+      "task_id": "HumanEval/121",
+      "base_rank": 1,
+      "docstring_rank": 2,
+      "function_rank": 25,
+      "docstring_change": -1,
+      "function_change": -24
+    },
+    {
+      "query_idx": 122,
+      "task_id": "HumanEval/122",
+      "base_rank": 1,
+      "docstring_rank": 1,
+      "function_rank": 1,
+      "docstring_change": 0,
+      "function_change": 0
+    },
+    {
+      "query_idx": 123,
+      "task_id": "HumanEval/123",
+      "base_rank": 1,
+      "docstring_rank": 1,
+      "function_rank": 1,
+      "docstring_change": 0,
+      "function_change": 0
+    },
+    {
+      "query_idx": 124,
+      "task_id": "HumanEval/124",
+      "base_rank": 1,
+      "docstring_rank": 1,
+      "function_rank": 1,
+      "docstring_change": 0,
+      "function_change": 0
+    },
+    {
+      "query_idx": 125,
+      "task_id": "HumanEval/125",
+      "base_rank": 1,
+      "docstring_rank": 1,
+      "function_rank": 14,
+      "docstring_change": 0,
+      "function_change": -13
+    },
+    {
+      "query_idx": 126,
+      "task_id": "HumanEval/126",
+      "base_rank": 1,
+      "docstring_rank": 1,
+      "function_rank": 40,
+      "docstring_change": 0,
+      "function_change": -39
+    },
+    {
+      "query_idx": 127,
+      "task_id": "HumanEval/127",
+      "base_rank": 1,
+      "docstring_rank": 1,
+      "function_rank": 1,
+      "docstring_change": 0,
+      "function_change": 0
+    },
+    {
+      "query_idx": 128,
+      "task_id": "HumanEval/128",
+      "base_rank": 1,
+      "docstring_rank": 1,
+      "function_rank": 1,
+      "docstring_change": 0,
+      "function_change": 0
+    },
+    {
+      "query_idx": 129,
+      "task_id": "HumanEval/129",
+      "base_rank": 1,
+      "docstring_rank": 1,
+      "function_rank": 3,
+      "docstring_change": 0,
+      "function_change": -2
+    },
+    {
+      "query_idx": 130,
+      "task_id": "HumanEval/130",
+      "base_rank": 1,
+      "docstring_rank": 1,
+      "function_rank": 4,
+      "docstring_change": 0,
+      "function_change": -3
+    },
+    {
+      "query_idx": 131,
+      "task_id": "HumanEval/131",
+      "base_rank": 1,
+      "docstring_rank": 1,
+      "function_rank": 1,
+      "docstring_change": 0,
+      "function_change": 0
+    },
+    {
+      "query_idx": 132,
+      "task_id": "HumanEval/132",
+      "base_rank": 1,
+      "docstring_rank": 1,
+      "function_rank": 13,
+      "docstring_change": 0,
+      "function_change": -12
+    },
+    {
+      "query_idx": 133,
+      "task_id": "HumanEval/133",
+      "base_rank": 1,
+      "docstring_rank": 2,
+      "function_rank": 9,
+      "docstring_change": -1,
+      "function_change": -8
+    },
+    {
+      "query_idx": 134,
+      "task_id": "HumanEval/134",
+      "base_rank": 1,
+      "docstring_rank": 1,
+      "function_rank": 77,
+      "docstring_change": 0,
+      "function_change": -76
+    },
+    {
+      "query_idx": 135,
+      "task_id": "HumanEval/135",
+      "base_rank": 1,
+      "docstring_rank": 1,
+      "function_rank": 89,
+      "docstring_change": 0,
+      "function_change": -88
+    },
+    {
+      "query_idx": 136,
+      "task_id": "HumanEval/136",
+      "base_rank": 1,
+      "docstring_rank": 1,
+      "function_rank": 2,
+      "docstring_change": 0,
+      "function_change": -1
+    },
+    {
+      "query_idx": 137,
+      "task_id": "HumanEval/137",
+      "base_rank": 1,
+      "docstring_rank": 1,
+      "function_rank": 1,
+      "docstring_change": 0,
+      "function_change": 0
+    },
+    {
+      "query_idx": 138,
+      "task_id": "HumanEval/138",
+      "base_rank": 1,
+      "docstring_rank": 1,
+      "function_rank": 98,
+      "docstring_change": 0,
+      "function_change": -97
+    },
+    {
+      "query_idx": 139,
+      "task_id": "HumanEval/139",
+      "base_rank": 1,
+      "docstring_rank": 1,
+      "function_rank": 34,
+      "docstring_change": 0,
+      "function_change": -33
+    },
+    {
+      "query_idx": 140,
+      "task_id": "HumanEval/140",
+      "base_rank": 1,
+      "docstring_rank": 1,
+      "function_rank": 45,
+      "docstring_change": 0,
+      "function_change": -44
+    },
+    {
+      "query_idx": 141,
+      "task_id": "HumanEval/141",
+      "base_rank": 1,
+      "docstring_rank": 1,
+      "function_rank": 1,
+      "docstring_change": 0,
+      "function_change": 0
+    },
+    {
+      "query_idx": 142,
+      "task_id": "HumanEval/142",
+      "base_rank": 1,
+      "docstring_rank": 1,
+      "function_rank": 15,
+      "docstring_change": 0,
+      "function_change": -14
+    },
+    {
+      "query_idx": 143,
+      "task_id": "HumanEval/143",
+      "base_rank": 1,
+      "docstring_rank": 1,
+      "function_rank": 5,
+      "docstring_change": 0,
+      "function_change": -4
+    },
+    {
+      "query_idx": 144,
+      "task_id": "HumanEval/144",
+      "base_rank": 1,
+      "docstring_rank": 1,
+      "function_rank": 1,
+      "docstring_change": 0,
+      "function_change": 0
+    },
+    {
+      "query_idx": 145,
+      "task_id": "HumanEval/145",
+      "base_rank": 1,
+      "docstring_rank": 1,
+      "function_rank": 7,
+      "docstring_change": 0,
+      "function_change": -6
+    },
+    {
+      "query_idx": 146,
+      "task_id": "HumanEval/146",
+      "base_rank": 1,
+      "docstring_rank": 1,
+      "function_rank": 7,
+      "docstring_change": 0,
+      "function_change": -6
+    },
+    {
+      "query_idx": 147,
+      "task_id": "HumanEval/147",
+      "base_rank": 1,
+      "docstring_rank": 1,
+      "function_rank": 61,
+      "docstring_change": 0,
+      "function_change": -60
+    },
+    {
+      "query_idx": 148,
+      "task_id": "HumanEval/148",
+      "base_rank": 1,
+      "docstring_rank": 1,
+      "function_rank": 1,
+      "docstring_change": 0,
+      "function_change": 0
+    },
+    {
+      "query_idx": 149,
+      "task_id": "HumanEval/149",
+      "base_rank": 1,
+      "docstring_rank": 1,
+      "function_rank": 42,
+      "docstring_change": 0,
+      "function_change": -41
+    },
+    {
+      "query_idx": 150,
+      "task_id": "HumanEval/150",
+      "base_rank": 1,
+      "docstring_rank": 1,
+      "function_rank": 1,
+      "docstring_change": 0,
+      "function_change": 0
+    },
+    {
+      "query_idx": 151,
+      "task_id": "HumanEval/151",
+      "base_rank": 1,
+      "docstring_rank": 1,
+      "function_rank": 19,
+      "docstring_change": 0,
+      "function_change": -18
+    },
+    {
+      "query_idx": 152,
+      "task_id": "HumanEval/152",
+      "base_rank": 1,
+      "docstring_rank": 1,
+      "function_rank": 1,
+      "docstring_change": 0,
+      "function_change": 0
+    },
+    {
+      "query_idx": 153,
+      "task_id": "HumanEval/153",
+      "base_rank": 1,
+      "docstring_rank": 1,
+      "function_rank": 1,
+      "docstring_change": 0,
+      "function_change": 0
+    },
+    {
+      "query_idx": 154,
+      "task_id": "HumanEval/154",
+      "base_rank": 1,
+      "docstring_rank": 1,
+      "function_rank": 101,
+      "docstring_change": 0,
+      "function_change": -100
+    },
+    {
+      "query_idx": 155,
+      "task_id": "HumanEval/155",
+      "base_rank": 1,
+      "docstring_rank": 1,
+      "function_rank": 1,
+      "docstring_change": 0,
+      "function_change": 0
+    },
+    {
+      "query_idx": 156,
+      "task_id": "HumanEval/156",
+      "base_rank": 1,
+      "docstring_rank": 1,
+      "function_rank": 16,
+      "docstring_change": 0,
+      "function_change": -15
+    },
+    {
+      "query_idx": 157,
+      "task_id": "HumanEval/157",
+      "base_rank": 1,
+      "docstring_rank": 1,
+      "function_rank": 18,
+      "docstring_change": 0,
+      "function_change": -17
+    },
+    {
+      "query_idx": 158,
+      "task_id": "HumanEval/158",
+      "base_rank": 1,
+      "docstring_rank": 1,
+      "function_rank": 39,
+      "docstring_change": 0,
+      "function_change": -38
+    },
+    {
+      "query_idx": 159,
+      "task_id": "HumanEval/159",
+      "base_rank": 1,
+      "docstring_rank": 1,
+      "function_rank": 1,
+      "docstring_change": 0,
+      "function_change": 0
+    },
+    {
+      "query_idx": 160,
+      "task_id": "HumanEval/160",
+      "base_rank": 1,
+      "docstring_rank": 1,
+      "function_rank": 2,
+      "docstring_change": 0,
+      "function_change": -1
+    },
+    {
+      "query_idx": 161,
+      "task_id": "HumanEval/161",
+      "base_rank": 1,
+      "docstring_rank": 1,
+      "function_rank": 51,
+      "docstring_change": 0,
+      "function_change": -50
+    },
+    {
+      "query_idx": 162,
+      "task_id": "HumanEval/162",
+      "base_rank": 1,
+      "docstring_rank": 1,
+      "function_rank": 1,
+      "docstring_change": 0,
+      "function_change": 0
+    },
+    {
+      "query_idx": 163,
+      "task_id": "HumanEval/163",
+      "base_rank": 1,
+      "docstring_rank": 1,
+      "function_rank": 19,
+      "docstring_change": 0,
+      "function_change": -18
+    }
+  ]
+}
