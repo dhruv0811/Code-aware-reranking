@@ -1,0 +1,7 @@
+embedding_model,normalization,avg_rank,median_rank,hit_rate_R@1,hit_rate_R@5,hit_rate_R@10,hit_rate_R@25,hit_rate_R@50,hit_rate_R@100
+avsolatorio/GIST-large-Embedding-v0,none,1.014,1.0,0.986,1.0,1.0,1.0,1.0,1.0
+avsolatorio/GIST-large-Embedding-v0,docstring,5.722,1.0,0.624,0.87,0.914,0.952,0.966,0.982
+avsolatorio/GIST-large-Embedding-v0,functions,35.09,11.5,0.222,0.398,0.49,0.584,0.688,0.8
+avsolatorio/GIST-Embedding-v0,none,1.024,1.0,0.978,1.0,1.0,1.0,1.0,1.0
+avsolatorio/GIST-Embedding-v0,docstring,5.094,1.0,0.606,0.87,0.904,0.956,0.982,0.988
+avsolatorio/GIST-Embedding-v0,functions,34.264,10.0,0.194,0.382,0.512,0.61,0.702,0.796

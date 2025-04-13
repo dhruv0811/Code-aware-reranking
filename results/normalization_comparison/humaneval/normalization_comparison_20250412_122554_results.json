@@ -1,0 +1,93 @@
+{
+  "experiment_id": "normalization_comparison_20250412_122554",
+  "dataset": "openai_humaneval",
+  "normalization_types": [
+    "none",
+    "docstring",
+    "functions"
+  ],
+  "model_results": [
+    {
+      "embedding_model": "avsolatorio/GIST-large-Embedding-v0",
+      "normalization_results": {
+        "none": {
+          "avg_rank": 1.0,
+          "median_rank": 1.0,
+          "hit_rates": {
+            "1": 1.0,
+            "5": 1.0,
+            "10": 1.0,
+            "25": 1.0,
+            "50": 1.0,
+            "100": 1.0
+          }
+        },
+        "docstring": {
+          "avg_rank": 1.0121951219512195,
+          "median_rank": 1.0,
+          "hit_rates": {
+            "1": 0.9878048780487805,
+            "5": 1.0,
+            "10": 1.0,
+            "25": 1.0,
+            "50": 1.0,
+            "100": 1.0
+          }
+        },
+        "functions": {
+          "avg_rank": 7.317073170731708,
+          "median_rank": 1.0,
+          "hit_rates": {
+            "1": 0.5426829268292683,
+            "5": 0.774390243902439,
+            "10": 0.8353658536585366,
+            "25": 0.926829268292683,
+            "50": 0.9634146341463414,
+            "100": 0.9939024390243902
+          }
+        }
+      }
+    },
+    {
+      "embedding_model": "avsolatorio/GIST-Embedding-v0",
+      "normalization_results": {
+        "none": {
+          "avg_rank": 1.0,
+          "median_rank": 1.0,
+          "hit_rates": {
+            "1": 1.0,
+            "5": 1.0,
+            "10": 1.0,
+            "25": 1.0,
+            "50": 1.0,
+            "100": 1.0
+          }
+        },
+        "docstring": {
+          "avg_rank": 1.0121951219512195,
+          "median_rank": 1.0,
+          "hit_rates": {
+            "1": 0.9878048780487805,
+            "5": 1.0,
+            "10": 1.0,
+            "25": 1.0,
+            "50": 1.0,
+            "100": 1.0
+          }
+        },
+        "functions": {
+          "avg_rank": 8.079268292682928,
+          "median_rank": 1.0,
+          "hit_rates": {
+            "1": 0.5304878048780488,
+            "5": 0.7621951219512195,
+            "10": 0.8170731707317073,
+            "25": 0.9024390243902439,
+            "50": 0.9634146341463414,
+            "100": 1.0
+          }
+        }
+      }
+    }
+  ]
+}
